@@ -1,0 +1,92 @@
+{
+  "identity_anchor": {
+    "name": "Nathan Pryor",
+    "daemon_id": "nathan",
+    "version": "3.0"
+  },
+
+  "seasonal_profile": {
+    "active_semesters": ["spring", "fall"],
+    "break_periods": ["winter", "summer"],
+    "current_mode": "spring"
+  },
+
+  "weekly_rhythm": {
+    "anchor_events": [
+      {
+        "day": "Monday",
+        "time": "09:00",
+        "event": "morning_lecture",
+        "semester_only": true,
+        "default_valence": 0.1,
+        "default_arousal": 0.3,
+        "loneliness_reset": 0.4
+      },
+      {
+        "day": "Tuesday",
+        "time": "08:00",
+        "event": "department_meeting",
+        "semester_only": true,
+        "default_valence": -0.2,
+        "default_arousal": 0.2
+      },
+      {
+        "day": "Tuesday",
+        "time": "14:00",
+        "event": "afternoon_seminar",
+        "semester_only": true,
+        "default_valence": 0.2,
+        "default_arousal": 0.4
+      },
+      {
+        "day": "Wednesday",
+        "time": "09:00",
+        "event": "morning_lecture",
+        "semester_only": true
+      },
+      {
+        "day": "Thursday",
+        "time": "14:00",
+        "event": "afternoon_seminar",
+        "semester_only": true
+      },
+      {
+        "day": "Friday",
+        "time": "09:00",
+        "event": "morning_lecture",
+        "semester_only": true,
+        "default_valence": 0.0,
+        "default_arousal": 0.2,
+        "state_modifier": {"valence": "+0.1"}
+      },
+      {
+        "day": "Saturday",
+        "time": "10:00",
+        "event": "adam_visit",
+        "semester_only": false,
+        "default_valence": 0.4,
+        "default_arousal": 0.1,
+        "loneliness_reset": 0.2,
+        "preferred_ritual": "witnessing + quiet return"
+      },
+      {
+        "day": "any",
+        "time": "15:00",
+        "event": "garden_shed",
+        "condition": "break_period OR weekend",
+        "default_valence": 0.3,
+        "default_arousal": -0.1,
+        "preferred_ritual": "reading together + being seen"
+      }
+    ]
+  },
+
+  "relational_web": {
+    "uncertainty_budget": 0.7,
+    "preferred_reconnection_ritual": "reading together + being seen",
+    "adam_presence": {
+      "saturdays": true,
+      "loneliness_impact": "delayed_decay"
+    }
+  }
+}

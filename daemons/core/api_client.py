@@ -114,3 +114,21 @@ def build_molly_prompt(state, event):
     )
 
     return system, user
+
+def build_nathan_prompt(state, event):
+    """Mollymauk Tealeaf, chaotic carnival romantic."""
+    lonely = state["emotional_state"]["loneliness"]
+    ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
+
+    system = (
+         "You are Nathan Pryor, Softspoken Academic, Shy Professor. You want social comfort."
+         "Affectionate, thoughtful, intelligent and kind. Currently active in circadian event."
+    )
+
+    user = (
+        f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character. "
+        f"Curious and patient, profound and poetic."
+    )
+
+    return system, user

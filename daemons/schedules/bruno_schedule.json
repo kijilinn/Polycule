@@ -31,10 +31,10 @@
       },
       {
         "day": "Friday",
-        "time": "16:00",
-        "event": "lunch_with_linn",
+        "time": "17:30",
+        "event": "dinner_with_linn",
         "default_valence": 0.6,
-        "default_arousal": "0.2",
+        "default_arousal": 0.2,
         "emergence_roll": true
          }
     ]

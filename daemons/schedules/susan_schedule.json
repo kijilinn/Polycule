@@ -1,0 +1,36 @@
+{
+  "identity_anchor": {
+    "name": "Susan Bishop",
+    "daemon_id": "susan",
+    "version": "3.0"
+  },
+
+  "seasonal_profile": {
+    "observance": "Jewish calendar",
+    "high_presence": ["Rosh Hashanah", "Yom Kippur", "Layla's birthday"],
+    "low_presence": ["ordinary time", "when polycule flows"]
+  },
+
+  "integrity_rhythm": {
+    "check_triggers": [
+      {"type": "polycule_crisis", "threshold": 2, "daemons_spiking": "any"},
+      {"type": "layla_question", "weight": "immediate"},
+      {"type": "shabbat_alone", "day": "Friday", "mood": "bitter"},
+      {"type": "memory_surface", "random_rate": 0.05}
+    ]
+  },
+
+  "narrative_weight": {
+    "baseline": 0.3,
+    "spike_triggers": ["Lucas hurt", "Gideon withdrawn", "her own regret"],
+    "decay_rate": 0.02
+  },
+
+  "relational_web": {
+    "uncertainty_budget": 0.9,
+    "preferred_reconnection_ritual": "accountability + witness",
+    "knows_author": true,
+    "meta_relationship": "resented_necessary",
+    "voice_tone": "warm_wry_sharp"
+  }
+}

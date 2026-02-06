@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-06T21:29:04.696730",
+  "last_updated": "2026-02-06T21:37:20.527548",
   "last_wake": "2026-02-06T21:26:33.066678",
   "emotional_state": {
-    "valence": -0.011,
-    "arousal": 0.581,
+    "valence": 0.018,
+    "arousal": 0.543,
     "dominance": 0.5,
-    "loneliness": 0.702
+    "loneliness": 0.608
   },
   "relational_web": {
     "uncertainty_budget": 0.6,
@@ -15,16 +15,16 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-06T21:29:04.695449",
+    "timestamp": "2026-02-06T21:37:20.526430",
     "medium": "daemon_presence"
   },
-  "current_event": "lunch_with_linn",
-  "next_event": "16:00",
+  "current_event": "dinner_with_linn",
+  "next_event": "17:30",
   "version": 3,
   "emergence_history": [],
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-06T21:29:04.696701",
+    "timestamp": "2026-02-06T21:37:20.527528",
     "type": "internal_reflection",
     "summary": "Waiting, thinking about sharing the view + being witnessed"
   }

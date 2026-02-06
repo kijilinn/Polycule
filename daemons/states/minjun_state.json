@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-06T18:55:12.291817",
+  "last_updated": "2026-02-06T19:08:46.126972",
   "last_wake": "2026-02-06T18:55:12.291489",
   "emotional_state": {
-    "valence": 0.116,
-    "arousal": 0.43,
+    "valence": 0.118,
+    "arousal": 0.427,
     "dominance": 0.5,
-    "loneliness": 0.46
+    "loneliness": 0.455
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-06T18:55:12.291503",
+    "timestamp": "2026-02-06T19:08:46.125886",
     "medium": "daemon_presence"
   },
   "current_event": "polycule_presence_window",
@@ -23,7 +23,7 @@
   "version": 3,
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-06T18:55:12.291786",
+    "timestamp": "2026-02-06T19:08:46.126946",
     "type": "internal_reflection",
     "summary": "Thinking about flirtatious_degradation_with_physical_anchoring"
   }

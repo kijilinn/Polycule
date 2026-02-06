@@ -17,9 +17,18 @@ def is_new_day(last_wake_dt, now, schedule):
     return False
 
 def get_circadian_baseline(schedule):
-    """Find current event, return baseline emotional state."""
+    """Find current event—handles daily or weekly rhythms."""
     now = datetime.datetime.now()
+
+    # Try daily circadian profile first
     events = schedule.get("circadian_profile", {}).get("anchor_events", [])
+
+    # Fallback to weekly rhythm
+    if not events:
+        weekly = schedule.get("weekly_rhythm", {}).get("anchor_events", [])
+        # Filter to today
+        today = now.strftime("%A")  # "Monday", "Tuesday", etc.
+        events = [e for e in weekly if e.get("day") == today or e.get("day") == "any"]
 
     parsed = []
     for e in events:
@@ -36,6 +45,17 @@ def get_circadian_baseline(schedule):
 
     if not current:
         current = parsed[-1][1] if parsed else None
+        if current is None:
+    # No event today—use relational_web defaults or hard baseline
+            web = schedule.get("relational_web", {})
+            current = {
+                "event": "unscheduled",
+                "default_valence": 0.0,
+                "default_arousal": 0.3,
+                "default_dominance": 0.5,
+                "loneliness_reset": 0.5,
+                "state_modifier": {}
+        }
 
     baseline = {
         "valence": current.get("default_valence", 0.0),

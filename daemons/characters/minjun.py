@@ -11,14 +11,21 @@ import random
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from core import circadian, loneliness, api_client, state_manager
+from core import circadian, loneliness, api_client, state_manager                 # .../daemons/
+
+CHARACTER_SLUG = "minjun"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 
-CHARACTER_SLUG = "minjun"
-STATE_PATH = f"../states/{CHARACTER_SLUG}_state.json"
-SCHEDULE_PATH = f"../schedules/{CHARACTER_SLUG}_schedule.json"
+# Your actual structure: daemons/schedules/minjun_schedule.json
+SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
+STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
+
+# Debug: show what we resolved
+print(f"  SCHEDULE_PATH resolved: {SCHEDULE_PATH}")
+print(f"  STATE_PATH resolved: {STATE_PATH}")
+print(f"  Schedule exists: {os.path.exists(SCHEDULE_PATH)}")
 
 def bootstrap_state(schedule):
     """First breath."""

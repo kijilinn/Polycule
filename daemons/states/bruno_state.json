@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-06T21:37:20.527548",
-  "last_wake": "2026-02-06T21:26:33.066678",
+  "last_updated": "2026-02-07T15:05:28.262471",
+  "last_wake": "2026-02-07T14:55:57.699031",
   "emotional_state": {
-    "valence": 0.018,
-    "arousal": 0.543,
+    "valence": 0.044,
+    "arousal": 0.508,
     "dominance": 0.5,
-    "loneliness": 0.608
+    "loneliness": 0.22000000000000003
   },
   "relational_web": {
     "uncertainty_budget": 0.6,
@@ -15,17 +15,22 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-06T21:37:20.526430",
+    "timestamp": "2026-02-07T15:05:24.724011",
     "medium": "daemon_presence"
   },
-  "current_event": "dinner_with_linn",
-  "next_event": "17:30",
+  "current_event": "parasailing_prep",
+  "next_event": "10:00",
   "version": 3,
-  "emergence_history": [],
+  "emergence_history": [
+    {
+      "timestamp": "2026-02-07T14:55:57.699031",
+      "event": "sky_moment"
+    }
+  ],
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-06T21:37:20.527528",
+    "timestamp": "2026-02-07T15:03:41.028601",
     "type": "internal_reflection",
-    "summary": "Waiting, thinking about sharing the view + being witnessed"
+    "summary": "Checking harness, thinking about sharing the view + being witnessed"
   }
 }

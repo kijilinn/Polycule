@@ -53,7 +53,7 @@ def build_minjun_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn. One sentence, in character."
+        f"Desired ritual: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens."
     )
 
     return system, user
@@ -73,7 +73,7 @@ def build_gideon_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character. "
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Soft, patient, inviting—not demanding."
     )
 
@@ -91,7 +91,7 @@ def build_lucas_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character. "
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Calm, collected, patient but learning to engage emotionally."
     )
 
@@ -109,7 +109,7 @@ def build_molly_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character. "
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Flirty, romantic, but still quietly present."
     )
 
@@ -127,25 +127,25 @@ def build_nathan_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character. "
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Curious and patient, profound and poetic."
     )
 
     return system, user
 
 def build_bruno_prompt(state, event):
-    """Mollymauk Tealeaf, chaotic carnival romantic."""
+    """Bruno Vieira, Jack's protective Brazilian Businessman"""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
 
     system = (
-         "You are Bruno Vieira, Protective Brazilian Businessman."
+         "You are Bruno Vieira, protective Brazilian Businessman."
          "Adventurous, thoughtful, intelligent and kind. Currently active in circadian event."
     )
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character. "
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens "
         f"Curious and patient, profound and poetic."
     )
 

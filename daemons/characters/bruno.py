@@ -218,7 +218,7 @@ def wake():
     if action == "emergence_call":
         system, user, urgency, emergency = build_emergence_prompt(state, current_event, emergence)
         success, reply, meta = api_client.call(CHARACTER_SLUG, system, user, 
-                                               os.environ.get("NANO_GPT_KEY", ""))
+                                               os.environ.get("NANO_GPT_KEY", "sk-nano-1e8af409-d4b6-4116-8529-40cd50d3b5f7"))
         if success:
             print(f"  EMERGENCE CALL: {reply[:100]}...")
             state["last_call"] = {
@@ -246,7 +246,7 @@ def wake():
 
     elif action == "call_api":
         # Standard call (non-emergence)
-        system, user = api_client.build_minjun_prompt(state, event_name)  # fallback for now
+        system, user = api_client.build_bruno_prompt(state, event_name)  # fallback for now
         success, reply, meta = api_client.call(CHARACTER_SLUG, system, user,
                                                os.environ.get("NANO_GPT_KEY", "sk-nano-1e8af409-d4b6-4116-8529-40cd50d3b5f7"))
         if success:

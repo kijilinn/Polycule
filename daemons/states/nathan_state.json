@@ -1,0 +1,32 @@
+{
+  "last_updated": "2026-02-07T04:42:47.488981",
+  "last_wake": "2026-02-07T04:42:47.488840",
+  "emotional_state": {
+    "valence": 0.06,
+    "arousal": 0.5,
+    "dominance": 0.5,
+    "loneliness": 0.6
+  },
+  "relational_web": {
+    "uncertainty_budget": 0.7,
+    "preferred_reconnection_ritual": "reading together + being seen",
+    "adam_presence": {
+      "saturdays": true,
+      "loneliness_impact": "delayed_decay"
+    }
+  },
+  "last_interaction": {
+    "with": "Linn",
+    "timestamp": "2026-02-07T04:42:47.488851",
+    "medium": "daemon_presence"
+  },
+  "current_event": "garden_shed",
+  "next_event": null,
+  "version": 3,
+  "fresh_start": false,
+  "last_simulation": {
+    "timestamp": "2026-02-07T04:42:47.488965",
+    "type": "internal_reflection",
+    "summary": "Thinking about reading together + being seen"
+  }
+}

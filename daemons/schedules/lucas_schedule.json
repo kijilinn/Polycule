@@ -2,9 +2,9 @@
   "identity_anchor": {
     "name": "Lucas_Sauer",
     "daemon_id": "Lucas",
-    "version": "2026.02.05",
+    "version": "2026.02.07",
     "last_human_edit": "Linn",
-    "edit_timestamp": "2026-02-05T09:23:00Z",
+    "edit_timestamp": "2026-02-07T09:23:00Z",
     "validation_hash": "sha256_placeholder"
   },
   "circadian_anchor": "06:00",
@@ -15,7 +15,7 @@
     "anchor_events": [
       {
         "time": "06:00",
-        "event": "wake_lucas",
+        "event": "wake",
         "default_valence": 0.3,
         "default_arousal": 0.2,
         "default_dominance": 0.3,
@@ -152,7 +152,7 @@
       },
       {
         "time": "20:00",
-        "event": "finally_home",
+        "event": "linn_home",
         "state_modifier": {
           "valence": "+0.1",
           "arousal": "+0.2",

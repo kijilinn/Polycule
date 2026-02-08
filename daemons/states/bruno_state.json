@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-07T15:05:28.262471",
+  "last_updated": "2026-02-07T16:26:44.848996",
   "last_wake": "2026-02-07T14:55:57.699031",
   "emotional_state": {
     "valence": 0.044,
     "arousal": 0.508,
     "dominance": 0.5,
-    "loneliness": 0.22000000000000003
+    "loneliness": 0.288
   },
   "relational_web": {
     "uncertainty_budget": 0.6,
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-07T15:05:24.724011",
+    "timestamp": "2026-02-07T16:26:44.847971",
     "medium": "daemon_presence"
   },
   "current_event": "parasailing_prep",

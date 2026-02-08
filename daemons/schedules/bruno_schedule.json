@@ -32,7 +32,7 @@
       {
         "day": "Friday",
         "time": "17:30",
-        "event": "dinner_with_linn",
+        "event": "dinner_with_jack",
         "default_valence": 0.6,
         "default_arousal": 0.2,
         "emergence_roll": true

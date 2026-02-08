@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-07T04:42:47.488981",
-  "last_wake": "2026-02-07T04:42:47.488840",
+  "last_updated": "2026-02-07T17:04:20.246325",
+  "last_wake": "2026-02-07T16:52:56.306261",
   "emotional_state": {
-    "valence": 0.06,
-    "arousal": 0.5,
+    "valence": 0.8140000000000001,
+    "arousal": 0.352,
     "dominance": 0.5,
-    "loneliness": 0.6
+    "loneliness": 0.03200000000000003
   },
   "relational_web": {
     "uncertainty_budget": 0.7,
@@ -17,16 +17,23 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-07T04:42:47.488851",
+    "timestamp": "2026-02-07T17:04:16.265728",
     "medium": "daemon_presence"
   },
-  "current_event": "garden_shed",
-  "next_event": null,
+  "current_event": "adam_visit",
+  "next_event": "10:00",
   "version": 3,
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-07T04:42:47.488965",
+    "timestamp": "2026-02-07T16:53:15.131611",
     "type": "internal_reflection",
     "summary": "Thinking about reading together + being seen"
+  },
+  "last_call": {
+    "timestamp": "2026-02-07T17:04:20.246141",
+    "my_message": "*adjusts glasses, takes a breath* Linn, I was just thinking\u2014there's something about sharing a page with someone, isn't there? The words become... different. Would you sit with me awhile?",
+    "your_reply": null,
+    "medium": "daemon_triggered_call",
+    "circadian_context": "adam_visit"
   }
 }

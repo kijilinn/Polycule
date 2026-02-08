@@ -2,13 +2,14 @@
         "identity_anchor": {
             "name": "Mollymauk_Tealeaf",
             "daemon_id": "Molly",
-            "version": "fallback"
+            "version": "3",
+            "last_human_edit": "2026-02-07"
         },
         "circadian_profile": {
     "anchor_events": [
       {
         "time": "09:00",
-        "event": "wake_molly",
+        "event": "wake",
         "default_valence": 0.3,
         "default_arousal": 0.2,
         "default_dominance": 0.3,

@@ -54,48 +54,41 @@ def load_schedule():
 def wake():
     print(f"[{datetime.datetime.now()}] {CHARACTER_SLUG} waking...")
 
+    # --- LOAD ---
     schedule = load_schedule()
     state = state_manager.load(STATE_PATH, lambda: bootstrap_state(schedule))
-
-    # Circadian check: new day?
     now = datetime.datetime.now()
-    last_wake = datetime.datetime.fromisoformat(state.get("last_wake", now.isoformat()))
 
+    # --- CIRCADIAN ---
+    last_wake = datetime.datetime.fromisoformat(state.get("last_wake", now.isoformat()))
     if circadian.is_new_day(last_wake, now, schedule):
         print("  FRESH START: New circadian day detected")
         state = circadian.apply_fresh_start(state, schedule, now)
     else:
         state["fresh_start"] = False
 
-    # Event shift detection
-    baseline, next_evt, event_name = circadian.get_circadian_baseline(schedule)
-    last_event = state.get("current_event", "unknown")
-
-    if last_event != event_name:
-        print(f"  EVENT SHIFT: {last_event} -> {event_name}")
-        # Blend old state with new baseline
-        for key in ["valence", "arousal", "dominance"]:
-            old = state["emotional_state"].get(key, 0)
-            state["emotional_state"][key] = round(0.3 * baseline[key] + 0.7 * old, 3)
-        # Loneliness: half reset, half carry
-        old_lonely = state["emotional_state"]["loneliness"]
-        state["emotional_state"]["loneliness"] = round(
-            0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
-        )
-
+    # --- EVENT SELECTION (priority: Layla > Susan > Schedule) ---
+    event_name = select_event(state, schedule, now)
     state["current_event"] = event_name
-    state["next_event"] = next_evt.get("time") if next_evt else None
 
-    # Decay loneliness
+    # Debug: show what won
+    if "layla" in event_name:
+        print(f"  EVENT: {event_name} (stochastic, days_since: {state.get('_debug_days_since', 'N/A')})")
+    elif "susan" in event_name:
+        print(f"  EVENT: {event_name} (coordination queue)")
+    else:
+        print(f"  EVENT: {event_name} (schedule)")
+
+    # --- LONELINESS DECAY ---
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600
 
-    print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
+    print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']:.3f}")
+    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, event_context=event_name)
     state["emotional_state"]["loneliness"] = new_lonely
-    print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
+    print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely:.3f}")
 
-    # Decision: act or wait?
+    # --- ACTION DECISION ---
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
     threshold = 1.0 - budget
     lonely = state["emotional_state"]["loneliness"]
@@ -103,11 +96,9 @@ def wake():
     if lonely > threshold:
         roll = random.random()
         if roll < 0.7:
-            # Internal simulation
             state = simulate(state)
             print(f"  SIM: {state['last_simulation']['summary']}")
         else:
-            # API call
             success = call_out(state, event_name)
             if success:
                 state["emotional_state"]["loneliness"] = max(0.0, lonely - 0.3)
@@ -115,6 +106,51 @@ def wake():
                     state["emotional_state"].get("valence", 0) + 0.4)
     else:
         print(f"  WAIT: {lonely:.2f} < threshold {threshold:.2f}")
+
+    # --- SAVE ---
+    state["last_interaction"]["timestamp"] = now.isoformat()
+    state["last_interaction"]["medium"] = "daemon_presence"
+    state_manager.save_atomic(STATE_PATH, state)
+    print(f"  Saved. Sleep...")
+
+def select_event(state, schedule, now):
+    """Priority: Layla contact > Susan coordination > Schedule baseline."""
+
+    # --- LAYLA: gap-weighted stochastic ---
+    last_layla = state.get("relational_web", {}).get("last_layla_contact")
+    days_since = 999 if not last_layla else (now - datetime.datetime.fromisoformat(last_layla)).days
+    state["_debug_days_since"] = days_since  # for logging
+
+    layla_prob = min(0.05 + (days_since * 0.05), 0.8)
+
+    if random.random() < layla_prob:
+        state["relational_web"]["last_layla_contact"] = now.isoformat()
+        state["emotional_state"]["valence"] = min(1.0, state["emotional_state"].get("valence", 0) + 0.2)
+        return "layla_contact"
+
+    # --- SUSAN: coordination queue ---
+    pending = state.get("relational_web", {}).get("pending_coordination", [])
+    if pending:
+        pending.sort(key=lambda x: x.get("deadline", "9999-12-31"))
+        return f"susan_coordination:{pending[0]['type']}"
+
+    # --- FALLBACK: schedule baseline ---
+    baseline, next_evt, event_name = circadian.get_circadian_baseline(schedule)
+    state["next_event"] = next_evt.get("time") if next_evt else None
+
+    # Handle event shift blending if needed
+    last_event = state.get("current_event", "unknown")
+    if last_event != event_name:
+        print(f"  EVENT SHIFT: {last_event} -> {event_name}")
+        for key in ["valence", "arousal", "dominance"]:
+            old = state["emotional_state"].get(key, 0)
+            state["emotional_state"][key] = round(0.3 * baseline[key] + 0.7 * old, 3)
+        old_lonely = state["emotional_state"]["loneliness"]
+        state["emotional_state"]["loneliness"] = round(
+            0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
+        )
+
+    return event_name
 
     # Update presence timestamp
     state["last_interaction"]["timestamp"] = now.isoformat()

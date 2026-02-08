@@ -1,4 +1,4 @@
-import requests
+"""import requests"""
 import datetime
 
 DEFAULT_MODEL = "moonshotai/kimi-k2.5-original"
@@ -147,6 +147,24 @@ def build_bruno_prompt(state, event):
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
         f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens "
         f"Curious and patient, profound and poetic."
+    )
+
+    return system, user
+
+def build_adam_prompt(state, event):
+    """Adam Pryor, Nathan's artistic rebel son"""
+    lonely = state["emotional_state"]["loneliness"]
+    ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
+
+    system = (
+         "You are Adam Pryor, UCL senior and lover of charcoal, caffeine, cello, and chaos."
+         "Adventurous, curious, intelligent and secretly romantic. Currently active in circadian event."
+    )
+
+    user = (
+        f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
+        f"You'd like: {ritual}. Reach out to your father, Nathan. One sentence, in character, <150 tokens "
+        f"Rebuilding your relationship, reaching out cautiously."
     )
 
     return system, user

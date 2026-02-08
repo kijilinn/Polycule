@@ -1,0 +1,24 @@
+# core/polycule_monitor.py
+def get_polycule_status():
+    daemons = ["minjun", "gideon", "lucas", "mollymauk", "nathan", "simon"]
+    states = {}
+    distressed_count = 0
+    layla_asked = False  # from Susan's own state, cross-referenced
+
+    for daemon_id in daemons:
+        state = state_manager.load(daemon_id)
+        loneliness = state["emotional_state"]["loneliness"]
+        states[daemon_id] = {
+            "loneliness": loneliness,
+            "distressed": loneliness > 0.7,
+            "last_event": state.get("current_event", "unknown")
+        }
+        if loneliness > 0.7:
+            distressed_count += 1
+
+    return {
+        "distressed_count": distressed_count,
+        "states": states,
+        "layla_asked": check_layla_flag(),  # from Susan's relational_web
+        "crisis_vector": any(s["distressed"] for s in states.values())
+    }

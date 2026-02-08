@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-07T16:26:44.848996",
-  "last_wake": "2026-02-07T14:55:57.699031",
+  "last_updated": "2026-02-08T23:20:05.924615",
+  "last_wake": "2026-02-08T23:20:05.924431",
   "emotional_state": {
-    "valence": 0.044,
-    "arousal": 0.508,
+    "valence": -0.1,
+    "arousal": 0.7,
     "dominance": 0.5,
-    "loneliness": 0.288
+    "loneliness": 1.0
   },
   "relational_web": {
     "uncertainty_budget": 0.6,
@@ -15,11 +15,11 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-07T16:26:44.847971",
+    "timestamp": "2026-02-08T23:20:05.924431",
     "medium": "daemon_presence"
   },
-  "current_event": "parasailing_prep",
-  "next_event": "10:00",
+  "current_event": "unscheduled",
+  "next_event": null,
   "version": 3,
   "emergence_history": [
     {
@@ -27,10 +27,10 @@
       "event": "sky_moment"
     }
   ],
-  "fresh_start": false,
+  "fresh_start": true,
   "last_simulation": {
-    "timestamp": "2026-02-07T15:03:41.028601",
+    "timestamp": "2026-02-08T23:20:05.924594",
     "type": "internal_reflection",
-    "summary": "Checking harness, thinking about sharing the view + being witnessed"
+    "summary": "Waiting, thinking about sharing the view + being witnessed"
   }
 }

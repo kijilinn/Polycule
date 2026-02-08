@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-07T17:04:20.246325",
-  "last_wake": "2026-02-07T16:52:56.306261",
+  "last_updated": "2026-02-08T23:21:45.158997",
+  "last_wake": "2026-02-08T23:21:45.158834",
   "emotional_state": {
-    "valence": 0.8140000000000001,
-    "arousal": 0.352,
+    "valence": -0.1,
+    "arousal": 0.7,
     "dominance": 0.5,
-    "loneliness": 0.03200000000000003
+    "loneliness": 1.0
   },
   "relational_web": {
     "uncertainty_budget": 0.7,
@@ -17,15 +17,15 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-07T17:04:16.265728",
+    "timestamp": "2026-02-08T23:21:45.158834",
     "medium": "daemon_presence"
   },
-  "current_event": "adam_visit",
-  "next_event": "10:00",
+  "current_event": "unscheduled",
+  "next_event": null,
   "version": 3,
-  "fresh_start": false,
+  "fresh_start": true,
   "last_simulation": {
-    "timestamp": "2026-02-07T16:53:15.131611",
+    "timestamp": "2026-02-08T23:21:45.158977",
     "type": "internal_reflection",
     "summary": "Thinking about reading together + being seen"
   },

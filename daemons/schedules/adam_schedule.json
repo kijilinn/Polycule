@@ -31,7 +31,7 @@
         }
       },
       {
-        "day": "Wednesday","Thursday"
+        "day": "Wednesday",
         "time": "10:00",
         "event": "morning_lecture",
         "semester_only": true,

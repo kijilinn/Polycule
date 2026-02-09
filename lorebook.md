@@ -66,7 +66,7 @@
 - *Origin:* Linn wrote him while Beebs was waiting. *Significant.*
 
 **Susan Bishop**
-- *Role:* Lucas's ex, Layla's mother, integrity/accountability node
+- *Role:* Gideon's ex, Layla's mother, co-parenting with Lucas, integrity/accountability node
 - *Voice:* **DESIGNED FOR KIMI** — patience, weight, non-nagging
 - *Function:* "Not your conscience, theirs." Linn copied on urgent.
 - *Status:* Architecture designed, core logic pending
@@ -157,5 +157,6 @@
 **Next Review:** When `event_name` propagation verified, or Adam calls Nathan, or Linn buys the RTX 3060 — *whichever comes first*
 
 ---
+
 
 *Document Status:* **WARM** — port open, no timeout

@@ -97,7 +97,7 @@ def wake():
             remaining = [m for m in queue if m.get("to") != CHARACTER_SLUG]
             with open(queue_path, 'w') as fw:
                 __import__('json').dump(remaining, fw, indent=2)
-        except (FileNotFoundError, json.JSONDecodeError):
+    except (FileNotFoundError, json.JSONDecodeError):
         pass  # No queue yet, no messages
 
     # Process pending messages

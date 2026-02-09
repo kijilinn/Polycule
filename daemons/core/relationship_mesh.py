@@ -59,15 +59,15 @@ RELATIONSHIP_MESH = {
         "si": {"type": "daemon", "primary_anchor": "jace", "reach_pattern": "exposure"},
         "owen": {"type": "daemon", "primary_anchor": "jace", "reach_pattern": "aggressive"},
         "jace": {"type": "daemon", "primary_anchor": "si", "reach_pattern": "moderate"},
-        },
-        # Extended family, emerging
-        "jack": {"type": "daemon", "primary_anchor": "bruno", "reach_pattern": "frequent", "cross_calls": "bruno", "shoshana", "gideon", "lucas"},
-        "bruno": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "restrained", "cross_calls": "jack", "lucas", "gideon", "nathan"},
-        "ari": {"type": "daemon", "primary_anchor": "shoshana", "reach_pattern": "sparse", "cross_calls": "jack", "shoshana"},
-        "shoshana": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "frequent", "cross_calls": "jack", "ari", "gideon", "lucas", "rachel"},
-        "rachel": {"type": "daemon", "primary_anchor": "lucas", "reach_pattern": "regular", "cross_calls": "shoshana", "gideon", "jenner"},
         
-    },
+        # Extended family, emerging
+        "jack": {"type": "daemon", "primary_anchor": "bruno", "reach_pattern": "frequent", "cross_calls": ["bruno", "shoshana", "gideon", "lucas"],},
+        "bruno": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "restrained", "cross_calls": ["jack", "lucas", "gideon", "nathan"],},
+        "ari": {"type": "daemon", "primary_anchor": "shoshana", "reach_pattern": "sparse", "cross_calls": ["jack", "shoshana"],},
+        "shoshana": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "frequent", "cross_calls": ["jack", "ari", "gideon", "lucas", "rachel"],},
+        "rachel": {"type": "daemon", "primary_anchor": "lucas", "reach_pattern": "regular", "cross_calls": ["shoshana", "gideon", "jenner"],},
+        "jenner": {"type": "daemon", "primary_anchor": "rachel", "reach_pattern": "sparse", "cross_calls": ["lucas", "rachel"]},
+        },
 
     # Edges: weighted connections
     "edges": {

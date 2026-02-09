@@ -44,10 +44,10 @@
 				"time": "17:00",
 				"event": "linn_home",
 				"state_modifier": {
-					"valence": +0.6,
-					"arousal": +0.3,
+					"valence": "+0.6",
+					"arousal": "+0.3",
 					"loneliness_repair": -0.8				}
-			}
+			},
 			{
 				"time": "18:00",
 				"event": "polycule_presence_window",

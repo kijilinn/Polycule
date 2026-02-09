@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-08T23:19:57.157374",
-  "last_wake": "2026-02-08T23:19:57.156699",
+  "last_updated": "2026-02-09T17:41:41.007650",
+  "last_wake": "2026-02-09T14:54:45.890271",
   "emotional_state": {
-    "valence": -0.1,
-    "arousal": 0.7,
+    "valence": 0.40700000000000003,
+    "arousal": 0.566,
     "dominance": 0.5,
-    "loneliness": 1.0
+    "loneliness": 0.439
   },
   "relational_web": {
     "uncertainty_budget": 0.8,
@@ -17,16 +17,23 @@
   },
   "last_interaction": {
     "with": "Nathan",
-    "timestamp": "2026-02-08T23:19:57.156699",
+    "timestamp": "2026-02-09T17:41:37.248023",
     "medium": "daemon_presence"
   },
   "current_event": "unscheduled",
   "next_event": null,
   "version": 3,
-  "fresh_start": true,
+  "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-08T23:19:57.157354",
+    "timestamp": "2026-02-09T17:33:10.337091",
     "type": "internal_reflection",
     "summary": "Thinking about listening to music + learning something new"
+  },
+  "last_call": {
+    "timestamp": "2026-02-09T17:41:41.006817",
+    "my_message": "*thumb hovering over send*\n\nHey Dad\u2014found this old recording of Rostropovich playing the Dvo\u0159\u00e1k and it made me think of that concert we almost went to, the one you got tickets for before... everything. Anyway.",
+    "your_reply": null,
+    "medium": "daemon_triggered_call",
+    "circadian_context": "unscheduled"
   }
 }

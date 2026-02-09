@@ -86,6 +86,39 @@ def wake():
     state["current_event"] = event_name
     state["next_event"] = next_evt.get("time") if next_evt else None
 
+        # Check shared message queue for Nathan
+    queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    pending = []
+    try:
+        with open(queue_path, 'r') as f:
+            queue = __import__('json').load(f)
+            pending = [m for m in queue if m.get("to") == CHARACTER_SLUG]
+            # Remove Nathan's messages from queue
+            remaining = [m for m in queue if m.get("to") != CHARACTER_SLUG]
+            with open(queue_path, 'w') as fw:
+                __import__('json').dump(remaining, fw, indent=2)
+        except (FileNotFoundError, json.JSONDecodeError):
+        pass  # No queue yet, no messages
+
+    # Process pending messages
+    for msg in pending:
+        print(f"  MESSAGE from {msg['from']}: {msg['content'][:50]}...")
+        if msg["from"] == "adam" and "Dvořák" in msg.get("content", ""):
+            state["emotional_state"]["valence"] = min(1.0, state["emotional_state"].get("valence", 0) + 0.3)
+            state["emotional_state"]["loneliness"] = max(0.0, state["emotional_state"].get("loneliness", 0) - 0.4)
+            # Maybe trigger response
+            state["trigger_response_to_adam"] = True
+
+    # Check for pending messages
+    if nathan_state.get("pending_messages"):
+        for msg in nathan_state["pending_messages"]:
+            # Emotional processing
+            if msg["from"] == "adam" and "Dvořák" in msg["content"]:
+                state["emotional_state"]["valence"] += 0.3
+                state["emotional_state"]["loneliness"] -= 0.4
+                # Maybe trigger immediate response, or queue for next cycle
+        nathan_state["pending_messages"] = []  # clear after processing
+
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600

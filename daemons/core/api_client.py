@@ -1,10 +1,10 @@
-"""import requests"""
+import requests
 import datetime
 
 DEFAULT_MODEL = "moonshotai/kimi-k2.5-original"
 DEFAULT_URL = "https://nano-gpt.com/api/v1/chat/completions"
 
-def call(character_slug, system_prompt, user_prompt, 
+def call(CHARACTER_SLUG, system_prompt, user_prompt, 
          api_key, model=DEFAULT_MODEL, max_tokens=50, temperature=0.9):
     """
     Generic API call. Returns (success, response_text, metadata).

@@ -12,7 +12,7 @@ def decay(state, hours_elapsed, character_id, event_context=None):
     base_repair = EVENT_EFFECTS.get(event, {}).get(character_id) or EVENT_EFFECTS.get(event, {}).get("default", 0)
 
     # Time-based modifiers
-    occupied_events = ["security_consult_check", "lunch_craving"]
+    occupied_events = ["security_consult", "work_focus", "performance"]
 
     if any(occ in event for occ in occupied_events):
         time_modifier = 0.03
@@ -28,7 +28,6 @@ def decay(state, hours_elapsed, character_id, event_context=None):
 
     delta = hours_elapsed * rate
     new_lonely = max(0.0, min(1.0, state["emotional_state"]["loneliness"] + delta))
-
     return round(new_lonely, 3), modifier, delta
 
 def repair_from_presence(state, presence_vector):

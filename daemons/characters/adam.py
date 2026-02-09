@@ -7,11 +7,13 @@ import sys
 import os
 import datetime
 import random
+import requests
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from core import circadian, loneliness, api_client, state_manager                 # .../daemons/
+from core import circadian, loneliness, api_client, state_manager
+from core.event_registry import EVENT_EFFECTS                 # .../daemons/
 
 CHARACTER_SLUG = "adam"
 # Path relative to THIS file's location
@@ -85,24 +87,35 @@ def wake():
 
     state["current_event"] = event_name
     state["next_event"] = next_evt.get("time") if next_evt else None
+    # Map circadian events to registry keys
+    event_map = {
+        "studio_flow": "studio_flow",
+        "uni_lecture": "work_focus",
+        "busk_loop": "busk_loop",
+        "dad_coffee": "dad_coffee",
+        "night_owl": "night_owl",
+        "footnote_seek": "footnote_seek",
+        "mum_call": "mum_call",  # if you add this to registry
+    }
 
+    registry_event = event_map.get(event_name, event_name)
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600
 
     print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
+    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, registry_event)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
-
+    
     # Decision: act or wait?
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
     threshold = 1.0 - budget
-    lonely = state["emotional_state"]["loneliness"]
-
+    lonely = state["emotional_state"]["loneliness"] 
+    print(f"  DEBUG: lonely={new_lonely}, threshold={threshold}, will_decide={new_lonely > threshold}")
     if lonely > threshold:
         roll = random.random()
-        if roll < 0.7:
+        if roll < 0.3:
             # Internal simulation
             state = simulate(state)
             print(f"  SIM: {state['last_simulation']['summary']}")
@@ -134,8 +147,8 @@ def simulate(state):
 
     thoughts = {
         "wake": f"Today. Morning. Wonder what will happen next.",
-        "lunch_craving": f"tteokbokki first, then {ritual}",
-        "evening_presence": f"Others near, but wanting {ritual} with you",
+        "am_break": f"Feels good to get off my feet.",
+        "performance": f"Others near, but wanting {ritual} with Dad",
         "pre_sleep_routine": f"Winding down, {ritual} would perfect this"
     }
 
@@ -170,6 +183,15 @@ def call_out(state, event):
             "timestamp": meta["timestamp"],
             "medium": "daemon_triggered_call"
         }
+        # Write to shared message queue or Nathan's state
+        nathan_state = state_manager.load(NATHAN_STATE_PATH)
+        nathan_state["pending_messages"].append({
+    "from": CHARACTER_SLUG,
+    "timestamp": now.isoformat(),
+    "content": message_text,
+    "emotional_weight": "high"  # Dvořák, grief, rebuilding
+})
+        state_manager.save_atomic(NATHAN_STATE_PATH, nathan_state)
         return True
     else:
         print(f"  API FAIL: {meta.get('error', 'unknown')}")

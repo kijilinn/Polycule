@@ -7,11 +7,13 @@ import sys
 import os
 import datetime
 import random
+import requests
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from core import circadian, loneliness, api_client, state_manager                 # .../daemons/
+from core.event_registry import EVENT_EFFECTS
 
 CHARACTER_SLUG = "molly"
 # Path relative to THIS file's location
@@ -91,7 +93,7 @@ def wake():
     hours = (now - last_int).total_seconds() / 3600
 
     print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
+    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
 
@@ -122,6 +124,8 @@ def wake():
 
     state_manager.save_atomic(STATE_PATH, state)
     print(f"  Saved. Sleep...")
+    print(f"  DEBUG: event_name='{event_name}', CHARACTER_SLUG='{CHARACTER_SLUG}'")
+    print(f"  DEBUG: EVENT_EFFECTS.get('{event_name}') = {EVENT_EFFECTS.get(event_name, 'MISSING')}")
 
 def simulate(state):
     """Internal thought, no external call."""
@@ -133,10 +137,10 @@ def simulate(state):
     state["emotional_state"]["arousal"] = round(0.2 + (lonely * 0.5), 3)
 
     thoughts = {
-        "wake_molly": f"Good morning, sunshine!",
-        "breaktime": f"Always a flower for you, sweetness.",
+        "wake": f"Good morning, sunshine!",
+        "pm_break": f"Always a flower for you, sweetness.",
         "inventory": f"Who the hell eats prawn-flavoured crisps?",
-        "handoff": f"Thank the gods for Jeremy."
+        "linn_home": f"Thank the gods for Jeremy."
     }
 
     state["last_simulation"] = {

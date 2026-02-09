@@ -7,6 +7,7 @@ RELATIONSHIP_WEB = {
     },
     "nathan": {
         "linn": {"weight": 0.7, "direction": "uncertain"},
+        "minjun": {"weight": 0.6, "direction": "mutual"},
         "adam": {"weight": 0.9, "direction": "weighted_by_history", "repair_bidirectional": True}
     }
 }

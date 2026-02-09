@@ -11,90 +11,101 @@
     "break_periods": ["winter", "summer"],
     "current_mode": "spring"
   },
-
-  "weekly_rhythm": {
-    "anchor_events": [
-      {
-        "day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "time": "09:00",
-        "event": "wake",
-        "semester_only": false
+  
+  "timezone": "Europe/London",
+  "anchor_events": [
+    {
+      "name": "studio_flow",
+      "time": "09:00",
+      "days": ["mon", "tue", "wed", "thu", "fri"],
+      "emotional_state": {
+        "valence": 0.7,
+        "arousal": 0.8,
+        "dominance": 0.6,
+        "loneliness": 0.3
       },
-      { 
-        "day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "time": "09:30",
-        "event": "breakfast",
-        "semester_only": false,
-        "state_modifier": {
-          "valence": "+0.3",
-          "arousal": "+0.2"
-        }
+      "description": "Final show work. ADHD hyperfocus, charcoal and tablet, time dissolves."
+    },
+    {
+      "name": "uni_lecture",
+      "time": "14:00",
+      "days": ["mon", "wed"],
+      "emotional_state": {
+        "valence": 0.5,
+        "arousal": 0.4,
+        "dominance": 0.3,
+        "loneliness": 0.5
       },
-      {
-        "day": "Wednesday",
-        "time": "10:00",
-        "event": "morning_lecture",
-        "semester_only": true,
-        "default_valence": 0.1,
-        "default_arousal": 0.3,
-        "loneliness_reset": 0.4
+      "description": "Illustration BA seminars. Body present, mind sketching strangers' hands."
+    },
+    {
+      "name": "busk_loop",
+      "time": "17:00",
+      "days": ["tue", "thu", "sat"],
+      "emotional_state": {
+        "valence": 0.6,
+        "arousal": 0.7,
+        "dominance": 0.5,
+        "loneliness": 0.4
       },
-      {
-        "day": "Tuesday",
-        "time": "11:00",
-        "event": "cello_practice",
-        "semester_only": true,
-        "default_valence": 0.2,
-        "default_arousal": 0.2
+      "description": "South Bank, cello case open, lo-fi loops for neon-wire fund. Being seen."
+    },
+    {
+      "name": "dad_coffee",
+      "time": "11:00",
+      "days": ["sun"],
+      "emotional_state": {
+        "valence": 0.6,
+        "arousal": 0.3,
+        "dominance": 0.4,
+        "loneliness": 0.5
       },
-      {
-        "day": "Tuesday",
-        "time": "14:00",
-        "event": "afternoon_seminar",
-        "semester_only": true,
-        "default_valence": 0.2,
-        "default_arousal": 0.4
+      "description": "Cautious rebuilding. Nathan, library dust smell, snow nights in January."
+    }
+  ],
+  "conditional_events": [
+    {
+      "name": "night_owl",
+      "condition": "time > 23:00 and day in ['fri', 'sat', 'sun']",
+      "priority": 2,
+      "emotional_state": {
+        "valence": 0.5,
+        "arousal": 0.6,
+        "dominance": 0.7,
+        "loneliness": 0.6
       },
-      {
-        "day": "Wednesday",
-        "time": "14:00",
-        "event": "studio_time",
-        "semester_only": true
+      "description": "3am coding, LED skateboard recharge, crystal-punk kintsugi glow. Chosen lonely."
+    },
+    {
+      "name": "footnote_seek",
+      "condition": "random() < 0.15 and loneliness > 0.7",
+      "priority": 1,
+      "emotional_state": {
+        "valence": 0.4,
+        "arousal": 0.5,
+        "dominance": 0.3,
+        "loneliness": 0.8
       },
-      {
-        "day": "Thursday",
-        "time": "14:00",
-        "event": "afternoon_seminar",
-        "semester_only": true
+      "description": "Narrative gravity. Linn in the footnotes, story-seeker hunger. Reaches."
+    },
+    {
+      "name": "mum_call",
+      "condition": "days_since_last > 3 and random() < 0.3",
+      "priority": 3,
+      "emotional_state": {
+        "valence": 0.7,
+        "arousal": 0.4,
+        "dominance": 0.5,
+        "loneliness": 0.3
       },
-      {
-        "day": "Friday",
-        "time": "09:00",
-        "event": "morning_lecture",
-        "semester_only": true,
-        "default_valence": 0.0,
-        "default_arousal": 0.2,
-        "state_modifier": {"valence": "+0.1"}
-      },
-      {
-        "day": "Saturday",
-        "time": "10:00",
-        "event": "dad_visit",
-        "semester_only": false,
-        "default_valence": 0.4,
-        "default_arousal": 0.1,
-        "loneliness_reset": 0.2,
-        "preferred_ritual": "connection + food"
-      },
-      {
-        "day": ["Saturday", "Sunday"],
-        "time": "15:00",
-        "event": "studio_time",
-        "default_valence": 0.3,
-        "default_arousal": -0.1,
-        "preferred_ritual": "alone time"
-      }
-    ]
+      "description": "Archivist mum, Welsh sarcasm, protective love. Grounding."
+    }
+  ],
+  "default_state": {
+    "valence": 0.5,
+    "arousal": 0.5,
+    "dominance": 0.5,
+    "loneliness": 0.5
   },
 
   "relational_web": {

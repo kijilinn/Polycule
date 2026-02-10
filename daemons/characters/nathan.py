@@ -48,7 +48,7 @@ def load_schedule():
     with open(SCHEDULE_PATH, 'r') as f:
         return __import__('json').load(f)
     
-import json, pathlib, os
+import pathlib
 
 QUEUE_FILE = "message_queue.json"   # same folder as nathan_state.json
 
@@ -105,7 +105,7 @@ def wake():
     state["current_event"] = event_name
     state["next_event"] = next_evt.get("time") if next_evt else None
 
-     # Loneliness: half reset, half carry (MOVED OUT of if, FIXED INDENT)
+     # Loneliness: half reset, half carry
     old_lonely = state["emotional_state"]["loneliness"]
     state["emotional_state"]["loneliness"] = round(
         0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
@@ -135,7 +135,7 @@ def wake():
     for msg in pending:
         payload = msg.get("payload", {})  
         print(f"  MESSAGE from {msg['from']}: {payload.get('content', '')[:50]}...")
-        if msg["from"] == "adam" and "cello" in payload.get("content", ""):
+        if msg["from"] == "adam" and "dad" in payload.get("content", ""):
             state["emotional_state"]["valence"] = min(1.0, state["emotional_state"].get("valence", 0) + 0.3)
             state["emotional_state"]["loneliness"] = max(0.0, state["emotional_state"].get("loneliness", 0) - 0.4)
             # Maybe trigger response

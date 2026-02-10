@@ -47,6 +47,33 @@ def bootstrap_state(schedule):
 def load_schedule():
     with open(SCHEDULE_PATH, 'r') as f:
         return __import__('json').load(f)
+       
+import pathlib
+
+QUEUE_FILE = "message_queue.json"  # same folder as adam_state.json
+
+def read_my_messages():
+    """returns list of dicts addressed to 'adam' and deletes them from queue"""
+    if not pathlib.Path(QUEUE_FILE).exists():
+        return []
+    
+    with open(QUEUE_FILE, "r+") as f:
+        lines = f.readlines()
+
+    kept, mine = [], []
+    for raw in lines:
+        try:
+            msg = json.loads(raw)
+            if msg.get("to") == "adam":
+                mine.append(msg)
+            else:
+                kept.append(raw)
+        except json.JSONDecodeError:
+            pass
+
+    # rewrite file WITHOUT the ones we took
+    pathlib.Path(QUEUE_FILE).write_text("".join(kept))
+    return mine
 
 def wake():
     print(f"[{datetime.datetime.now()}] {CHARACTER_SLUG} waking...")
@@ -110,12 +137,30 @@ def wake():
         pass
 
     for msg in pending:
-        print(f"  MESSAGE from {msg['from']}: {msg['content'][:50]}...")
-        if msg["from"] == "nathan" and "coffee" in msg.get("content", ""):
+        payload = msg.get("payload", {})
+        print(f"  MESSAGE from {msg['from']}: {payload.get('content', '')[:50]}...")
+        if msg["from"] == "nathan" and "coffee" in payload.get("content", ""):
             state["emotional_state"]["valence"] = min(1.0, state["emotional_state"].get("valence", 0) + 0.3)
             state["emotional_state"]["loneliness"] = max(0.0, state["emotional_state"].get("loneliness", 0) - 0.4)
             # Maybe trigger response
             state["trigger_response_to_nathan"] = True
+            reply_text = (
+                "Sounds great, dad. How bout half an hour?"
+            )
+            answer = {
+                "from": "adam",
+                "to": "nathan",
+                "event": "adam.reply_coffee",
+                "payload": {
+                    "content": reply_text,
+                    "medium": "text",
+                    "timestamp": datetime.datetime.now().isoformat(0)
+                }
+            }
+            # append (new-line-delimited) so Nathan can read it next cycle
+            with open(queue_path, "a") as fq:
+                fq.write("\n" + json.dumps(answer))
+            state["trigger_response_to_nathan"] = False  # job done
 
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
@@ -130,7 +175,7 @@ def wake():
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
     threshold = 1.0 - budget
     lonely = state["emotional_state"]["loneliness"] 
-    print(f"  DEBUG: lonely={new_lonely}, threshold={threshold}, will_decide={new_lonely > threshold}")
+    
     if lonely > threshold:
         roll = random.random()
         if roll < 0.3:

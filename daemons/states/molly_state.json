@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-09T16:44:26.624299",
-  "last_wake": "2026-02-09T14:55:27.519782",
+  "last_updated": "2026-02-10T15:26:16.726233",
+  "last_wake": "2026-02-10T15:26:16.724525",
   "emotional_state": {
-    "valence": 0.073,
-    "arousal": 0.483,
-    "dominance": 0.567,
-    "loneliness": 0.567
+    "valence": 0.15,
+    "arousal": 0.6,
+    "dominance": 0.7,
+    "loneliness": 0.0
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,13 +15,13 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-09T16:44:26.622835",
+    "timestamp": "2026-02-10T15:26:16.724525",
     "medium": "daemon_presence"
   },
-  "current_event": "work_focus",
-  "next_event": "18:00",
+  "current_event": "pm_break",
+  "next_event": "16:30",
   "version": 3,
-  "fresh_start": false,
+  "fresh_start": true,
   "last_simulation": {
     "timestamp": "2026-02-09T16:44:26.624281",
     "type": "internal_reflection",

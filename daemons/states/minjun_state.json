@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-09T14:55:21.656082",
-  "last_wake": "2026-02-09T14:55:21.652951",
+  "last_updated": "2026-02-10T15:26:06.539645",
+  "last_wake": "2026-02-10T15:26:06.537611",
   "emotional_state": {
-    "valence": -0.086,
-    "arousal": 0.682,
+    "valence": -0.1,
+    "arousal": 0.7,
     "dominance": 0.5,
-    "loneliness": 0.965
+    "loneliness": 1.0
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-09T14:55:21.652951",
+    "timestamp": "2026-02-10T15:26:06.537611",
     "medium": "daemon_presence"
   },
   "current_event": "lunch_craving",
@@ -23,7 +23,7 @@
   "version": 3,
   "fresh_start": true,
   "last_simulation": {
-    "timestamp": "2026-02-09T14:55:21.656059",
+    "timestamp": "2026-02-10T15:26:06.539621",
     "type": "internal_reflection",
     "summary": "tteokbokki first, then flirtatious_degradation_with_physical_anchoring"
   },

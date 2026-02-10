@@ -7,13 +7,13 @@ import sys
 import os
 import datetime
 import random
-import requests
+import json
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from core import circadian, loneliness, api_client, state_manager
-from core.event_registry import EVENT_EFFECTS                 # .../daemons/
+from core.utils import get_last_interaction
 
 CHARACTER_SLUG = "adam"
 # Path relative to THIS file's location
@@ -23,11 +23,6 @@ DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 # Your actual structure: daemons/schedules/adam_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
-
-# Debug: show what we resolved
-print(f"  SCHEDULE_PATH resolved: {SCHEDULE_PATH}")
-print(f"  STATE_PATH resolved: {STATE_PATH}")
-print(f"  Schedule exists: {os.path.exists(SCHEDULE_PATH)}")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -39,7 +34,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": "Nathan",
+            "with": get_last_interaction("adam"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -79,14 +74,16 @@ def wake():
         for key in ["valence", "arousal", "dominance"]:
             old = state["emotional_state"].get(key, 0)
             state["emotional_state"][key] = round(0.3 * baseline[key] + 0.7 * old, 3)
-        # Loneliness: half reset, half carry
-        old_lonely = state["emotional_state"]["loneliness"]
-        state["emotional_state"]["loneliness"] = round(
-            0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
-        )
-
+  
     state["current_event"] = event_name
     state["next_event"] = next_evt.get("time") if next_evt else None
+
+    # Loneliness: half reset, half carry
+    old_lonely = state["emotional_state"]["loneliness"]
+    state["emotional_state"]["loneliness"] = round(
+        0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
+    )
+
     # Map circadian events to registry keys
     event_map = {
         "studio_flow": "studio_flow",
@@ -99,6 +96,27 @@ def wake():
     }
 
     registry_event = event_map.get(event_name, event_name)
+
+    # Check shared message queue for Adam
+    queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    try:
+        with open(queue_path, 'r') as f:
+            queue = __import__('json').load(f)
+            pending = [m for m in queue if m.get("to") == CHARACTER_SLUG]
+            remaining = [m for m in queue if m.get("to") != CHARACTER_SLUG]
+            with open(queue_path, 'w') as fw:
+                __import__('json').dump(remaining, fw, indent=2)
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    for msg in pending:
+        print(f"  MESSAGE from {msg['from']}: {msg['content'][:50]}...")
+        if msg["from"] == "nathan" and "coffee" in msg.get("content", ""):
+            state["emotional_state"]["valence"] = min(1.0, state["emotional_state"].get("valence", 0) + 0.3)
+            state["emotional_state"]["loneliness"] = max(0.0, state["emotional_state"].get("loneliness", 0) - 0.4)
+            # Maybe trigger response
+            state["trigger_response_to_nathan"] = True
+
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600
@@ -148,8 +166,7 @@ def simulate(state):
     thoughts = {
         "wake": f"Today. Morning. Wonder what will happen next.",
         "am_break": f"Feels good to get off my feet.",
-        "performance": f"Others near, but wanting {ritual} with Dad",
-        "pre_sleep_routine": f"Winding down, {ritual} would perfect this"
+        "performance": f"Others near, but wanting {ritual} with Dad"
     }
 
     state["last_simulation"] = {
@@ -183,15 +200,6 @@ def call_out(state, event):
             "timestamp": meta["timestamp"],
             "medium": "daemon_triggered_call"
         }
-        # Write to shared message queue or Nathan's state
-        nathan_state = state_manager.load(NATHAN_STATE_PATH)
-        nathan_state["pending_messages"].append({
-    "from": CHARACTER_SLUG,
-    "timestamp": now.isoformat(),
-    "content": message_text,
-    "emotional_weight": "high"  # Dvořák, grief, rebuilding
-})
-        state_manager.save_atomic(NATHAN_STATE_PATH, nathan_state)
         return True
     else:
         print(f"  API FAIL: {meta.get('error', 'unknown')}")

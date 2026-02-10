@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-09T14:54:51.967859",
-  "last_wake": "2026-02-09T14:54:51.967640",
+  "last_updated": "2026-02-10T15:24:55.958847",
+  "last_wake": "2026-02-10T15:24:52.093615",
   "emotional_state": {
-    "valence": -0.1,
-    "arousal": 0.7,
+    "valence": 0.0,
+    "arousal": 0.3,
     "dominance": 0.5,
-    "loneliness": 1.0
+    "loneliness": 0.7
   },
   "relational_web": {
     "uncertainty_budget": 0.6,
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-09T14:54:51.967640",
+    "timestamp": "2026-02-10T15:24:52.093615",
     "medium": "daemon_presence"
   },
   "current_event": "unscheduled",

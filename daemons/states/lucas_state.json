@@ -1,26 +1,26 @@
 {
-  "last_updated": "2026-02-09T14:55:14.070280",
-  "last_wake": "2026-02-09T14:55:14.067187",
+  "last_updated": "2026-02-10T15:25:43.773358",
+  "last_wake": "2026-02-10T15:25:43.772176",
   "emotional_state": {
-    "valence": -0.1,
+    "valence": 0.30000000000000004,
     "arousal": 0.7,
-    "dominance": 0.4,
-    "loneliness": 1.0
+    "dominance": 0.7,
+    "loneliness": 0.0
   },
   "relational_web": {
     "primary_contact": "Linn",
     "uncertainty_budget": 0.4,
     "reach_threshold": 0.2,
     "preferred_reconnection_ritual": "long_kiss_and_tea",
-    "last_layla_contact": "2026-02-08T02:02:47.013588"
+    "last_layla_contact": "2026-02-10T15:25:43.772176"
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-09T14:55:14.067187",
+    "timestamp": "2026-02-10T15:25:43.772176",
     "medium": "daemon_presence"
   },
-  "current_event": "paperwork_03",
-  "next_event": "15:00",
+  "current_event": "layla_contact",
+  "next_event": "16:00",
   "version": 3,
   "fresh_start": true,
   "last_call": {
@@ -30,7 +30,7 @@
     "medium": "daemon_triggered_call",
     "circadian_context": "finally_home"
   },
-  "_debug_days_since": 1,
+  "_debug_days_since": 2,
   "last_simulation": {
     "timestamp": "2026-02-09T14:55:14.070255",
     "type": "internal_reflection",

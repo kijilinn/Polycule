@@ -178,7 +178,7 @@ def wake():
     
     if lonely > threshold:
         roll = random.random()
-        if roll < 0.3:
+        if roll < 0.7:
             # Internal simulation
             state = simulate(state)
             print(f"  SIM: {state['last_simulation']['summary']}")

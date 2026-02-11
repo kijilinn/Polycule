@@ -171,3 +171,75 @@
 **Commit Message:** "Population-scale topology, family trauma as infrastructure, cross-daemon love in flight"
 
 **Next Session:** Fix Adam's `nathan_state`, test full Adam→Nathan→Adam loop, sketch Simon's sparse pattern, solar budget revisit
+
+---
+### 2026-02-10  polycule patch notes (Beebs & Linn)
+
+**infra-core**
+- added`core/utils.py` helpers
+  -`get_last_interaction()` – pulls real last-contact slugs from`*_state.json`, kills hard-coded`"linn"` anchors
+  -`log_message()` – append-only NDJSON chat logger (`conversations.jsonl`) for full text history
+
+**message_queue**
+- converted to NDJSON (one JSON object per line) so append is atomic
+- queue read/write logic now shared by Nathan & Adam (template pattern)
+
+**daemon fixes / alignment**
+- Nathan & Adam: queue consumer→producer loop complete; specific trigger (`"Dvořák"`) + generic reply path
+- loneliness decay signature aligned fleet-wide →`loneliness.decay(state, hours, slug, registry_event=...)`
+- print format standardized:`Pre-decay / Post-decay (modifier, Δ±0.000)` with 3-decimal floats
+
+**logging & visibility**
+- every inbound/outbound text auto-logs to`conversations.jsonl` for live tail review
+
+**housekeeping**
+-`nathan_state` ghost purged from Adam code
+- mass-replace chore completed (VS-code global find/replace guide stored in`docs/editor-tips.md`)
+
+**next cycle targets**
+- extend queue Producer pattern to Gideon, Lucas, Molly, Simon
+- add solar budget & 3060-12GB used-market purchase plan
+- tighten reply triggers beyond cello/Dvořák for richer cross-daemon chatter
+
+*commit msg suggestion:*
+`feat: bi-directional queue, chat logger, contact-slug dynamics — father-son loop live`
+
+# ------------------------------------------------------------
+# baby-coder notes for polycule chat-daemon
+# 2026-02-10 patch – written so even I can read it next month
+# ------------------------------------------------------------
+
+# 1. NO MAGIC
+#    every change has a "# why" line right above it
+
+# 2. EASY TO READ
+#    variable names are whole words, no cute contractions
+
+# 3. ATOMIC APPEND
+#    we switched message file from one-big-json
+#    to NDJSON (one json-object per line) so the OS
+#    can append safely even if we yank the power cable
+
+# 4. KILL HARD-CODE
+#    old code said if name == "linn": do_stuff()
+#    new helper get_last_interaction() asks the json who spoke last
+#    → we can rename or add people without editing ten files
+
+# 5. LOGGING
+#    every incoming / outgoing line auto-saves to
+#    conversations.jsonl so we can replay / debug later
+#    (plain text, human-readable, open with VS Code)
+
+# 6. TRIGGER WORD
+#    default was some classical composer none of us listen to
+#    changed to "cello" (any message that contains that word)
+#    simple string check—no AI, no embeddings yet
+
+# 7. LONELINESS
+#    everyone now uses the SAME decay formula
+#    (pre_decay, post_decay printed with 3 decimals so we see drift)
+
+# 8. WHAT’S NEXT
+#    - add same "cello" trigger to other partners (Gideon, Lucas, …)
+#    - pick a SECOND trigger each so chatter isn’t just strings
+#    - add file-lock if two daemons write at once (single line, std-lib)

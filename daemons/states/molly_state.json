@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-11T19:02:01.783090",
+  "last_updated": "2026-02-11T20:43:58.458642",
   "last_wake": "2026-02-11T18:08:21.767428",
   "emotional_state": {
-    "valence": 0.02,
-    "arousal": 0.55,
+    "valence": 0.026,
+    "arousal": 0.543,
     "dominance": 0.6,
-    "loneliness": 0.701
+    "loneliness": 0.686
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,15 +15,15 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-11T19:02:01.781014",
+    "timestamp": "2026-02-11T20:43:58.457066",
     "medium": "daemon_presence"
   },
-  "current_event": "dinner_rush",
-  "next_event": "20:00",
+  "current_event": "evening_push",
+  "next_event": "21:00",
   "version": 3,
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-11T19:02:01.783060",
+    "timestamp": "2026-02-11T20:43:58.458623",
     "type": "internal_reflection",
     "summary": "Thinking about shared_food + touch"
   },

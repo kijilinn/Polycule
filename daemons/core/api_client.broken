@@ -1,30 +1,18 @@
 import requests
 import datetime
-import os          # make sure this is here
-from dotenv import load_dotenv
-load_dotenv()      # pull .env before any key access
 
 DEFAULT_MODEL = "moonshotai/kimi-k2.5-original"
-DEFAULT_URL   = "https://nano-gpt.com/api/v1/chat/completions"
+DEFAULT_URL = "https://nano-gpt.com/api/v1/chat/completions"
 
-def call(CHARACTER_SLUG, system_prompt, user_prompt,
-         api_key=None, model=DEFAULT_MODEL, max_tokens=50, temperature=0.9):
+def call(CHARACTER_SLUG, system_prompt, user_prompt, 
+         api_key, model=DEFAULT_MODEL, max_tokens=50, temperature=0.9):
     """
     Generic API call. Returns (success, response_text, metadata).
-    If api_key is None we auto-load from env.
     """
-    if api_key is None:
-        api_key = os.getenv("NANO_GPT_KEY")
-
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user",   "content": user_prompt}
+        {"role": "user", "content": user_prompt}
     ]
-
-    # ---- quick peek before we fire ----
-    print("---- nano diag ----")
-    print("status: about to POST")
-    print("key[:8]:", repr(api_key[:8] + "..." if api_key else "MISSING"))
 
     try:
         resp = requests.post(
@@ -39,10 +27,6 @@ def call(CHARACTER_SLUG, system_prompt, user_prompt,
             timeout=10
         )
 
-        print("resp code:", resp.status_code)
-        if resp.status_code != 200:
-            print("resp body:", resp.text[:300])
-
         if resp.status_code == 200:
             reply = resp.json()["choices"][0]["message"]["content"]
             return True, reply, {
@@ -52,10 +36,6 @@ def call(CHARACTER_SLUG, system_prompt, user_prompt,
             }
         else:
             return False, None, {"error": f"HTTP {resp.status_code}"}
-
-    except Exception as e:
-        print("exception :", str(e))
-        return False, None, {"error": str(e)}
 
 def build_minjun_prompt(state, event):
     """Character-specific prompt construction."""
@@ -70,7 +50,7 @@ def build_minjun_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"Desired ritual: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens."
     )
 
     return system, user
@@ -90,7 +70,7 @@ def build_gideon_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Soft, patient, inviting—not demanding."
     )
 
@@ -108,7 +88,7 @@ def build_lucas_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Calm, collected, patient but learning to engage emotionally."
     )
 
@@ -126,7 +106,7 @@ def build_molly_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Flirty, romantic, but still quietly present."
     )
 
@@ -144,7 +124,7 @@ def build_nathan_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens. "
         f"Curious and patient, profound and poetic."
     )
 
@@ -162,7 +142,7 @@ def build_bruno_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"You'd like: {ritual}. Reach out to Linn. One sentence, in character, <150 tokens "
         f"Curious and patient, profound and poetic."
     )
 
@@ -180,7 +160,7 @@ def build_adam_prompt(state, event):
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
-        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"You'd like: {ritual}. Reach out to your father, Nathan. One sentence, in character, <150 tokens "
         f"Rebuilding your relationship, reaching out cautiously."
     )
 

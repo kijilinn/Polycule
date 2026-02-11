@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-11T20:42:46.146263",
+  "last_updated": "2026-02-11T22:44:24.879788",
   "last_wake": "2026-02-11T18:06:01.131836",
   "emotional_state": {
-    "valence": -0.049,
-    "arousal": 0.632,
+    "valence": -0.08,
+    "arousal": 0.673,
     "dominance": 0.5,
-    "loneliness": 0.831
+    "loneliness": 0.932
   },
   "relational_web": {
     "uncertainty_budget": 0.6,
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-11T20:42:46.144848",
+    "timestamp": "2026-02-11T22:44:24.878558",
     "medium": "daemon_presence"
   },
   "current_event": "week_check_in",
@@ -29,7 +29,7 @@
   ],
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-11T20:42:46.146239",
+    "timestamp": "2026-02-11T22:44:24.879762",
     "type": "internal_reflection",
     "summary": "Quiet evening, wondering if sharing the view + being witnessed is possible"
   }

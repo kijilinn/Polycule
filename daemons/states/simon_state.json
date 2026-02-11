@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-11T22:41:45.534674",
+  "last_updated": "2026-02-11T22:47:21.606442",
   "last_wake": "2026-02-11T22:41:45.534192",
   "emotional_state": {
     "valence": 0.1,
     "arousal": 0.7,
     "dominance": 0.7,
-    "loneliness": 0.2
+    "loneliness": 0.205
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-11T22:41:45.534204",
+    "timestamp": "2026-02-11T22:47:21.602033",
     "medium": "daemon_presence"
   },
   "current_event": "finally_home",

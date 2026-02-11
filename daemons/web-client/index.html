@@ -1,0 +1,17 @@
+<script>
+const box = document.body.appendChild(document.createElement("div"));
+box.id = "chat"; box.style.cssText = "height:90vh;overflow-y:scroll;font-family:monospace;background:#111;color:#eee";
+fetch("chat_log.jsonl")
+  .then(r => r.text())
+  .then(t => t.trim().split("\n").forEach(l => render(JSON.parse(l))));
+// live tail – poll every 3 s
+setInterval(() => fetch("chat_log.jsonl")
+  .then(r => r.text())
+  .then(t => t.trim().split("\n").slice(-5).forEach(l => render(JSON.parse(l)))), 3000);
+
+function render(o) {
+  box.insertAdjacentHTML("beforeend",
+    `<div>${o.timestamp.slice(11,16)} | ${o.avatar} &lt;${o.name}&gt; ${o.text}</div>`);
+  box.scrollTop = box.scrollHeight;
+}
+</script>

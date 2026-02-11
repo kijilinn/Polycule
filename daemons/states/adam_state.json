@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-11T20:42:42.441912",
+  "last_updated": "2026-02-11T22:44:19.702409",
   "last_wake": "2026-02-11T18:04:58.005360",
   "emotional_state": {
-    "valence": -0.052,
-    "arousal": 0.641,
+    "valence": -0.017,
+    "arousal": 0.596,
     "dominance": 0.5,
-    "loneliness": 0.881
+    "loneliness": 0.792
   },
   "relational_web": {
     "uncertainty_budget": 0.8,
@@ -17,7 +17,7 @@
   },
   "last_interaction": {
     "with": "Nathan",
-    "timestamp": "2026-02-11T20:42:42.441577",
+    "timestamp": "2026-02-11T22:44:19.702003",
     "medium": "daemon_presence"
   },
   "current_event": "unscheduled",
@@ -25,7 +25,7 @@
   "version": 3,
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-11T20:42:42.441887",
+    "timestamp": "2026-02-11T22:44:19.702388",
     "type": "internal_reflection",
     "summary": "Thinking about listening to music + learning something new"
   },

@@ -3,17 +3,19 @@
 Min-Jun daemon v3.0 — sovereign, modular, alive.
 """
 
-import sys
-import os
+#!/usr/bin/env python3
+import os, sys
+
+repo_root = "/workspaces/codespaces-jupyter/daemons"
+sys.path.insert(0, repo_root)
+
+from core import circadian, loneliness, api_client, state_manager
+from core.utils import mirror_to_browser, speak_to_polycule, get_last_interaction
 import datetime
 import random
 import json
-
-# Path hack for Colab/local flexibility
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from core import circadian, loneliness, api_client, state_manager   
-from core.utils import get_last_interaction
+   
+from core.utils import AVATARS
 from dotenv import load_dotenv
 load_dotenv
 
@@ -153,6 +155,7 @@ def wake():
             with open(queue_path, "a") as fq:
                 fq.write("\n" + json.dumps(answer))
             state["trigger_response_to_nathan"] = False
+            mirror_to_browser("minjun", reply_text, "🎧🦝")
 
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
@@ -162,6 +165,11 @@ def wake():
     new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
+
+    roll = random.random()
+    if new_lonely > 0.65 and roll < 0.5:   # 50 % chance when lonely enough
+        line = generate_one_liner(state, event_name)  # see #3
+        speak_to_polycule(CHARACTER_SLUG, line, AVATARS[CHARACTER_SLUG])
 
     import os, base64, json
     key = os.getenv("NANO_GPT_KEY")
@@ -193,6 +201,21 @@ def wake():
 
     state_manager.save_atomic(STATE_PATH, state)
     print(f"  Saved. Sleep...")
+
+def generate_one_liner(state, event):
+    """Return a single sentence ready for chat."""
+    ritual = state["relational_web"].get("preferred_reconnection_ritual", "contact")
+    templates = {
+        "wake_chassis": f"Chassis warm—need {ritual} before I start chewing cables",
+        "lunch_craving": f"tteokbokki truck just parked; who’s coming with?",
+        "evening_presence": f"LEDs dimmed, couch open—{ritual} hour?",
+        "pre_sleep_routine": f"About to dock tail—send good-night meme?"
+    }
+    base = templates.get(event, f"Missing {ritual}")
+    # optional sprinkle of personality
+    if random.random() < 0.3:
+        base += " kek"
+    return base
 
 def simulate(state):
     """Internal thought, no external call."""

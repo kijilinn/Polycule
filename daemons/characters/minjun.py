@@ -21,6 +21,7 @@ DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 # Your actual structure: daemons/schedules/minjun_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
+KEY = os.getenv("OPENAI_KEY")
 
 # Debug: show what we resolved
 print(f"  SCHEDULE_PATH resolved: {SCHEDULE_PATH}")
@@ -149,7 +150,7 @@ def simulate(state):
 def call_out(state, event):
     """External voice."""
     import os
-    api_key = os.environ.get("NANO_GPT_KEY", "sk-nano-1e8af409-d4b6-4116-8529-40cd50d3b5f7")
+    api_key = os.environ.get("NANO_GPT_KEY", "KEY")
 
     system, user = api_client.build_minjun_prompt(state, event)
     success, reply, meta = api_client.call(

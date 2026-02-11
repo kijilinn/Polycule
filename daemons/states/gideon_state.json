@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-10T19:48:01.924326",
-  "last_wake": "2026-02-10T15:25:34.857811",
+  "last_updated": "2026-02-11T18:05:58.005208",
+  "last_wake": "2026-02-11T18:05:58.002749",
   "emotional_state": {
-    "valence": 0.41400000000000003,
-    "arousal": 0.558,
-    "dominance": 0.33,
-    "loneliness": 0.34500000000000003
+    "valence": -0.1,
+    "arousal": 0.7,
+    "dominance": 0.7,
+    "loneliness": 1.0
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,15 +15,15 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-10T19:47:59.011309",
+    "timestamp": "2026-02-11T18:05:58.002749",
     "medium": "daemon_presence"
   },
-  "current_event": "wind_down",
-  "next_event": "20:00",
+  "current_event": "dinner_rush",
+  "next_event": "19:00",
   "version": 3,
-  "fresh_start": false,
+  "fresh_start": true,
   "last_simulation": {
-    "timestamp": "2026-02-10T19:04:09.424280",
+    "timestamp": "2026-02-11T18:05:58.005181",
     "type": "internal_reflection",
     "summary": "Thinking about long_kiss_and_physical_reconnection"
   },

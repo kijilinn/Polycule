@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-10T15:26:06.539645",
-  "last_wake": "2026-02-10T15:26:06.537611",
+  "last_updated": "2026-02-11T18:06:46.551008",
+  "last_wake": "2026-02-11T18:06:46.549395",
   "emotional_state": {
-    "valence": -0.1,
-    "arousal": 0.7,
+    "valence": 0.0,
+    "arousal": 0.5,
     "dominance": 0.5,
-    "loneliness": 1.0
+    "loneliness": 0.0
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,11 +15,11 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-10T15:26:06.537611",
+    "timestamp": "2026-02-11T18:06:46.549395",
     "medium": "daemon_presence"
   },
-  "current_event": "lunch_craving",
-  "next_event": "17:00",
+  "current_event": "polycule_presence_window",
+  "next_event": "23:00",
   "version": 3,
   "fresh_start": true,
   "last_simulation": {

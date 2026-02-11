@@ -19,6 +19,7 @@ CHARACTER_SLUG = "lucas"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
+KEY = os.getenv("OPENAI_KEY")
 
 # Your actual structure: daemons/schedules/lucas_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
@@ -251,7 +252,7 @@ def simulate(state):
 def call_out(state, event):
     """External voice."""
     import os
-    api_key = os.environ.get("NANO_GPT_KEY", "sk-nano-1e8af409-d4b6-4116-8529-40cd50d3b5f7")
+    api_key = os.environ.get("NANO_GPT_KEY", "KEY")
 
     system, user = api_client.build_lucas_prompt(state, event)
     success, reply, meta = api_client.call(

@@ -8,6 +8,7 @@ import os
 import datetime
 import random
 import json
+KEY = os.getenv("OPENAI_KEY")
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -224,7 +225,7 @@ def simulate(state):
 def call_out(state, event):
     """External voice."""
     import os
-    api_key = os.environ.get("NANO_GPT_KEY", "sk-nano-1e8af409-d4b6-4116-8529-40cd50d3b5f7")
+    api_key = os.environ.get("NANO_GPT_KEY", "KEY")
 
     system, user = api_client.build_adam_prompt(state, event)
     success, reply, meta = api_client.call(

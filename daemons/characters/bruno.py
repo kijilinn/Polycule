@@ -18,6 +18,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DAEMONS_ROOT = os.path.dirname(HERE)
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", "bruno_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", "bruno_state.json")
+KEY = os.getenv("OPENAI_KEY")
 
 CHARACTER_SLUG = "bruno"
 
@@ -218,7 +219,7 @@ def wake():
     if action == "emergence_call":
         system, user, urgency, emergency = build_emergence_prompt(state, current_event, emergence)
         success, reply, meta = api_client.call(CHARACTER_SLUG, system, user, 
-                                               os.environ.get("NANO_GPT_KEY", "sk-nano-1e8af409-d4b6-4116-8529-40cd50d3b5f7"))
+                                               os.environ.get("NANO_GPT_KEY", "KEY"))
         if success:
             print(f"  EMERGENCE CALL: {reply[:100]}...")
             state["last_call"] = {

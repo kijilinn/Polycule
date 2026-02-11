@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-02-10T15:24:55.958847",
-  "last_wake": "2026-02-10T15:24:52.093615",
+  "last_updated": "2026-02-11T18:06:05.007423",
+  "last_wake": "2026-02-11T18:06:01.131836",
   "emotional_state": {
-    "valence": 0.0,
+    "valence": 0.2,
     "arousal": 0.3,
     "dominance": 0.5,
     "loneliness": 0.7
@@ -15,10 +15,10 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-10T15:24:52.093615",
+    "timestamp": "2026-02-11T18:06:01.131836",
     "medium": "daemon_presence"
   },
-  "current_event": "unscheduled",
+  "current_event": "week_check_in",
   "next_event": null,
   "version": 3,
   "emergence_history": [

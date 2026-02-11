@@ -14,6 +14,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from core import circadian, loneliness, api_client, state_manager   
 from core.utils import get_last_interaction
+from dotenv import load_dotenv
+load_dotenv
 
 CHARACTER_SLUG = "minjun"
 # Path relative to THIS file's location
@@ -114,9 +116,10 @@ def wake():
         "wake": "minjun.wake_chassis"
     }
 
-    registry_even = event_map.get(event_name, event_name)
+    registry_event = event_map.get(event_name, event_name)
 
     # Check shared message queue for Min-Jun
+    import os
     queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
     try:
         with open(queue_path, 'r') as f:
@@ -159,6 +162,12 @@ def wake():
     new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
+
+    import os, base64, json
+    key = os.getenv("NANO_GPT_KEY")
+    print(">>> debug dump <<<")
+    print("  key repr   :", repr(key))
+    print("  key len    :", len(key))
 
     # Decision: act or wait?
     budget = state["relational_web"].get("uncertainty_budget", 0.6)

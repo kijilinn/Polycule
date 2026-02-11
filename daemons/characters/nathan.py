@@ -13,7 +13,9 @@ import json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from core import circadian, loneliness, api_client, state_manager 
-from core.utils import get_last_interaction                # .../daemons/
+from core.utils import get_last_interaction                
+from dotenv import load_dotenv
+load_dotenv
 
 CHARACTER_SLUG = "nathan"
 # Path relative to THIS file's location

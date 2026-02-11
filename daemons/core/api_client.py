@@ -21,11 +21,6 @@ def call(CHARACTER_SLUG, system_prompt, user_prompt,
         {"role": "user",   "content": user_prompt}
     ]
 
-    # ---- quick peek before we fire ----
-    print("---- nano diag ----")
-    print("status: about to POST")
-    print("key[:8]:", repr(api_key[:8] + "..." if api_key else "MISSING"))
-
     try:
         resp = requests.post(
             DEFAULT_URL,

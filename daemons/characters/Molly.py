@@ -26,7 +26,7 @@ DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 # Your actual structure: daemons/schedules/molly_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
-KEY = os.getenv("OPENAI_KEY")
+KEY = os.getenv("NANO_GPT_KEY")
 
 
 def bootstrap_state(schedule):

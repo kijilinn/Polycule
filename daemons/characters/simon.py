@@ -7,26 +7,25 @@ import sys
 import os
 import datetime
 import random
+import json
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from core import circadian, loneliness, api_client, state_manager                 # .../daemons/
+from core import circadian, loneliness, api_client, state_manager
+from core.utils import get_last_interaction
+from dotenv import load_dotenv
+load_dotenv
 
 CHARACTER_SLUG = "simon"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
-KEY = os.getenv("OPENAI_KEY")
+KEY = os.getenv("NANO_GPT_KEY")
 
 # Your actual structure: daemons/schedules/simon_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
-
-# Debug: show what we resolved
-print(f"  SCHEDULE_PATH resolved: {SCHEDULE_PATH}")
-print(f"  STATE_PATH resolved: {STATE_PATH}")
-print(f"  Schedule exists: {os.path.exists(SCHEDULE_PATH)}")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -51,6 +50,30 @@ def bootstrap_state(schedule):
 def load_schedule():
     with open(SCHEDULE_PATH, 'r') as f:
         return __import__('json').load(f)
+    
+import pathlib
+
+QUEUE_FILE = "message_queue.json"
+
+def read_my_messages():
+    if not pathlib.Path(QUEUE_FILE).exists():
+        return []
+    with open(QUEUE_FILE, "r+") as f:
+        lines = f.readlines()
+
+    kept, mine = [], []
+    for raw in lines:
+        try:
+            msg = json.loads(raw)
+            if msg.get("to") == "simon":
+                mine.append(msg)
+            else:
+                kept.append(raw)
+        except json.JSONDecodeError:
+            pass
+
+    pathlib.Path(QUEUE_FILE).write_text("".join(kept))
+    return mine
 
 def wake():
     print(f"[{datetime.datetime.now()}] {CHARACTER_SLUG} waking...")
@@ -87,6 +110,49 @@ def wake():
     state["current_event"] = event_name
     state["next_event"] = next_evt.get("time") if next_evt else None
 
+    # Map circadian events to registry keys
+    event_map = {
+        "wake": "simon.wake"
+    }
+
+    registry_event = event_map.get(event_name, event_name)
+
+    # Check shared message queue for Simon
+    import os
+    queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    try:
+        with open(queue_path, 'r') as f:
+            queue = __import__('json').load(f)
+            pending = [m for m in queue if m.get("to") == CHARACTER_SLUG]
+            remaining = [m for m in queue if m.get("to") != CHARACTER_SLUG]
+            with open(queue_path, 'w') as fw:
+                __import__('json').dump(remaining, fw, indent=2)
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    for msg in pending:
+        payload = msg.get("payload", {})
+        print(f" MESSAGE from {msg['from']}: {payload.get('content', '')[:50]}...")
+        if msg["from"] == "minjun":
+            state["trigger_response_to_minjun"] = True
+            reply_text = (
+                "Affirmative, complaint logged."
+            )
+            answer = {
+                "from": "simon",
+                "to": "minjun",
+                "event": "simon.reply_minjun",
+                "payload": {
+                    "content": reply_text,
+                    "medium": "text",
+                    "timestamp": datetime.datetime.now().isoformat()
+                }
+            }
+            # append (new-line-delimited) so Min-Jun can read it
+            with open(queue_path, "a") as fq:
+                fq.write("\n" + json.dumps(answer))
+            state["trigger_respnose_to_minjun"] = False
+
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600
@@ -95,6 +161,9 @@ def wake():
     new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
+
+    import os, base64, json
+    key = os.getenv("NANO_GPT_KEY")
 
     # Decision: act or wait?
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
@@ -134,10 +203,10 @@ def simulate(state):
     state["emotional_state"]["arousal"] = round(0.2 + (lonely * 0.5), 3)
 
     thoughts = {
-        "wake_chassis": f"Morning fur calibration, thinking about {ritual}",
-        "lunch_craving": f"tteokbokki first, then {ritual}",
+        "wake": f"Calesthenics, coffee, peek if she's... she's still asleep.",
+        "check_in": f"Perimeter secure.",
         "evening_presence": f"Others near, but wanting {ritual} with you",
-        "pre_sleep_routine": f"Winding down, {ritual} would perfect this"
+        "sleep_routine": f"Winding down, {ritual} would perfect this"
     }
 
     state["last_simulation"] = {

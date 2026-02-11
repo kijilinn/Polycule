@@ -165,9 +165,6 @@ def wake():
 
     import os, base64, json
     key = os.getenv("NANO_GPT_KEY")
-    print(">>> debug dump <<<")
-    print("  key repr   :", repr(key))
-    print("  key len    :", len(key))
 
     # Decision: act or wait?
     budget = state["relational_web"].get("uncertainty_budget", 0.6)

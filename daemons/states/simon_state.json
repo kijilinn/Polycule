@@ -1,0 +1,25 @@
+{
+  "last_updated": "2026-02-11T22:41:45.534674",
+  "last_wake": "2026-02-11T22:41:45.534192",
+  "emotional_state": {
+    "valence": 0.1,
+    "arousal": 0.7,
+    "dominance": 0.7,
+    "loneliness": 0.2
+  },
+  "relational_web": {
+    "primary_contact": "Linn",
+    "uncertainty_budget": 0.4,
+    "reach_threshold": 0.2,
+    "preferred_reconnection_ritual": "a long hike around the lake"
+  },
+  "last_interaction": {
+    "with": "Linn",
+    "timestamp": "2026-02-11T22:41:45.534204",
+    "medium": "daemon_presence"
+  },
+  "current_event": "finally_home",
+  "next_event": "06:00",
+  "version": 3,
+  "fresh_start": false
+}

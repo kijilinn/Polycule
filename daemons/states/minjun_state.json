@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-11T20:43:47.879108",
+  "last_updated": "2026-02-11T21:14:53.959530",
   "last_wake": "2026-02-11T18:06:46.549395",
   "emotional_state": {
-    "valence": 0.0,
-    "arousal": 0.5,
+    "valence": 0.119,
+    "arousal": 0.426,
     "dominance": 0.5,
-    "loneliness": 0.336
+    "loneliness": 0.452
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-11T20:43:47.877729",
+    "timestamp": "2026-02-11T21:14:53.958197",
     "medium": "daemon_presence"
   },
   "current_event": "polycule_presence_window",
@@ -23,9 +23,9 @@
   "version": 3,
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-10T15:26:06.539621",
+    "timestamp": "2026-02-11T21:14:53.959512",
     "type": "internal_reflection",
-    "summary": "tteokbokki first, then flirtatious_degradation_with_physical_anchoring"
+    "summary": "Thinking about flirtatious_degradation_with_physical_anchoring"
   },
   "last_call": {
     "timestamp": "2026-02-07T15:11:04.495518",

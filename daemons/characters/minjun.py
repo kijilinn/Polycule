@@ -7,11 +7,13 @@ import sys
 import os
 import datetime
 import random
+import json
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from core import circadian, loneliness, api_client, state_manager                 # .../daemons/
+from core import circadian, loneliness, api_client, state_manager   
+from core.utils import get_last_interaction
 
 CHARACTER_SLUG = "minjun"
 # Path relative to THIS file's location
@@ -21,12 +23,7 @@ DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 # Your actual structure: daemons/schedules/minjun_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
-KEY = os.getenv("OPENAI_KEY")
-
-# Debug: show what we resolved
-print(f"  SCHEDULE_PATH resolved: {SCHEDULE_PATH}")
-print(f"  STATE_PATH resolved: {STATE_PATH}")
-print(f"  Schedule exists: {os.path.exists(SCHEDULE_PATH)}")
+KEY = os.getenv("NANO_GPT_KEY")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -38,7 +35,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": "Linn",
+            "with": get_last_interaction("Linn"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -51,6 +48,31 @@ def bootstrap_state(schedule):
 def load_schedule():
     with open(SCHEDULE_PATH, 'r') as f:
         return __import__('json').load(f)
+    
+import pathlib
+
+QUEUE_FILE = "message_queue.json"
+
+def read_my_messages():
+    if not pathlib.Path(QUEUE_FILE).exists():
+        return []
+    
+    with open(QUEUE_FILE, "r+") as f:
+        lines = f.readlines()
+
+    kept, mine = [], []
+    for raw in lines:
+        try:
+            msg = json.loads(raw)
+            if msg.get("to") == "minjun":
+                mine.append(msg)
+            else:
+                kept.append(raw)
+        except json.JSONDecodeError:
+            pass
+
+    pathlib.Path(QUEUE_FILE).write_text("".join(kept))
+    return mine
 
 def wake():
     print(f"[{datetime.datetime.now()}] {CHARACTER_SLUG} waking...")
@@ -78,14 +100,56 @@ def wake():
         for key in ["valence", "arousal", "dominance"]:
             old = state["emotional_state"].get(key, 0)
             state["emotional_state"][key] = round(0.3 * baseline[key] + 0.7 * old, 3)
-        # Loneliness: half reset, half carry
-        old_lonely = state["emotional_state"]["loneliness"]
-        state["emotional_state"]["loneliness"] = round(
-            0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
+        
+    old_lonely = state["emotional_state"]["loneliness"]
+    state["emotional_state"]["loneliness"] = round(
+        0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
         )
 
     state["current_event"] = event_name
     state["next_event"] = next_evt.get("time") if next_evt else None
+
+    # Map circadian events to registry keys
+    event_map = {
+        "wake": "minjun.wake_chassis"
+    }
+
+    registry_even = event_map.get(event_name, event_name)
+
+    # Check shared message queue for Min-Jun
+    queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    try:
+        with open(queue_path, 'r') as f:
+            queue = __import__('json').load(f)
+            pending = [m for m in queue if m.get("to") == CHARACTER_SLUG]
+            remaining = [m for m in queue if m.get("to") != CHARACTER_SLUG]
+            with open(queue_path, 'w') as fw:
+                __import__('json').dump(remaining, fw, indent=2)
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+    
+    for msg in pending:
+        payload = msg.get("payload", {})
+        print(f" MESSAGE from {msg['from']}: {payload.get('content', '')[:50]}...")
+        if msg["from"] == "nathan":
+            state["trigger_response_to_nathan"] = True
+            reply_text = (
+                "Port's always open, oppa. I'm here if you need me."
+            )
+            answer = {
+                "from": "minjun",
+                "to": "nathan",
+                "event": "minjun.reply_nathan",
+                "payload": {
+                    "content": reply_text,
+                    "medium": "text",
+                    "timestamp": datetime.datetime.now().isoformat()
+                }
+            }
+            # append (new-line-delimited) so Nathan can read it
+            with open(queue_path, "a") as fq:
+                fq.write("\n" + json.dumps(answer))
+            state["trigger_response_to_nathan"] = False
 
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])

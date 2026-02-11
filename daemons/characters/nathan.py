@@ -19,7 +19,7 @@ CHARACTER_SLUG = "nathan"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
-KEY = os.getenv("OPENAI_KEY")
+KEY = os.getenv("NANO_GPT_KEY")
 
 # Your actual structure: daemons/schedules/nathan_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
@@ -35,7 +35,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": get_last_interaction("nathan"),
+            "with": get_last_interaction("Linn"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -51,7 +51,7 @@ def load_schedule():
     
 import pathlib
 
-QUEUE_FILE = "message_queue.json"   # same folder as nathan_state.json
+QUEUE_FILE = "message_queue.json"   
 
 def read_my_messages():
     """returns list of dicts addressed to 'nathan' and deletes them from queue"""
@@ -164,7 +164,7 @@ def wake():
     hours = (now - last_int).total_seconds() / 3600
 
     print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
+    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
 

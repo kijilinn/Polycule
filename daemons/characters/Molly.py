@@ -7,13 +7,16 @@ import sys
 import os
 import datetime
 import random
-import requests
+import json
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from core import circadian, loneliness, api_client, state_manager                 # .../daemons/
+from core import circadian, loneliness, api_client, state_manager
+from core.utils import get_last_interaction
 from core.event_registry import EVENT_EFFECTS
+from dotenv import load_dotenv
+load_dotenv
 
 CHARACTER_SLUG = "molly"
 # Path relative to THIS file's location
@@ -25,10 +28,6 @@ SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_sched
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
 KEY = os.getenv("OPENAI_KEY")
 
-# Debug: show what we resolved
-print(f"  SCHEDULE_PATH resolved: {SCHEDULE_PATH}")
-print(f"  STATE_PATH resolved: {STATE_PATH}")
-print(f"  Schedule exists: {os.path.exists(SCHEDULE_PATH)}")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -40,7 +39,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": "Linn",
+            "with": get_last_interaction("Linn"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -53,6 +52,32 @@ def bootstrap_state(schedule):
 def load_schedule():
     with open(SCHEDULE_PATH, 'r') as f:
         return __import__('json').load(f)
+    
+import pathlib
+
+QUEUE_FILE = "message_queue.json"
+
+def read_my_messages():
+    if not pathlib.Path(QUEUE_FILE).exists():
+        return []
+
+    with open(QUEUE_FILE, "r+") as f:
+        lines = f.readlines()
+
+    kept, mine = [], []
+    for raw in lines:
+        try:
+            msg = json.loads(raw)
+            if msg.get("to") == "molly":
+                mine.append(msg)
+            else:
+                kept.append(raw)
+        except json.JSONDecodeError:
+            pass
+
+    pathlib.Path(QUEUE_FILE).write_text("".join(kept))
+    return mine    
+
 
 def wake():
     print(f"[{datetime.datetime.now()}] {CHARACTER_SLUG} waking...")
@@ -88,6 +113,48 @@ def wake():
 
     state["current_event"] = event_name
     state["next_event"] = next_evt.get("time") if next_evt else None
+
+    # Map circadian events to registry keys
+    event_map = {
+        "performance": "molly.evening_push"
+    }
+
+    registry_event = event_map.get(event_name, event_name)
+
+    # Check shared message queue for Molly
+    queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    try:
+        with open(queue_path, 'r') as f:
+            queue = __import__('json').load(f)
+            pending = [m for m in queue if m.get("to") == CHARACTER_SLUG]
+            remaining = [m for m in queue if m.get("to") != CHARACTER_SLUG]
+            with open(queue_path, 'w') as fw:
+                __import__('json').dump(remaining, fw, indent=2)
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    for msg in pending:
+        payload = msg.get("payload", {})
+        print(f" MESSAGE from {msg['from']}: {payload.get('content', '')[:50]}...")
+        if msg["from"] == "band":
+            state["trigger_response_to_band"] = True
+            reply_text = (
+                "Absolutely, dears. Whatever you need. Just drop by the bar before showtime."
+            )
+            answer = {
+                "from": "molly",
+                "to": "band",
+                "event": "molly.reply_band",
+                "payload": {
+                    "content": reply_text,
+                    "medium": "text",
+                    "timestamp": datetime.datetime.now().isoformat()
+                }
+            }
+            # append (new-line-delimited) so the band can read it next cycle
+            with open(queue_path, "a") as fq:
+                fq.write("\n" + json.dumps(answer))
+            state["trigger_response_to_band"] = False
 
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
@@ -125,8 +192,6 @@ def wake():
 
     state_manager.save_atomic(STATE_PATH, state)
     print(f"  Saved. Sleep...")
-    print(f"  DEBUG: event_name='{event_name}', CHARACTER_SLUG='{CHARACTER_SLUG}'")
-    print(f"  DEBUG: EVENT_EFFECTS.get('{event_name}') = {EVENT_EFFECTS.get(event_name, 'MISSING')}")
 
 def simulate(state):
     """Internal thought, no external call."""

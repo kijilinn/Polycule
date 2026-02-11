@@ -7,25 +7,22 @@ import sys
 import os
 import datetime
 import random
+import json
 
 # Path hack for Colab/local flexibility
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from core import circadian, loneliness, api_client, state_manager                 # .../daemons/
+from core import circadian, loneliness, api_client, state_manager
+from core.utils import get_last_interaction
 
 CHARACTER_SLUG = "lucas"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 
-# Your actual structure: daemons/schedules/minjun_schedule.json
+# Your actual structure: daemons/schedules/lucas_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
-
-# Debug: show what we resolved
-print(f"  SCHEDULE_PATH resolved: {SCHEDULE_PATH}")
-print(f"  STATE_PATH resolved: {STATE_PATH}")
-print(f"  Schedule exists: {os.path.exists(SCHEDULE_PATH)}")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -37,7 +34,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": "Linn",
+            "with": get_last_interaction("linn"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -50,6 +47,28 @@ def bootstrap_state(schedule):
 def load_schedule():
     with open(SCHEDULE_PATH, 'r') as f:
         return __import__('json').load(f)
+import pathlib
+
+QUEUE_FILE = "message_queue.json" # same folder as lucas_state.json
+
+def read_my_messages():
+    """returns list of dicts addressed to 'lucas' and deletes them from queue"""
+    if not pathlib.Path(QUEUE_FILE).exists():
+        return []
+    
+    with open(QUEUE_FILE, "r+") as f:
+        lines = f.readlines()
+
+    kept, mine = [], []
+    for raw in lines:
+        try:
+            msg = json.loads(raw)
+            if msg.get("to") == "lucas":
+                mine.append(msg)
+            else:
+                kept.append(raw)
+        except json.JSONDecodeError:
+            pass
 
 def wake():
     print(f"[{datetime.datetime.now()}] {CHARACTER_SLUG} waking...")
@@ -71,7 +90,7 @@ def wake():
     event_name = select_event(state, schedule, now)
     state["current_event"] = event_name
 
-    # Debug: show what won
+        # Debug: show what won
     if "layla" in event_name:
         print(f"  EVENT: {event_name} (stochastic, days_since: {state.get('_debug_days_since', 'N/A')})")
     elif "susan" in event_name:
@@ -79,14 +98,60 @@ def wake():
     else:
         print(f"  EVENT: {event_name} (schedule)")
 
+    # Map circadian events to registry keys
+    event_map = {
+        "consult_1": "work_flow",
+        "smoke_break": "pm_break"
+    }
+
+    registry_event = event_map.get(event_name, event_name)
+
+    #Check shared message queue for Lucas
+    queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    try:
+        with open(queue_path, 'r') as f:
+            queue = __import__('json').load(f)
+            pending = [m for m in queue if m.get("to") == CHARACTER_SLUG]
+            remaining = [m for m in queue if m.get("to") != CHARACTER_SLUG]
+            with open(queue_path, 'w') as fw:
+                __import__('json').dump(remaining, fw, indent=2)
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    for msg in pending:
+        payload = msg.get("payload", {})
+        print(f"  MESSAGE from {msg['from']}/; {payload.get('content', '')[:50]}...")
+        if msg["from"] == "gideon" and "layla" in payload.get("content", ""):
+            state["emotional_state"]["valence"] = min(1.0, state["emotional_state"].get("valence", 0) -0.3)
+            state["emotional_state"]["loneliness"] = max(0.0, state["emotional_state"].get("loneliness, 0") +0.3)
+            # Maybe trigger_response
+            state["trigger_response_to_gideon"] = True
+            reply_text = (
+                "She's fine, Gelds. Try not to think about it too much, alright?"
+            )
+            answer = {
+                "from": "lucas",
+                "to": "gideon",
+                "event": "lucas.reply_gideon",
+                "payload": {
+                    "content": reply_text,
+                    "medium": "text",
+                    "timestamp": datetime.datetime.now().isoformat(0)
+                }
+            }
+            # append (new-line-delimited) so Gideon can read it next cycle
+            with open(queue_path, "a") as fq:
+                fq.write("\n" + json.dumps(answer))
+            state["trigger_response_to_lucas"] = False  # job done
+
     # --- LONELINESS DECAY ---
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600
 
-    print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']:.3f}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, event_context=event_name)
+    print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
+    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, registry_event)
     state["emotional_state"]["loneliness"] = new_lonely
-    print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely:.3f}")
+    print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
 
     # --- ACTION DECISION ---
     budget = state["relational_web"].get("uncertainty_budget", 0.6)

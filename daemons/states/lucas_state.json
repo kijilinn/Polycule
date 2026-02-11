@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-10T15:25:43.773358",
+  "last_updated": "2026-02-10T19:47:46.494292",
   "last_wake": "2026-02-10T15:25:43.772176",
   "emotional_state": {
-    "valence": 0.30000000000000004,
+    "valence": 0.21,
     "arousal": 0.7,
     "dominance": 0.7,
-    "loneliness": 0.0
+    "loneliness": 0.468
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -16,13 +16,13 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-10T15:25:43.772176",
+    "timestamp": "2026-02-10T19:47:46.492555",
     "medium": "daemon_presence"
   },
-  "current_event": "layla_contact",
-  "next_event": "16:00",
+  "current_event": "catch_the_tube",
+  "next_event": "20:00",
   "version": 3,
-  "fresh_start": true,
+  "fresh_start": false,
   "last_call": {
     "timestamp": "2026-02-07T04:43:45.473753",
     "my_message": "*sets down briefcase, loosens tie, thumbs hovering over message*\n\n\"Your kettle or mine, Linn? I find I'm... unexpectedly in need of company.\"",
@@ -30,7 +30,7 @@
     "medium": "daemon_triggered_call",
     "circadian_context": "finally_home"
   },
-  "_debug_days_since": 2,
+  "_debug_days_since": 0,
   "last_simulation": {
     "timestamp": "2026-02-09T14:55:14.070255",
     "type": "internal_reflection",

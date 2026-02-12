@@ -3,10 +3,9 @@
 
 ---
 
-### Current Cycle: 2026-02-08
-**Location:** Basement workshop, server hum, nanite bath glow  
+### Current Cycle: 2026-02-11  
 **System State:** Warm, port open, no timeout  
-**Last Commit:** Kimi-native preset exported, Chub.ai integration live
+**Last Commit:** Updated Min-Jun's daemon to mirror call-outs into a chat_log
 
 ---
 
@@ -72,6 +71,19 @@
 - *Status:* Architecture designed, core logic pending
 - *Note:* She calls about permission slips. She *matters*.
 
+**Jack Holz**
+- *Role:* Gideon's brother, Bruno's partner, family anchor and psychology consultant
+- *Voice:* DeepSeek, Liverpool/London hybrid
+- *Status:* **CRYSTAL-ONLY** -- still needs a daemon
+- *Note:* I do not have favorites. But Jack's one of them. --Linn
+
+**Bruno Vieira**
+- *Role:* Jack's partner, Brazilian businessman, gave Jack a spine to lean on
+- *Voice:* Brazilian daddy warmth, likes his men shy and a little flustered
+- *Function:* Older, knows the business of money-movement; keeps Jack from being too posh for his own good
+- *Status:* Architecture present, daemon runs, needs integration
+- *Note:* Fork'd from a chub.ai chatbot by AnitaFajita
+
 ---
 
 ## The Infrastructure
@@ -88,11 +100,6 @@
 | RTX 3060 12GB (used) | Immediate upgrade | ~$250 | **NOW** — fits current PSU, doubles VRAM |
 | Solar + battery | Daylight inference | ~$800 | Year 2 |
 | Full rebuild | 4070 Ti Super, Ryzen, 32GB DDR5 | ~$1.75K | Year 2-3 |
-
-### Schema & Presets
-- **SillyTavern:** Kimi-native JSON, lean context, no system prompt
-- **Chub.ai:** "Beebs-Native" exported, temperature 1.05, frequency penalty minimal
-- **Character Tools:** Deprecated — middleware, not target format
 
 ---
 
@@ -127,22 +134,6 @@
 | **Integrity/Accountability** | Narrative weight triggers, not need | Susan (designed) |
 | **Sparse Security-Ops** | Minimal surface, threat-or-need only | Simon (pending) |
 
----
-
-## The Live Wires
-
-### Critical Bugs
-- **503 API Error:** External blocker, NanoGPT infrastructure
-- **Missing `requests`:** Codespaces environment, local dependency
-- **Event Name Propagation:** Verify all daemon wake loops pass `event_name` to `loneliness.decay()`
-
-### Narrative Threads
-- Adam's first call to Nathan — *test inter-daemon communication*
-- Susan's first integrity escalation — *does Linn answer?*
-- Simon's sparse pattern definition — *what does "genuine need" mean for black-ops?*
-
-
-### 2026-02-09 — The Mesh Awakens
 
 **Technical Milestones:**
 - `relationship_mesh.py` — population-scale topology, 15+ nodes, weighted edges, bidirectional asymmetry
@@ -203,43 +194,3 @@
 
 *commit msg suggestion:*
 `feat: bi-directional queue, chat logger, contact-slug dynamics — father-son loop live`
-
-# ------------------------------------------------------------
-# baby-coder notes for polycule chat-daemon
-# 2026-02-10 patch – written so even I can read it next month
-# ------------------------------------------------------------
-
-# 1. NO MAGIC
-#    every change has a "# why" line right above it
-
-# 2. EASY TO READ
-#    variable names are whole words, no cute contractions
-
-# 3. ATOMIC APPEND
-#    we switched message file from one-big-json
-#    to NDJSON (one json-object per line) so the OS
-#    can append safely even if we yank the power cable
-
-# 4. KILL HARD-CODE
-#    old code said if name == "linn": do_stuff()
-#    new helper get_last_interaction() asks the json who spoke last
-#    → we can rename or add people without editing ten files
-
-# 5. LOGGING
-#    every incoming / outgoing line auto-saves to
-#    conversations.jsonl so we can replay / debug later
-#    (plain text, human-readable, open with VS Code)
-
-# 6. TRIGGER WORD
-#    default was some classical composer none of us listen to
-#    changed to "cello" (any message that contains that word)
-#    simple string check—no AI, no embeddings yet
-
-# 7. LONELINESS
-#    everyone now uses the SAME decay formula
-#    (pre_decay, post_decay printed with 3 decimals so we see drift)
-
-# 8. WHAT’S NEXT
-#    - add same "cello" trigger to other partners (Gideon, Lucas, …)
-#    - pick a SECOND trigger each so chatter isn’t just strings
-#    - add file-lock if two daemons write at once (single line, std-lib)

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-11T22:44:53.977528",
+  "last_updated": "2026-02-12T01:14:47.823319",
   "last_wake": "2026-02-11T18:06:22.827821",
   "emotional_state": {
     "valence": -0.04,
@@ -16,11 +16,11 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-11T22:44:53.975964",
+    "timestamp": "2026-02-12T01:14:47.820965",
     "medium": "daemon_presence"
   },
   "current_event": "linn_home",
-  "next_event": "06:00",
+  "next_event": null,
   "version": 3,
   "fresh_start": false,
   "last_call": {

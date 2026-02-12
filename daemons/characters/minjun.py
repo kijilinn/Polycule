@@ -3,7 +3,6 @@
 Min-Jun daemon v3.0 — sovereign, modular, alive.
 """
 
-#!/usr/bin/env python3
 import os, sys
 
 repo_root = "/workspaces/codespaces-jupyter/daemons"
@@ -15,7 +14,6 @@ import datetime
 import random
 import json
    
-from core.utils import AVATARS
 from dotenv import load_dotenv
 load_dotenv
 
@@ -119,10 +117,7 @@ def wake():
         "wake": "minjun.wake_chassis"
     }
 
-    registry_event = event_map.get(event_name, event_name)
-
     # Check shared message queue for Min-Jun
-    import os
     queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
     try:
         with open(queue_path, 'r') as f:
@@ -201,7 +196,6 @@ def wake():
     # Update presence timestamp
     state["last_interaction"]["timestamp"] = now.isoformat()
     state["last_interaction"]["medium"] = "daemon_presence"
-
     state_manager.save_atomic(STATE_PATH, state)
     print(f"  Saved. Sleep...")
 

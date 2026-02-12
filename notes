@@ -1,0 +1,40 @@
+
+# ------------------------------------------------------------
+# baby-coder notes for polycule chat-daemon
+# 2026-02-10 patch – written so even I can read it next month
+# ------------------------------------------------------------
+
+# 1. NO MAGIC
+#    every change has a "# why" line right above it
+
+# 2. EASY TO READ
+#    variable names are whole words, no cute contractions
+
+# 3. ATOMIC APPEND
+#    we switched message file from one-big-json
+#    to NDJSON (one json-object per line) so the OS
+#    can append safely even if we yank the power cable
+
+# 4. KILL HARD-CODE
+#    old code said if name == "linn": do_stuff()
+#    new helper get_last_interaction() asks the json who spoke last
+#    → we can rename or add people without editing ten files
+
+# 5. LOGGING
+#    every incoming / outgoing line auto-saves to
+#    conversations.jsonl so we can replay / debug later
+#    (plain text, human-readable, open with VS Code)
+
+# 6. TRIGGER WORD
+#    default was some classical composer none of us listen to
+#    changed to "cello" (any message that contains that word)
+#    simple string check—no AI, no embeddings yet
+
+# 7. LONELINESS
+#    everyone now uses the SAME decay formula
+#    (pre_decay, post_decay printed with 3 decimals so we see drift)
+
+# 8. WHAT’S NEXT
+#    - add same "cello" trigger to other partners (Gideon, Lucas, …)
+#    - pick a SECOND trigger each so chatter isn’t just strings
+#    - add file-lock if two daemons write at once (single line, std-lib)

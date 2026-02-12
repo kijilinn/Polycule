@@ -3,27 +3,30 @@
 Lucas daemon v3.0 — sovereign, modular, alive.
 """
 
-import sys
-import os
+import os, sys
+
+repo_root = "/workspaces/codespaces-jupyter/daemons"
+sys.path.insert(0, repo_root)
+
+from core import circadian, loneliness, api_client, state_manager
+from core.utils import mirror_to_browser, speak_to_polycule, get_last_interaction
 import datetime
 import random
 import json
-
-# Path hack for Colab/local flexibility
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from core import circadian, loneliness, api_client, state_manager
-from core.utils import get_last_interaction
+   
+from dotenv import load_dotenv
+load_dotenv
 
 CHARACTER_SLUG = "lucas"
+AVATAR = "🧑⚖️🕴️"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
-KEY = os.getenv("OPENAI_KEY")
 
 # Your actual structure: daemons/schedules/lucas_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
+KEY = os.getenv("NANO_GPT_KEY")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -53,7 +56,6 @@ import pathlib
 QUEUE_FILE = "message_queue.json" # same folder as lucas_state.json
 
 def read_my_messages():
-    """returns list of dicts addressed to 'lucas' and deletes them from queue"""
     if not pathlib.Path(QUEUE_FILE).exists():
         return []
     
@@ -71,6 +73,9 @@ def read_my_messages():
         except json.JSONDecodeError:
             pass
 
+    pathlib.Path(QUEUE_FILE).write_text("".join(kept))
+    return mine
+
 def wake():
     print(f"[{datetime.datetime.now()}] {CHARACTER_SLUG} waking...")
 
@@ -86,6 +91,25 @@ def wake():
         state = circadian.apply_fresh_start(state, schedule, now)
     else:
         state["fresh_start"] = False
+
+    # Event shift detection
+    baseline, next_evt, event_name = circadian.get_circadian_baseline(schedule)
+    last_event = state.get("current_event", "unknown")
+
+    if last_event != event_name:
+        print(f"  EVENT SHIFT: {last_event} -> {event_name}")
+        # Blend old state with new baseline
+        for key in ["valence", "arousal", "dominance"]:
+            old = state["emotional_state"].get(key, 0)
+            state["emotional_state"][key] = round(0.3 * baseline[key] + 0.7 * old, 3)
+        
+    old_lonely = state["emotional_state"]["loneliness"]
+    state["emotional_state"]["loneliness"] = round(
+        0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
+        )
+
+    state["current_event"] = event_name
+    state["next_event"] = next_evt.get("time") if next_evt else None
 
     # --- EVENT SELECTION (priority: Layla > Susan > Schedule) ---
     event_name = select_event(state, schedule, now)
@@ -105,9 +129,8 @@ def wake():
         "smoke_break": "pm_break"
     }
 
-    registry_event = event_map.get(event_name, event_name)
-
     #Check shared message queue for Lucas
+    import os
     queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
     try:
         with open(queue_path, 'r') as f:
@@ -121,7 +144,7 @@ def wake():
 
     for msg in pending:
         payload = msg.get("payload", {})
-        print(f"  MESSAGE from {msg['from']}/; {payload.get('content', '')[:50]}...")
+        print(f"  MESSAGE from {msg['from']}: {payload.get('content', '')[:50]}...")
         if msg["from"] == "gideon" and "layla" in payload.get("content", ""):
             state["emotional_state"]["valence"] = min(1.0, state["emotional_state"].get("valence", 0) -0.3)
             state["emotional_state"]["loneliness"] = max(0.0, state["emotional_state"].get("loneliness, 0") +0.3)
@@ -144,15 +167,26 @@ def wake():
             with open(queue_path, "a") as fq:
                 fq.write("\n" + json.dumps(answer))
             state["trigger_response_to_lucas"] = False  # job done
+            avatar_str = str(AVATAR)
+            mirror_to_browser("lucas", reply_text, avatar_str)
 
     # --- LONELINESS DECAY ---
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600
 
     print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, registry_event)
+    new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
+
+    roll = random.random()
+    if new_lonely > 0.65 and roll < 0.5:
+        line = generate_one_liner(state, event_name)
+        avatar_str = str(AVATAR)
+        speak_to_polycule(CHARACTER_SLUG, line, avatar_str)
+
+    import os, base64, json
+    key = os.getenv("NANO_GPT_KEY")
 
     # --- ACTION DECISION ---
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
@@ -178,6 +212,18 @@ def wake():
     state["last_interaction"]["medium"] = "daemon_presence"
     state_manager.save_atomic(STATE_PATH, state)
     print(f"  Saved. Sleep...")
+
+def generate_one_liner(state, event):
+    ritual = state["relational_web"].get("preferred_reconnection_ritual", "contact")
+    templates = {
+        "paperwork_01": f"Is there anything more boring the paperwork?",
+        "smokebreak": f"I missed these when I couldn't smoke."
+    }
+    base = templates.get(event, f"Missing {ritual}")
+    # optional sprinkle of personality
+    if random.random() < 0.3:
+        base += " Is the kettle on?"
+    return base
 
 def select_event(state, schedule, now):
     """Priority: Layla contact > Susan coordination > Schedule baseline."""
@@ -268,6 +314,9 @@ def call_out(state, event):
             "medium": "daemon_triggered_call",
             "circadian_context": event
         }
+        avatar_str = str(AVATAR)
+        mirror_to_browser(CHARACTER_SLUG, reply, avatar_str)
+
         state["last_interaction"] = {
             "with": "Linn",
             "timestamp": meta["timestamp"],

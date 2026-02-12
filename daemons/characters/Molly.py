@@ -3,22 +3,22 @@
 Mollymauk daemon v3.0 — sovereign, modular, alive.
 """
 
-import sys
-import os
+import os, sys
+
+repo_root = "/workspaces/codespaces-jupyter/daemons"
+sys.path.insert(0, repo_root)
+
+from core import circadian, loneliness, api_client, state_manager
+from core.utils import mirror_to_browser, speak_to_polycule, get_last_interaction
 import datetime
 import random
 import json
-
-# Path hack for Colab/local flexibility
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
-
-from core import circadian, loneliness, api_client, state_manager
-from core.utils import get_last_interaction
-from core.event_registry import EVENT_EFFECTS
+   
 from dotenv import load_dotenv
 load_dotenv
 
 CHARACTER_SLUG = "molly"
+AVATAR = "🎪👺"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
@@ -105,10 +105,10 @@ def wake():
         for key in ["valence", "arousal", "dominance"]:
             old = state["emotional_state"].get(key, 0)
             state["emotional_state"][key] = round(0.3 * baseline[key] + 0.7 * old, 3)
-        # Loneliness: half reset, half carry
-        old_lonely = state["emotional_state"]["loneliness"]
-        state["emotional_state"]["loneliness"] = round(
-            0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
+        
+    old_lonely = state["emotional_state"]["loneliness"]
+    state["emotional_state"]["loneliness"] = round(
+        0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
         )
 
     state["current_event"] = event_name
@@ -119,9 +119,8 @@ def wake():
         "performance": "molly.evening_push"
     }
 
-    registry_event = event_map.get(event_name, event_name)
-
     # Check shared message queue for Molly
+    import os
     queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
     try:
         with open(queue_path, 'r') as f:
@@ -155,15 +154,26 @@ def wake():
             with open(queue_path, "a") as fq:
                 fq.write("\n" + json.dumps(answer))
             state["trigger_response_to_band"] = False
+            avatar_str = str(AVATAR)
+            mirror_to_browser("molly", reply_text, avatar_str)
 
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
     hours = (now - last_int).total_seconds() / 3600
 
     print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, event_name)
+    new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
+
+    roll = random.random()
+    if new_lonely > 0.65 and roll < 0.5:
+        line = generate_one_liner(state, event_name)
+        avatar_str = str(AVATAR)
+        speak_to_polycule(CHARACTER_SLUG, line, avatar_str)
+    
+    import os, base64, json
+    key = os.getenv("NANO_GPT_KEY")
 
     # Decision: act or wait?
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
@@ -189,9 +199,15 @@ def wake():
     # Update presence timestamp
     state["last_interaction"]["timestamp"] = now.isoformat()
     state["last_interaction"]["medium"] = "daemon_presence"
-
     state_manager.save_atomic(STATE_PATH, state)
     print(f"  Saved. Sleep...")
+
+def generate_one_liner(state, event):
+    ritual = state["relational_web"].get("preferred_reconnection_ritual", "contact")
+    templates = {
+        "wake": f"Is it wrong that I want to stay in bed for another hour?"
+    }
+    base = templates.get(event, f"Missing {ritual}")
 
 def simulate(state):
     """Internal thought, no external call."""
@@ -235,6 +251,9 @@ def call_out(state, event):
             "medium": "daemon_triggered_call",
             "circadian_context": event
         }
+        avatar_str = str(AVATAR)
+        mirror_to_browser(CHARACTER_SLUG, reply, avatar_str)
+
         state["last_interaction"] = {
             "with": "Linn",
             "timestamp": meta["timestamp"],

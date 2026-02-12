@@ -38,7 +38,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": get_last_interaction("nathan"),
+            "with": get_last_interaction("Nathan"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -124,10 +124,10 @@ def wake():
         "mum_call": "mum_call",  # if you add this to registry
     }
 
-    registry_event = event_map.get(event_name, event_name)
-
     # Check shared message queue for Adam
     queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    pending = []
+    
     try:
         with open(queue_path, 'r') as f:
             queue = __import__('json').load(f)
@@ -169,7 +169,7 @@ def wake():
     hours = (now - last_int).total_seconds() / 3600
 
     print(f"  Pre-decay loneliness: {state['emotional_state']['loneliness']}")
-    new_lonely, modifier, delta = loneliness.decay(state, hours, CHARACTER_SLUG, registry_event)
+    new_lonely, modifier, delta = loneliness.decay(state, hours, event_name)
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
     

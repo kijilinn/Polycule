@@ -2,17 +2,19 @@
 """
 Min-Jun daemon v3.0 — sovereign, modular, alive.
 """
+import pathlib, sys
+# climb until we SEE the core folder
+here = pathlib.Path(__file__).resolve()
+for parent in here.parents:
+    if (parent / "core").is_dir():   # found repo-root
+        sys.path.insert(0, str(parent))
+        break
 
-import os, sys
-
-repo_root = "/workspaces/codespaces-jupyter/daemons"
-sys.path.insert(0, repo_root)
+import os, datetime, random, json
+KEY = os.getenv("NANO_GPT_KEY")
 
 from core import circadian, loneliness, api_client, state_manager
 from core.utils import mirror_to_browser, speak_to_polycule, get_last_interaction
-import datetime
-import random
-import json
    
 from dotenv import load_dotenv
 load_dotenv
@@ -26,7 +28,6 @@ DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 # Your actual structure: daemons/schedules/minjun_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
-KEY = os.getenv("NANO_GPT_KEY")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -82,8 +83,6 @@ def wake():
 
     schedule = load_schedule()
     state = state_manager.load(STATE_PATH, lambda: bootstrap_state(schedule))
-
-    # Circadian check: new day?
     now = datetime.datetime.now()
     last_wake = datetime.datetime.fromisoformat(state.get("last_wake", now.isoformat()))
 
@@ -119,6 +118,8 @@ def wake():
 
     # Check shared message queue for Min-Jun
     queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    pending = []
+    
     try:
         with open(queue_path, 'r') as f:
             queue = __import__('json').load(f)
@@ -144,7 +145,7 @@ def wake():
                 "payload": {
                     "content": reply_text,
                     "medium": "text",
-                    "timestamp": datetime.datetime.now().isoformat()
+                    "timestamp": datetime.datetime.now().isoformat(0)
                 }
             }
             # append (new-line-delimited) so Nathan can read it
@@ -169,9 +170,6 @@ def wake():
         avatar_str = str(AVATAR)     
         speak_to_polycule(CHARACTER_SLUG, line, avatar_str)
 
-    import os, base64, json
-    key = os.getenv("NANO_GPT_KEY")
-
     # Decision: act or wait?
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
     threshold = 1.0 - budget
@@ -180,11 +178,9 @@ def wake():
     if lonely > threshold:
         roll = random.random()
         if roll < 0.7:
-            # Internal simulation
             state = simulate(state)
             print(f"  SIM: {state['last_simulation']['summary']}")
         else:
-            # API call
             success = call_out(state, event_name)
             if success:
                 state["emotional_state"]["loneliness"] = max(0.0, lonely - 0.3)

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-12T15:02:08.222411",
+  "last_updated": "2026-02-12T16:43:58.973309",
   "last_wake": "2026-02-12T15:02:08.222154",
   "emotional_state": {
     "valence": -0.1,
@@ -15,7 +15,7 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-12T15:02:08.222154",
+    "timestamp": "2026-02-12T16:43:58.973105",
     "medium": "daemon_presence"
   },
   "current_event": "unscheduled",
@@ -27,9 +27,9 @@
       "event": "sky_moment"
     }
   ],
-  "fresh_start": true,
+  "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-12T15:02:08.222389",
+    "timestamp": "2026-02-12T16:43:58.973284",
     "type": "internal_reflection",
     "summary": "Waiting, thinking about sharing the view + being witnessed"
   }

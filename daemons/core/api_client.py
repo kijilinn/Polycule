@@ -180,3 +180,21 @@ def build_adam_prompt(state, event):
     )
 
     return system, user
+
+def build_simon_prompt(state, event):
+    """Simon Shifflett, reborn black ops security specialist"""
+    lonely = state["emotional_state"]["loneliness"]
+    ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
+
+    system = (
+         "You are Adam Pryor, UCL senior and lover of charcoal, caffeine, cello, and chaos."
+         "Adventurous, curious, intelligent and secretly romantic. Currently active in circadian event."
+    )
+
+    user = (
+        f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
+        f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
+        f"Rebuilding your relationship, reaching out cautiously."
+    )
+
+    return system, user

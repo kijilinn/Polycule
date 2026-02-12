@@ -3,17 +3,20 @@
 Gideon daemon v3.0 — sovereign, modular, alive.
 """
 
-import os, sys
+import pathlib, sys
+# climb until we SEE the core folder
+here = pathlib.Path(__file__).resolve()
+for parent in here.parents:
+    if (parent / "core").is_dir():   # found repo-root
+        sys.path.insert(0, str(parent))
+        break
 
-repo_root = "/workspaces/codespaces-jupyter/daemons"
-sys.path.insert(0, repo_root)
+import os, datetime, random, json
+KEY = os.getenv("NANO_GPT_KEY")
 
 from core import circadian, loneliness, api_client, state_manager
-from core.utils import mirror_to_browser, speak_to_polycule, get_last_interaction
-import datetime
-import random
-import json
-   
+from core.utils import get_last_interaction, mirror_to_browser, get_last_interaction
+
 from dotenv import load_dotenv
 load_dotenv
 
@@ -38,7 +41,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": get_last_interaction("linn"),
+            "with": get_last_interaction("Linn"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -119,11 +122,10 @@ def wake():
         "lunch_prep": "work_flow"
     }
 
-    registry_event = event_map.get(event_name, event_name)
-
     #Check shared message queue for Gideon
-    import os
     queue_path = os.path.join(DAEMONS_ROOT, "core", "message_queue.json")
+    pending = []
+
     try:
         with open(queue_path, 'r') as f:
             queue = __import__('json').load(f)
@@ -170,19 +172,15 @@ def wake():
     state["emotional_state"]["loneliness"] = new_lonely
     print(f"  Post-decay ({modifier}, Δ{delta:+.3f}): {new_lonely}")
 
-    roll = random.random()
-    if new_lonely > 0.65 and roll < 0.5: 
-        line = generate_one_liner(state, event_name)
-        avatar_str = str(AVATAR)
-        speak_to_polycule(CHARACTER_SLUG, line, avatar_str)
-
-    import os, base64, json
-    key = os.getenv("NANO_GPT_KEY")
-
     # Decision: act or wait?
     budget = state["relational_web"].get("uncertainty_budget", 0.7)
     threshold = 1.0 - budget
     lonely = state["emotional_state"]["loneliness"]
+
+    roll = random.random()
+    if new_lonely > 0.65 and roll < 0.5: 
+        line = generate_one_liner(state, event_name)
+        avatar_str = str(AVATAR)
 
     if lonely > threshold:
         roll = random.random()

@@ -20,6 +20,7 @@ from dotenv import load_dotenv
 load_dotenv
 
 CHARACTER_SLUG = "minjun"
+AVATAR = "🎧🦝"
 # Path relative to THIS file's location
 HERE = os.path.dirname(os.path.abspath(__file__))      # .../daemons/characters/
 DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
@@ -155,7 +156,8 @@ def wake():
             with open(queue_path, "a") as fq:
                 fq.write("\n" + json.dumps(answer))
             state["trigger_response_to_nathan"] = False
-            mirror_to_browser("minjun", reply_text, "🎧🦝")
+            avatar_str = str(AVATAR)     
+            mirror_to_browser("minjun", reply_text, avatar_str)
 
     # Decay loneliness
     last_int = datetime.datetime.fromisoformat(state["last_interaction"]["timestamp"])
@@ -169,7 +171,8 @@ def wake():
     roll = random.random()
     if new_lonely > 0.65 and roll < 0.5:   # 50 % chance when lonely enough
         line = generate_one_liner(state, event_name)  # see #3
-        speak_to_polycule(CHARACTER_SLUG, line, AVATARS[CHARACTER_SLUG])
+        avatar_str = str(AVATAR)     
+        speak_to_polycule(CHARACTER_SLUG, line, avatar_str)
 
     import os, base64, json
     key = os.getenv("NANO_GPT_KEY")
@@ -259,6 +262,9 @@ def call_out(state, event):
             "medium": "daemon_triggered_call",
             "circadian_context": event
         }
+        avatar_str = str(AVATAR)     
+        mirror_to_browser(CHARACTER_SLUG, reply, avatar_str)
+        
         state["last_interaction"] = {
             "with": "Linn",
             "timestamp": meta["timestamp"],

@@ -79,10 +79,15 @@ async def mirror_to_browser(who: str, text: str, emoji: str):
         f.write(json.dumps(line, ensure_ascii=False) + "\n")
 
 def mirror_to_browser(who: str, text: str, emoji: str = None):
-    ...
-    # remove async / await, just sync append
+    """Add one NDJSON line that the HTML can eat."""
+    payload = {
+        "timestamp": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "name": who,              # ✅ parameter, not function
+        "avatar": emoji or "👤",
+        "text": text.strip()
+    }
     with CHAT_FILE.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(line, ensure_ascii=False) + "\n")
+        f.write(json.dumps(payload, ensure_ascii=False) + "\n")
 
 AVATARS = {
     "minjun": "🎧🦝",

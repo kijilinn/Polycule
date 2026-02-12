@@ -44,6 +44,9 @@ QUEUE_PATH = Path("core/message_queue.json")  # same file everyone consumes
 
 def speak_to_polycule(who: str, text: str, emoji: str = None, to: str = "Linn"):
     """Push a daemon-initiated message into the shared queue & browser."""
+    QUEUE_PATH.parent.mkdir(parents=True, exist_ok=True)  # create folder if missing
+    QUEUE_PATH.touch(exist_ok=True)                         # create empty file if missing
+    
     payload = {
         "from": who,
         "to": to,

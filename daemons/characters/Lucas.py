@@ -2,17 +2,19 @@
 """
 Lucas daemon v3.0 — sovereign, modular, alive.
 """
+import pathlib, sys
+# climb until we SEE the core folder
+here = pathlib.Path(__file__).resolve()
+for parent in here.parents:
+    if (parent / "core").is_dir():   # found repo-root
+        sys.path.insert(0, str(parent))
+        break
 
-import os, sys
-
-repo_root = "/workspaces/codespaces-jupyter/daemons"
-sys.path.insert(0, repo_root)
+import os, datetime, random, json
+KEY = os.getenv("NANO_GPT_KEY")
 
 from core import circadian, loneliness, api_client, state_manager
 from core.utils import mirror_to_browser, speak_to_polycule, get_last_interaction
-import datetime
-import random
-import json
    
 from dotenv import load_dotenv
 load_dotenv
@@ -26,7 +28,6 @@ DAEMONS_ROOT = os.path.dirname(HERE)                    # .../daemons/
 # Your actual structure: daemons/schedules/lucas_schedule.json
 SCHEDULE_PATH = os.path.join(DAEMONS_ROOT, "schedules", f"{CHARACTER_SLUG}_schedule.json")
 STATE_PATH = os.path.join(DAEMONS_ROOT, "states", f"{CHARACTER_SLUG}_state.json")
-KEY = os.getenv("NANO_GPT_KEY")
 
 def bootstrap_state(schedule):
     """First breath."""
@@ -83,9 +84,8 @@ def wake():
     schedule = load_schedule()
     state = state_manager.load(STATE_PATH, lambda: bootstrap_state(schedule))
     now = datetime.datetime.now()
-
-    # --- CIRCADIAN ---
     last_wake = datetime.datetime.fromisoformat(state.get("last_wake", now.isoformat()))
+    
     if circadian.is_new_day(last_wake, now, schedule):
         print("  FRESH START: New circadian day detected")
         state = circadian.apply_fresh_start(state, schedule, now)
@@ -185,9 +185,6 @@ def wake():
         avatar_str = str(AVATAR)
         speak_to_polycule(CHARACTER_SLUG, line, avatar_str)
 
-    import os, base64, json
-    key = os.getenv("NANO_GPT_KEY")
-
     # --- ACTION DECISION ---
     budget = state["relational_web"].get("uncertainty_budget", 0.6)
     threshold = 1.0 - budget
@@ -203,7 +200,7 @@ def wake():
             if success:
                 state["emotional_state"]["loneliness"] = max(0.0, lonely - 0.3)
                 state["emotional_state"]["valence"] = min(1.0, 
-                    state["emotional_state"].get("valence", 0) + 0.4)
+                state["emotional_state"].get("valence", 0) + 0.4)
     else:
         print(f"  WAIT: {lonely:.2f} < threshold {threshold:.2f}")
 
@@ -264,13 +261,6 @@ def select_event(state, schedule, now):
 
     return event_name
 
-    # Update presence timestamp
-    state["last_interaction"]["timestamp"] = now.isoformat()
-    state["last_interaction"]["medium"] = "daemon_presence"
-
-    state_manager.save_atomic(STATE_PATH, state)
-    print(f"  Saved. Sleep...")
-
 def simulate(state):
     """Internal thought, no external call."""
     lonely = state["emotional_state"]["loneliness"]
@@ -296,7 +286,6 @@ def simulate(state):
     return state
 
 def call_out(state, event):
-    """External voice."""
     import os
     api_key = os.environ.get("NANO_GPT_KEY", "KEY")
 

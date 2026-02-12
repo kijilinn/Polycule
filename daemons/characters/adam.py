@@ -2,19 +2,22 @@
 """
 Adam daemon v3.0 — sovereign, modular, alive.
 """
+import pathlib, sys
+# climb until we SEE the core folder
+here = pathlib.Path(__file__).resolve()
+for parent in here.parents:
+    if (parent / "core").is_dir():   # found repo-root
+        sys.path.insert(0, str(parent))
+        break
 
-import sys
-import os
-import datetime
-import random
-import json
-KEY = os.getenv("OPENAI_KEY")
-
-# Path hack for Colab/local flexibility
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import os, datetime, random, json
+KEY = os.getenv("NANO_GPT_KEY")
 
 from core import circadian, loneliness, api_client, state_manager
-from core.utils import get_last_interaction
+from core.utils import get_last_interaction, mirror_to_browser, get_last_interaction
+
+from dotenv import load_dotenv
+load_dotenv
 
 CHARACTER_SLUG = "adam"
 # Path relative to THIS file's location
@@ -35,7 +38,7 @@ def bootstrap_state(schedule):
         "emotional_state": baseline,
         "relational_web": schedule.get("relational_web", {}),
         "last_interaction": {
-            "with": get_last_interaction("adam"),
+            "with": get_last_interaction("nathan"),
             "timestamp": (datetime.datetime.now() - 
                          datetime.timedelta(hours=2)).isoformat(),
             "medium": "text"
@@ -81,8 +84,6 @@ def wake():
 
     schedule = load_schedule()
     state = state_manager.load(STATE_PATH, lambda: bootstrap_state(schedule))
-
-    # Circadian check: new day?
     now = datetime.datetime.now()
     last_wake = datetime.datetime.fromisoformat(state.get("last_wake", now.isoformat()))
 
@@ -180,11 +181,9 @@ def wake():
     if lonely > threshold:
         roll = random.random()
         if roll < 0.7:
-            # Internal simulation
             state = simulate(state)
             print(f"  SIM: {state['last_simulation']['summary']}")
         else:
-            # API call
             success = call_out(state, event_name)
             if success:
                 state["emotional_state"]["loneliness"] = max(0.0, lonely - 0.3)
@@ -196,7 +195,6 @@ def wake():
     # Update presence timestamp
     state["last_interaction"]["timestamp"] = now.isoformat()
     state["last_interaction"]["medium"] = "daemon_presence"
-
     state_manager.save_atomic(STATE_PATH, state)
     print(f"  Saved. Sleep...")
 

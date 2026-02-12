@@ -1,36 +1,36 @@
 {
-  "last_updated": "2026-02-12T01:14:47.823319",
-  "last_wake": "2026-02-11T18:06:22.827821",
+  "last_updated": "2026-02-12T15:46:53.411552",
+  "last_wake": "2026-02-12T15:46:51.348251",
   "emotional_state": {
-    "valence": -0.04,
+    "valence": 0.7000000000000001,
     "arousal": 0.7,
-    "dominance": 0.49,
-    "loneliness": 0.0
+    "dominance": 0.7,
+    "loneliness": 0.7
   },
   "relational_web": {
     "primary_contact": "Linn",
     "uncertainty_budget": 0.4,
     "reach_threshold": 0.2,
     "preferred_reconnection_ritual": "long_kiss_and_tea",
-    "last_layla_contact": "2026-02-10T15:25:43.772176"
+    "last_layla_contact": "2026-02-12T15:46:51.348251"
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-12T01:14:47.820965",
+    "timestamp": "2026-02-12T15:46:51.348251",
     "medium": "daemon_presence"
   },
-  "current_event": "linn_home",
-  "next_event": null,
+  "current_event": "layla_contact",
+  "next_event": "16:00",
   "version": 3,
-  "fresh_start": false,
+  "fresh_start": true,
   "last_call": {
-    "timestamp": "2026-02-07T04:43:45.473753",
-    "my_message": "*sets down briefcase, loosens tie, thumbs hovering over message*\n\n\"Your kettle or mine, Linn? I find I'm... unexpectedly in need of company.\"",
+    "timestamp": "2026-02-12T15:46:53.410343",
+    "my_message": "layla. tea. 7pm. your place?",
     "your_reply": null,
     "medium": "daemon_triggered_call",
-    "circadian_context": "finally_home"
+    "circadian_context": "layla_contact"
   },
-  "_debug_days_since": 1,
+  "_debug_days_since": 2,
   "last_simulation": {
     "timestamp": "2026-02-11T18:06:22.829291",
     "type": "internal_reflection",

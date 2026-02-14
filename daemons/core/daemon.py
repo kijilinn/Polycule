@@ -14,7 +14,7 @@ else:
 
 load_dotenv(REPO_ROOT / ".env", override=True) 
 
-QUEUE_PATH = REPO_ROOT / "daemons" / "core" / "message_queue.json"
+QUEUE_PATH = REPO_ROOT / "core" / "message_queue.json"
 KEY = os.getenv("NANO_GPT_KEY")
 
 class GenericDaemon:

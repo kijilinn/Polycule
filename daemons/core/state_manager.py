@@ -12,7 +12,7 @@ def load(path, default_factory):
 
 def save_atomic(path, data):
     """Write to temp, then atomic replace."""
-    temp_path = path + ".tmp"
+    temp_path = str(path) + '.tmp'
     data["last_updated"] = datetime.datetime.now().isoformat()
 
     with open(temp_path, 'w') as f:

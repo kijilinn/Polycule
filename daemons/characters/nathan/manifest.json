@@ -1,0 +1,18 @@
+{
+  "slug": "minjun",
+  "avatar": "📜🦉",
+  "state_file": "states/nathan_state.json",
+  "schedule_file": "schedules/nathan_schedule.json",
+  "env_map": {
+      "gpt_key": "NANO_GPT_KEY"
+  },
+  "prompt_file": "system.txt",
+  "event_map": {
+      "wake": "nathan.wake_chassis",
+      "lunch": "nathan.lunch_craving",
+      "evening": "nathan.evening_presence",
+      "sleep": "nathan.pre_sleep_routine"
+  },
+  "privacy": "partner",
+  "__comment": "hooks dir is optional; if missing we fall back to generic text"
+}

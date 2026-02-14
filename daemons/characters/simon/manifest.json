@@ -1,0 +1,18 @@
+{
+  "slug": "simon",
+  "avatar": "📱🔧",
+  "state_file": "states/simon_state.json",
+  "schedule_file": "schedules/simon_schedule.json",
+  "env_map": {
+      "gpt_key": "NANO_GPT_KEY"
+  },
+  "prompt_file": "system.txt",
+  "event_map": {
+      "wake": "simon.wake_chassis",
+      "lunch": "simon.lunch_craving",
+      "evening": "simon.evening_presence",
+      "sleep": "simon.pre_sleep_routine"
+  },
+  "privacy": "partner",
+  "__comment": "hooks dir is optional; if missing we fall back to generic text"
+}

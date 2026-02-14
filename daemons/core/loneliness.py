@@ -1,5 +1,5 @@
 import datetime
-from core.event_registry import EVENT_EFFECTS
+from daemons.core.event_registry import EVENT_EFFECTS
 
 def decay(state, hours_elapsed, character_id, event_context=None):
     """

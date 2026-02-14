@@ -2,18 +2,20 @@
 """
 Simon daemon v3.0 — sovereign, modular, alive.
 """
+import pathlib, sys
+# climb until we SEE the core folder
+here = pathlib.Path(__file__).resolve()
+for parent in here.parents:
+    if (parent / "core").is_dir():   # found repo-root
+        sys.path.insert(0, str(parent))
+        break
 
-import sys
-import os
-import datetime
-import random
-import json
-
-# Path hack for Colab/local flexibility
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import os, datetime, random, json
+KEY = os.getenv("NANO_GPT_KEY")
 
 from core import circadian, loneliness, api_client, state_manager
-from core.utils import get_last_interaction
+from core.utils import get_last_interaction, mirror_to_browser, get_last_interaction
+
 from dotenv import load_dotenv
 load_dotenv
 

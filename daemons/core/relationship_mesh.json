@@ -1,0 +1,86 @@
+{
+    "nodes": {
+        "linn": {
+            "type": "user",
+            "latency_tolerance": 0.1,
+            "intimacy_bandwidth": 1.0
+        },
+        "minjun": {
+            "type": "daemon",
+            "primary_anchor": "linn",
+            "reach_pattern": "frequent",
+            "cross_calls": ["gideon", "lucas", "nathan", "molly", "simon"]
+        },
+        "gideon": {
+            "type": "daemon",
+            "primary_anchor": "linn",
+            "reach_pattern": "moderate",
+            "cross_calls": ["minjun", "lucas", "nathan", "simon", "molly", "jack", "shoshana"]
+        },
+        "lucas": {
+            "type": "daemon",
+            "primary_anchor": "linn",
+            "reach_pattern": "restrained",
+            "cross_calls": ["minjun", "gideon", "susan", "simon", "rachel", "jack", "bruno"]
+        },
+        "nathan": {
+            "type": "daemon",
+            "primary_anchor": "linn",
+            "reach_pattern": "sparse",
+            "cross_calls": ["minjun", "adam", "gideon"]
+        },
+        "molly": {
+            "type": "daemon",
+            "primary_anchor": "linn",
+            "reach_pattern": "chaotic",
+            "cross_calls": ["minjun", "gideon", "lucas", "nathan", "simon"]  
+        },
+        "simon": {
+            "type": "daemon",
+            "primary_anchor": "linn",
+            "reach_pattern": "minimal",
+            "cross_calls": ["beebs", "lucas", "susan"]
+        },
+        "adam": {
+            "type": "daemon",
+            "primary_anchor": "nathan",
+            "reach_pattern": "curious",
+            "cross_calls": ["nathan"]
+        },
+        "susan": {
+            "type": "daemon",
+            "primary_anchor": "layla",
+            "reach_pattern": "accountability",
+            "cross_calls": ["lucas", "gideon", "simon"]
+        },
+        "baz": {"type": "daemon", "primary_anchor": "si", "reach_pattern": "sparse"},
+        "si": {"type": "daemon", "primary_anchor": "jace", "reach_pattern": "exposure"},
+        "owen": {"type": "daemon", "primary_anchor": "jace", "reach_pattern": "aggressive"},
+        "jace": {"type": "daemon", "primary_anchor": "si", "reach_pattern": "moderate"},
+        
+        "jack": {"type": "daemon", "primary_anchor": "bruno", "reach_pattern": "frequent", "cross_calls": ["bruno", "shoshana", "gideon", "lucas"]},
+        "bruno": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "restrained", "cross_calls": ["jack", "lucas", "gideon", "nathan"]},
+        "ari": {"type": "daemon", "primary_anchor": "shoshana", "reach_pattern": "sparse", "cross_calls": ["jack", "shoshana"]},
+        "shoshana": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "frequent", "cross_calls": ["jack", "ari", "gideon", "lucas", "rachel"]},
+        "rachel": {"type": "daemon", "primary_anchor": "lucas", "reach_pattern": "regular", "cross_calls": ["shoshana", "gideon", "jenner"]},
+        "jenner": {"type": "daemon", "primary_anchor": "rachel", "reach_pattern": "sparse", "cross_calls": ["lucas", "rachel"]}
+        },
+
+    "edges": [
+        {"source": "linn", "target": "minjun", "weight": 1.0, "type": "release"},
+        {"source": "linn", "target": "gideon", "weight": 0.9, "type": "home"},
+        {"source": "linn", "target": "lucas", "weight": 0.85, "type": "relief"},
+        {"source": "minjun", "target": "gideon", "weight": 0.4, "type": "family"},
+        {"source": "minjun", "target": "lucas", "weight": 0.4, "type": "family"},
+        {"source": "gideon", "target": "lucas", "weight": 0.9, "type": "soulmate"},
+        {"source": "nathan", "target": "adam", "weight": 0.7, "type": "rebuilding"},
+        {"source": "adam", "target": "nathan", "weight": 0.5, "type": "curiosity"},
+        {"source": "gideon", "target": "jack", "weight": 0.6, "type": "family"},
+        {"source": "gideon", "target": "lucas", "weight": 0.9, "type": "soulmate"},
+        {"source": "jack", "target": "bruno", "weight": 0.9, "type": "anchor"},
+        {"source": "ari", "target": "shoshana", "weight": 0.8, "type": "guilt"},
+        {"source": "shoshana", "target": "ari", "weight": 0.75, "type": "integrity"},
+        {"source": "ari", "target": "gideon", "weight": 0.9, "type": "guilt"},
+        {"source": "gideon", "target": "ari", "weight": 0.3, "type": "bruised"}
+    ]
+}

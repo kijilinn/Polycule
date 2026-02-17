@@ -232,7 +232,7 @@ class GenericDaemon:
                 line = f"{self.avatar} Chassis warm--need {ritual} before I start chewing cables"
             speak_to_polycule(self.slug, line, self.avatar)
 
-                # THE WILD CARD CHECK (Stochastic Reach-Out)
+        # THE WILD CARD CHECK (Stochastic Reach-Out)
         # Only trigger if lonely, and 10% chance
         if new_lonely > 0.4 and random.random() < 0.1: 
             target = self.get_weighted_target(state)

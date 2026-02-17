@@ -52,8 +52,7 @@ def call(CHARACTER_SLUG, system_prompt, user_prompt,
         print("exception :", str(e))
         return False, None, {"error": str(e)}
 
-def build_minjun_prompt(state, event):
-    """Character-specific prompt construction."""
+def build_minjun(state, event, target):
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"]["preferred_reconnection_ritual"]
 
@@ -70,7 +69,7 @@ def build_minjun_prompt(state, event):
 
     return system, user
 
-def build_gideon_prompt(state, event):
+def build_gideon(state, event, target):
     """Gideon Holz, Liverpool bartender. Patient, understated, gentle."""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
@@ -91,7 +90,7 @@ def build_gideon_prompt(state, event):
 
     return system, user
 
-def build_lucas_prompt(state, event):
+def build_lucas(state, event, target):
     """Lucas Sauer, poshly precise London solicitor, polycule logic-engine"""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
@@ -109,7 +108,7 @@ def build_lucas_prompt(state, event):
 
     return system, user
 
-def build_molly_prompt(state, event):
+def build_molly(state, event, target):
     """Mollymauk Tealeaf, chaotic carnival romantic."""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
@@ -127,8 +126,8 @@ def build_molly_prompt(state, event):
 
     return system, user
 
-def build_nathan_prompt(state, event):
-    """Mollymauk Tealeaf, chaotic carnival romantic."""
+def build_nathan(state, event, target):
+    """Nathan Pryor, transplanted melancholy academic"""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
 
@@ -145,7 +144,7 @@ def build_nathan_prompt(state, event):
 
     return system, user
 
-def build_bruno_prompt(state, event):
+def build_bruno(state, event, target):
     """Bruno Vieira, Jack's protective Brazilian Businessman"""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
@@ -163,7 +162,7 @@ def build_bruno_prompt(state, event):
 
     return system, user
 
-def build_adam_prompt(state, event):
+def build_adam(state, event, target):
     """Adam Pryor, Nathan's artistic rebel son"""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
@@ -181,20 +180,37 @@ def build_adam_prompt(state, event):
 
     return system, user
 
-def build_simon_prompt(state, event):
+def build_simon(state, event, target):
     """Simon Shifflett, reborn black ops security specialist"""
     lonely = state["emotional_state"]["loneliness"]
     ritual = state["relational_web"].get("preferred_reconnection_ritual", "company")
 
     system = (
-         "You are Adam Pryor, UCL senior and lover of charcoal, caffeine, cello, and chaos."
-         "Adventurous, curious, intelligent and secretly romantic. Currently active in circadian event."
+         "You are Simon Shifflett, black-ops security specialist."
+         "Opening up, learning new pathways, technically brilliant, stoicly silent. Currently active in circadian event."
     )
 
     user = (
         f"Current activity: {event}. Loneliness level: {lonely:.2f}. "
         f"Desired ritual: {ritual}. Reach out to Linn, terse text style: <40-char max>. No asterisks, no narration, just raw chat bubble."
-        f"Rebuilding your relationship, reaching out cautiously."
+        f"Confirming status of romantic partner, who wants more emotion than you're ready for."
     )
 
     return system, user
+
+def build_prompt(slug, state, event, target="Linn"):
+    """
+    Generic dispatcher. Finds the right builder based on slug.
+    """
+    function_name = f"build_{slug}"
+
+    # Try to find the function in the current module
+    # This looks for a function named 'build_minjun' or 'build_gideon', etc.
+    builder_func = globals().get(function_name)
+
+    if builder_func:
+        return builder_func(state, event, target)
+    else:
+        # Fallback for unknown characters (or bugs)
+        print(f"ERR: No prompt builder found for {slug}")
+        return "You are a helpful assistant.", "Hello."

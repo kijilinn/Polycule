@@ -91,6 +91,40 @@ class GenericDaemon:
         spec.loader.exec_module(mod)
         return mod
 
+        def call_out(self, state, event):
+        """External voice - Agnostic Version."""
+
+        import os
+        key = os.getenv("NANO_GPT_KEY")
+        if not key:
+            key = self.api_key # Fallback
+            
+        system, user = api_client.build_prompt(self.slug, state, event)
+
+        success, reply, meta = api_client.call(
+            self.slug, system, user, key
+        )
+
+        if success:
+            print(f"  API: {reply}")
+            state["last_call"] = {
+                "timestamp": meta["timestamp"],
+                "my_message": reply,
+                "your_reply": None,
+                "medium": "daemon_triggered_call",
+                "circadian_context": event
+            }
+            mirror_to_browser(self.slug, reply, self.avatar)
+            state["last_interaction"] = {
+                "with": "Linn", # TODO: Make this dynamic?
+                "timestamp": meta["timestamp"],
+                "medium": "daemon_triggered_call"
+            }
+            return True
+        else:
+            print(f"  API FAIL: {meta.get('error', 'unknown')}")
+            return False
+
     def wake(self):
         print(f"[{datetime.datetime.now()}] {self.slug} waking...")
 

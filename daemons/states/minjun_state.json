@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-17T19:41:33.729485",
+  "last_updated": "2026-02-17T21:34:24.601455",
   "last_wake": "2026-02-17T19:41:33.726665",
   "emotional_state": {
     "valence": 0.0,
     "arousal": 0.5,
     "dominance": 0.5,
-    "loneliness": 0.0
+    "loneliness": 0.912
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -15,13 +15,13 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-17T19:41:33.726665",
+    "timestamp": "2026-02-17T21:34:24.598949",
     "medium": "daemon_presence"
   },
   "current_event": "polycule_presence_window",
   "next_event": "23:00",
   "version": 3,
-  "fresh_start": true,
+  "fresh_start": false,
   "last_simulation": {
     "timestamp": "2026-02-12T16:38:15.979144",
     "type": "internal_reflection",

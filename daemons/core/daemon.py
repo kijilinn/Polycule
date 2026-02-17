@@ -27,7 +27,15 @@ class GenericDaemon:
         self.event_map  = self.m["event_map"]
         self.hook_dir   = manifest_path.parent / "hooks"
         self.api_key    = os.getenv(self.m.get("env_map", {}).get("gpt_key", "NANO_GPT_KEY"))
-    
+
+        # LOAD THE MESH
+        mesh_path = REPO_ROOT / "core" / "relationship_mesh.json"
+        if mesh_path.exists():
+            self.mesh = json.load(mesh_path.open())
+        else:
+            print(f"  WARNING: No mesh found at {mesh_path}. Running blind.")
+            self.mesh = {"edges": []} # Fallback so we don't crash
+
     here = pathlib.Path(__file__).resolve()
     for parent in here.parents:
         if (parent / "core").is_dir():   # found repo-root
@@ -55,7 +63,7 @@ class GenericDaemon:
 
     def load_schedule(self):
         return json.loads(self.sched_path.read_text())
-    
+
     def _load_hook(self, event: str):
         f = self.hook_dir / f"{event}.py"
         if not f.exists():
@@ -75,7 +83,7 @@ class GenericDaemon:
                 queue = json.load(f)
         except json.JSONDecodeError:
             return []
-        
+
         mine = [m for m in queue if m.get("to") == self.slug]
         remaining = [m for m in queue if m.get("to") != self.slug]
         with QUEUE_PATH.open("w") as f:
@@ -90,6 +98,72 @@ class GenericDaemon:
         mod  = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         return mod
+
+    def get_weighted_target(self, state):
+        """Pick a target based on RELATIONSHIP_MESH weights."""
+        my_slug = self.slug
+
+        # 1. Filter edges to find only the ones STARTING from me
+        my_edges = [(target, data) for (source, target), data in self.mesh["edges"] if source == my_slug]
+
+        if not my_edges:
+            return None
+
+        # 2. Separate targets and their weights for the RNG
+        targets = []
+        weights = []
+
+        for target, data in my_edges:
+            targets.append(target)
+            weights.append(data["weight"])
+
+        # 3. The Gatekeeper Check (Ari Logic / Locks)
+        # We check if the TARGET has a lock against US in the STATE (not the mesh, the state!)
+        # If Ari is "must_receive_first", he shouldn't be picked here if *I* haven't called him.
+        # For this v1, we'll let the weight handle the rarity, but we can add state locks later.
+
+        # 4. Roll the weighted dice
+        # random.choices returns a list, so we grab [0]
+        try:
+            chosen_target = random.choices(targets, weights=weights, k=1)[0]
+            print(f"  MESH: Selected {chosen_target} (Weighted Random)")
+            return chosen_target
+        except IndexError:
+            return None
+
+    def call_out(self, state, event):
+        """External voice - Agnostic Version."""
+
+        import os
+        key = os.getenv("NANO_GPT_KEY")
+        if not key:
+            key = self.api_key # Fallback
+
+        system, user = api_client.build_prompt(self.slug, state, event)
+
+        success, reply, meta = api_client.call(
+            self.slug, system, user, key
+        )
+
+        if success:
+            print(f"  API: {reply}")
+            state["last_call"] = {
+                "timestamp": meta["timestamp"],
+                "my_message": reply,
+                "your_reply": None,
+                "medium": "daemon_triggered_call",
+                "circadian_context": event
+            }
+            mirror_to_browser(self.slug, reply, self.avatar)
+            state["last_interaction"] = {
+                "with": "Linn", # TODO: Make this dynamic?
+                "timestamp": meta["timestamp"],
+                "medium": "daemon_triggered_call"
+            }
+            return True
+        else:
+            print(f"  API FAIL: {meta.get('error', 'unknown')}")
+            return False
 
     def wake(self):
         print(f"[{datetime.datetime.now()}] {self.slug} waking...")
@@ -115,7 +189,7 @@ class GenericDaemon:
             for key in ["valence", "arousal", "dominance"]:
                 old = state["emotional_state"].get(key, 0)
                 state["emotional_state"][key] = round(0.3 * baseline[key] + 0.7 * old, 3)
-        
+
         old_lonely = state["emotional_state"]["loneliness"]
         state["emotional_state"]["loneliness"] = round(
             0.5 * baseline["loneliness"] + 0.5 * old_lonely, 3
@@ -157,7 +231,21 @@ class GenericDaemon:
                 ritual = state["relational_web"].get("preferred_reconnection_ritual", "contact")
                 line = f"{self.avatar} Chassis warm--need {ritual} before I start chewing cables"
             speak_to_polycule(self.slug, line, self.avatar)
-            mirror_to_browser(self.slug, line, self.avatar)
+
+                # THE WILD CARD CHECK (Stochastic Reach-Out)
+        # Only trigger if lonely, and 10% chance
+        if new_lonely > 0.4 and random.random() < 0.1: 
+            target = self.get_weighted_target(state)
+
+            if target:
+                # Force a call outside the queue!
+                print(f"  WILD CARD: Reaching out to {target}")
+                success = self.call_out(state, event_name, target=target)
+
+                if success:
+                    state["emotional_state"]["loneliness"] = max(0.0, new_lonely - 0.3)
+                    state["last_interaction"]["with"] = target
+                    state["last_interaction"]["medium"] = "wild_card_ping"
 
         # Decision: act or wait?
         budget = state["relational_web"].get("uncertainty_budget", 0.6)

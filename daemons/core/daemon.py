@@ -157,6 +157,7 @@ class GenericDaemon:
                 ritual = state["relational_web"].get("preferred_reconnection_ritual", "contact")
                 line = f"{self.avatar} Chassis warm--need {ritual} before I start chewing cables"
             speak_to_polycule(self.slug, line, self.avatar)
+            mirror_to_browser(self.slug, line, self.avatar)
 
         # Decision: act or wait?
         budget = state["relational_web"].get("uncertainty_budget", 0.6)

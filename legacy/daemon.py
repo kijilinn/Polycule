@@ -1,6 +1,6 @@
 import pathlib, json, importlib, os, datetime, sys, random
-from . import circadian, loneliness, api_client, state_manager
-from .utils import mirror_to_browser, speak_to_polycule, get_last_interaction
+from ..core import circadian, loneliness, api_client, state_manager
+from ..core.utils import mirror_to_browser, speak_to_polycule, get_last_interaction
 from dotenv import load_dotenv
 load_dotenv()
 

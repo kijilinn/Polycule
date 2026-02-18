@@ -15,22 +15,23 @@ else:
 
 load_dotenv(REPO_ROOT / ".env", override=True) 
 
-QUEUE_PATH = REPO_ROOT / "core" / "message_queue.json"
+QUEUE_PATH = REPO_ROOT / "config" / "message_queue.json"
 KEY = os.getenv("NANO_GPT_KEY")
 
 class GenericDaemon:
     def __init__(self, manifest_path: pathlib.Path):
-        self.m  = json.load(manifest_path.open())
-        self.slug       = self.m["slug"]
-        self.avatar     = self.m["avatar"]
-        self.state_path = REPO_ROOT / self.m["state_file"]
-        self.sched_path = REPO_ROOT / self.m["schedule_file"]
-        self.event_map  = self.m["event_map"]
+        self.m          = json.load(manifest_path.open())
+        self.char_dir   = manifest_path.parent
+        self.slug       = self.m["identity"]["slug"]
+        self.avatar     = self.m["identity"]["avatar"]
+        self.state_path = self.char_dir / self.m["system_config"]["state_file"]
+        self.sched_path = self.char_dir / self.m["system_config"]["schedule_file"]
+        self.event_map  = self.m.get("event_map", {"default": "idle"})
         self.hook_dir   = manifest_path.parent / "hooks"
         self.api_key    = os.getenv(self.m.get("env_map", {}).get("gpt_key", "NANO_GPT_KEY"))
 
         # LOAD THE MESH
-        mesh_path = REPO_ROOT / "core" / "relationship_mesh.json"
+        mesh_path = REPO_ROOT / "config" / "relationship_mesh.json"
         if mesh_path.exists():
             self.mesh = json.load(mesh_path.open())
         else:

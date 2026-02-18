@@ -4,11 +4,12 @@ from pathlib import Path
 
 # Add the project root to the path so we can import core modules
 import sys
-_ROOT = Path(__file__).resolve()
+_ROOT = Path(__file__).resolve().parent
 if str(_ROOT) not in sys.path:
     sys.path.append(str(_ROOT))
 
 from core.daemon import GenericDaemon
+from core import state_manager
 
 def main():
     # 1. Set up the command line argument

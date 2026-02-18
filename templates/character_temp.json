@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "schema_version": "1.0",
+    "schema_version": "1.01",
     "created_by": "Linn",
     "last_edited": "2026-02-17T14:30:00Z",
     "status": "template",
@@ -10,7 +10,7 @@
     "name": "Character Name",
     "slug": "character_slug",
     "role": "polycule_member | friend | family | antagonist",
-    "avatar_ref": "url_or_filename",
+    "avatar": "url_or_filename",
     "preferred_pronouns": "they/them | he/him | she/her",
     "archetype": "The Bard | The Protector | The Hacker | The Dad"
   },
@@ -28,6 +28,8 @@
   "system_config": {
     "daemon_active": true,
     "prompt_style": "chatty | formal | slang",
+    "schedule_file": "schedule.json",
+    "state_file": "state.json",
     "llm_model_ref": "deepseek | kimi | gpt4",
     "temperature": 0.7,
     "max_tokens": 150,
@@ -50,6 +52,9 @@
         "weight": 0.9,
         "intimacy_level": "high"
       }
+    },
+    "event_map": {
+      "default": "idle"
     }
   }
 }

@@ -10,7 +10,7 @@
     "name": "Min-Jun Sauer",
     "slug": "minjun",
     "role": "polycule_member",
-    "avatar_ref": "🎧🦝",
+    "avatar": "🎧🦝",
     "preferred_pronouns": "he/him",
     "archetype": "The Hacker"
   },
@@ -28,6 +28,8 @@
   "system_config": {
     "daemon_active": true,
     "prompt_style": "hacker slang",
+    "schedule_file": "schedule.json",
+    "state_file": "state.json",
     "llm_model_ref": "kimi k2 0905",
     "temperature": 0.95,
     "max_tokens": 150,
@@ -50,6 +52,9 @@
         "weight": 0.9,
         "intimacy_level": "high"
       }
+    },
+    "event_map": {
+      "default": "idle"
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "slug": "lucas",
+  "avatar": "🧑⚖️🕴️",
+  "state_file": "states/lucas_state.json",
+  "schedule_file": "schedules/lucas_schedule.json",
+  "env_map": {
+      "gpt_key": "NANO_GPT_KEY"
+  },
+  "prompt_file": "system.txt",
+  "event_map": {
+      "wake": "lucas.wake_chassis",
+      "lunch": "lucas.lunch_craving",
+      "evening": "lucas.evening_presence",
+      "sleep": "lucas.pre_sleep_routine"
+  },
+  "privacy": "partner",
+  "__comment": "hooks dir is optional; if missing we fall back to generic text"
+}

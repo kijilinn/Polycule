@@ -1,0 +1,18 @@
+{
+  "slug": "molly",
+  "avatar": "🎪👺",
+  "state_file": "states/molly_state.json",
+  "schedule_file": "schedules/molly_schedule.json",
+  "env_map": {
+      "gpt_key": "NANO_GPT_KEY"
+  },
+  "prompt_file": "system.txt",
+  "event_map": {
+      "wake": "molly.wake_chassis",
+      "lunch": "molly.lunch_craving",
+      "evening": "molly.evening_presence",
+      "sleep": "molly.pre_sleep_routine"
+  },
+  "privacy": "partner",
+  "__comment": "hooks dir is optional; if missing we fall back to generic text"
+}

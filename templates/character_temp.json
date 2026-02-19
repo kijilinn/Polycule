@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "schema_version": "1.01",
+    "created_by": "Linn",
+    "last_edited": "2026-02-17T14:30:00Z",
+    "status": "template",
+    "notes": "Base template for new Polycule entries. Copy to /characters/{slug}/ and fill."
+  },
+  "identity": {
+    "name": "Character Name",
+    "slug": "character_slug",
+    "role": "polycule_member | friend | family | antagonist",
+    "avatar": "url_or_filename",
+    "preferred_pronouns": "they/them | he/him | she/her",
+    "archetype": "The Bard | The Protector | The Hacker | The Dad"
+  },
+  "world_config": {
+    "home_region": "uk_north_west",
+    "current_location": {
+      "region_ref": "uk_north_west",
+      "specific_venue": "The Leaky Pipe",
+      "status": "home",
+      "geo_access": "public"
+    },
+    "timezone": "Europe/London",
+    "travel_companions": []
+  },
+  "system_config": {
+    "daemon_active": true,
+    "prompt_style": "chatty | formal | slang",
+    "schedule_file": "schedule.json",
+    "state_file": "state.json",
+    "llm_model_ref": "deepseek | kimi | gpt4",
+    "temperature": 0.7,
+    "max_tokens": 150,
+    "memory_type": "none | json_summary"
+  },
+  "personality_profile": {
+    "pad_traits": {
+      "valence_base": 0.5,
+      "arousal_base": 0.5,
+      "dominance_base": 0.5
+    },
+    "loneliness_decay": {
+      "rate": 0.05,
+      "satiation_point": 1.0,
+      "critical_threshold": 0.8
+    },
+    "relationship_weights": {
+      "linn": {
+        "bond_type": "soulmate | anchor | mentor",
+        "weight": 0.9,
+        "intimacy_level": "high"
+      }
+    },
+    "event_map": {
+      "default": "idle"
+    }
+  }
+}

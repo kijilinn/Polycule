@@ -1,0 +1,17 @@
+{
+  "world_timestamp": "2026-02-17T20:00:00Z",
+  "active_locations": {
+    "liverpool_city_center": {
+      "region": "uk_north_west",
+      "current_weather": "heavy_rain",
+      "temperature": "8C",
+      "ambient_noise": "traffic_wind"
+    },
+    "swindon_office": {
+      "region": "uk_south_west",
+      "current_weather": "fog",
+      "temperature": "5C",
+      "ambient_noise": "hvac_hum"
+    }
+  }
+}

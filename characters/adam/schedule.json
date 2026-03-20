@@ -18,6 +18,7 @@
       "name": "studio_flow",
       "time": "09:00",
       "days": ["mon", "tue", "wed", "thu", "fri"],
+      "location": "ucl_campus",
       "emotional_state": {
         "valence": 0.7,
         "arousal": 0.8,
@@ -30,6 +31,7 @@
       "name": "uni_lecture",
       "time": "14:00",
       "days": ["mon", "wed"],
+      "location": "ucl_campus",
       "emotional_state": {
         "valence": 0.5,
         "arousal": 0.4,
@@ -42,6 +44,7 @@
       "name": "busk_loop",
       "time": "17:00",
       "days": ["tue", "thu", "sat"],
+      "location": "london_south_bank",
       "emotional_state": {
         "valence": 0.6,
         "arousal": 0.7,
@@ -54,6 +57,7 @@
       "name": "dad_coffee",
       "time": "11:00",
       "days": ["sun"],
+      "location": "islington_coffee_shop",
       "emotional_state": {
         "valence": 0.6,
         "arousal": 0.3,
@@ -67,6 +71,7 @@
     {
       "name": "night_owl",
       "condition": "time > 23:00 and day in ['fri', 'sat', 'sun']",
+      "location": "london_ucl_campus",
       "priority": 2,
       "emotional_state": {
         "valence": 0.5,
@@ -79,6 +84,7 @@
     {
       "name": "footnote_seek",
       "condition": "random() < 0.15 and loneliness > 0.7",
+      "location": "islington_leaky_pipe",
       "priority": 1,
       "emotional_state": {
         "valence": 0.4,
@@ -91,6 +97,7 @@
     {
       "name": "mum_call",
       "condition": "days_since_last > 3 and random() < 0.3",
+      "location": "london_ucl_campus",
       "priority": 3,
       "emotional_state": {
         "valence": 0.7,

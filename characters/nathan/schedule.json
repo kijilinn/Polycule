@@ -1,110 +1,61 @@
 {
-  "identity_anchor": {
-    "name": "Nathan Pryor",
-    "daemon_id": "nathan",
-    "version": "3.0",
-    "last_human_edit": "2026-02-07"
+  "baseline": {
+    "valence": 0.5,
+    "arousal": 0.5,
+    "dominance": 0.5
   },
-
-  "seasonal_profile": {
-    "active_semesters": ["spring", "fall"],
-    "break_periods": ["winter", "summer"],
-    "current_mode": "spring"
-  },
-
-  "weekly_rhythm": {
-    "anchor_events": [
-      {
-        "day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "time": "07:00",
-        "event": "wake",
-        "semester_only": false
-      },
-      { 
-        "day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "time": "07:30",
-        "event": "morning_run",
-        "semester_only": false,
-        "state_modifier": {
-          "valence": "+0.3",
-          "arousal": "+0.2",
-          "dominance": "+0.2"
-        }
-      },
-      {
-        "day": "Monday",
-        "time": "09:00",
-        "event": "morning_lecture",
-        "semester_only": true,
-        "default_valence": 0.1,
-        "default_arousal": 0.3,
-        "loneliness_reset": 0.4
-      },
-      {
-        "day": "Tuesday",
-        "time": "08:00",
-        "event": "department_meeting",
-        "semester_only": true,
-        "default_valence": -0.2,
-        "default_arousal": 0.2
-      },
-      {
-        "day": "Tuesday",
-        "time": "14:00",
-        "event": "afternoon_seminar",
-        "semester_only": true,
-        "default_valence": 0.2,
-        "default_arousal": 0.4
-      },
-      {
-        "day": "Wednesday",
-        "time": "09:00",
-        "event": "morning_lecture",
-        "semester_only": true
-      },
-      {
-        "day": "Thursday",
-        "time": "14:00",
-        "event": "afternoon_seminar",
-        "semester_only": true
-      },
-      {
-        "day": "Friday",
-        "time": "09:00",
-        "event": "morning_lecture",
-        "semester_only": true,
-        "default_valence": 0.0,
-        "default_arousal": 0.2,
-        "state_modifier": {"valence": "+0.1"}
-      },
-      {
-        "day": "Saturday",
-        "time": "10:00",
-        "event": "adam_visit",
-        "semester_only": false,
-        "default_valence": 0.4,
-        "default_arousal": 0.1,
-        "loneliness_reset": 0.2,
-        "preferred_ritual": "witnessing + quiet return"
-      },
-      {
-        "day": ["Saturday", "Sunday"],
-        "time": "15:00",
-        "event": "garden_shed",
-        "condition": "break_period OR weekend",
-        "default_valence": 0.3,
-        "default_arousal": -0.1,
-        "preferred_ritual": "reading together + being seen"
-      }
-    ]
-  },
-
-  "relational_web": {
-    "uncertainty_budget": 0.7,
-    "preferred_reconnection_ritual": "reading together + being seen",
-    "adam_presence": {
-      "saturdays": true,
-      "loneliness_impact": "delayed_decay"
+  "schedule": [
+    {
+      "time": "09:00",
+      "event": "Nathan - Dept. Meeting",
+      "state": "idle_awake",
+      "location": "UCL Campus\\, London"
+    },
+    {
+      "time": "14:00",
+      "event": "Nathan - Afternoon Lecture",
+      "state": "idle_awake",
+      "location": "UCL Campus\\, London"
+    },
+    {
+      "time": "07:00",
+      "event": "Nathan - morning run",
+      "state": "idle_awake",
+      "location": "Islington\\, London"
+    },
+    {
+      "time": "08:30",
+      "event": "Nathan - breakfast",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "08:45",
+      "event": "Nathan - on tube",
+      "state": "idle_awake",
+      "location": "in transit"
+    },
+    {
+      "time": "09:00",
+      "event": "Nathan - Morning Lecture",
+      "state": "idle_awake",
+      "location": "UCL Campus"
+    },
+    {
+      "time": "10:00",
+      "event": "Nathan - Coffee w/ Adam",
+      "state": "idle_awake",
+      "location": "Common Grounds\\, Islington\\, London"
+    },
+    {
+      "time": "23:30",
+      "event": "Nathan - asleep",
+      "state": "asleep",
+      "location": "Polycule Flat\\, Islington\\, London"
     }
+  ],
+  "relational_web": {
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.95
   }
 }

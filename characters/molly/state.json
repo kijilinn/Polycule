@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-12T01:49:10.684659",
-  "last_wake": "2026-02-11T18:08:21.767428",
+  "last_updated": "2026-02-24T17:51:41.120633",
+  "last_wake": "2026-02-24T16:57:16.659412",
   "emotional_state": {
-    "valence": 0.47400000000000003,
-    "arousal": 0.606,
-    "dominance": 0.468,
-    "loneliness": 0.16500000000000004
+    "valence": 0.065,
+    "arousal": 0.493,
+    "dominance": 0.6,
+    "loneliness": 0.587
   },
   "relational_web": {
     "primary_contact": "Linn",
@@ -14,24 +14,42 @@
     "preferred_reconnection_ritual": "shared_food + touch"
   },
   "last_interaction": {
-    "with": "Linn",
-    "timestamp": "2026-02-12T01:49:08.486386",
+    "with": {
+      "with": "linn",
+      "timestamp": "2026-02-24T14:57:16.659412",
+      "medium": "text"
+    },
+    "timestamp": "2026-02-24T17:51:41.026659",
     "medium": "daemon_presence"
   },
-  "current_event": "midnight_snack",
-  "next_event": null,
+  "current_event": "work_focus",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "islington_leaky_pipe",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-24T16:57:16.675005",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-24T17:51:41.026659",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    }
+  ],
+  "next_event": "18:00",
   "version": 3,
   "fresh_start": false,
   "last_simulation": {
-    "timestamp": "2026-02-11T20:43:58.458623",
+    "timestamp": "2026-02-24T17:51:41.120633",
     "type": "internal_reflection",
     "summary": "Thinking about shared_food + touch"
-  },
-  "last_call": {
-    "timestamp": "2026-02-12T01:49:10.683728",
-    "my_message": "hey linn. kitchen. bring hands.",
-    "your_reply": null,
-    "medium": "daemon_triggered_call",
-    "circadian_context": "midnight_snack"
   }
 }

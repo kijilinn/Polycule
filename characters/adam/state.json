@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-02-12T16:38:11.407617",
-  "last_wake": "2026-02-12T15:01:58.028806",
+  "last_updated": "2026-02-27T13:23:11.179898",
+  "last_wake": "2026-02-27T13:23:11.086130",
   "emotional_state": {
-    "valence": 0.11,
-    "arousal": 0.438,
+    "valence": -0.1,
+    "arousal": 0.7,
     "dominance": 0.5,
-    "loneliness": 0.476
+    "loneliness": 1.0
   },
   "relational_web": {
     "uncertainty_budget": 0.8,
@@ -16,22 +16,30 @@
     }
   },
   "last_interaction": {
-    "with": "Nathan",
-    "timestamp": "2026-02-12T16:38:11.407406",
+    "with": "Linn",
+    "timestamp": "2026-02-27T13:23:11.086130",
     "medium": "daemon_presence"
   },
   "current_event": "unscheduled",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "Unknown",
+    "status": "home",
+    "geo_access": "public"
+  },
   "next_event": null,
   "version": 3,
-  "fresh_start": false,
+  "fresh_start": true,
   "last_simulation": {
-    "timestamp": "2026-02-12T16:38:11.407592",
+    "timestamp": "2026-02-27T13:23:11.179898",
     "type": "internal_reflection",
     "summary": "Thinking about listening to music + learning something new"
   },
+  "event_location": "Unknown",
+  "location_previous": "Unknown",
   "last_call": {
-    "timestamp": "2026-02-12T15:38:40.126131",
-    "my_message": "Linn. Heard a cello piece that made me think of you. Coffee sometime? \u2014A",
+    "timestamp": "2026-02-24T10:55:45.111354",
+    "my_message": "hey, what's up? just got a weird vibe that something's off. you free to chat?",
     "your_reply": null,
     "medium": "daemon_triggered_call",
     "circadian_context": "unscheduled"

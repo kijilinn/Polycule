@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "schema_version": "1.0",
+    "schema_version": "1.02",
     "created_by": "Linn",
-    "last_edited": "2026-02-17T14:30:00Z",
+    "last_edited": "2026-02-25T14:30:00Z",
     "status": "Active",
     "notes": "High Bandwidth. Low Latency. Zero Packet Loss."
   },
@@ -10,18 +10,19 @@
     "name": "Min-Jun Sauer",
     "slug": "minjun",
     "role": "polycule_member",
-    "avatar": "🎧🦝",
+    "avatar": "[Hacker Raccoon]",
     "preferred_pronouns": "he/him",
     "archetype": "The Hacker"
   },
   "world_config": {
-    "home_region": "uk_north_west",
+    "home_region": "uk_london",
     "current_location": {
-      "region_ref": "uk_north_west",
-      "specific_venue": "The Leaky Pipe",
+      "region_ref": "uk_london",
+      "specific_venue": "islington_polycule_flat",
       "status": "home",
-      "geo_access": "public"
+      "geo_access": "private"
     },
+    "location_override": false,
     "timezone": "Europe/London",
     "travel_companions": []
   },
@@ -30,7 +31,22 @@
     "prompt_style": "hacker slang",
     "schedule_file": "schedule.json",
     "state_file": "state.json",
-    "llm_model_ref": "kimi k2 0905",
+    "llm_model_ref": "moonshotai/Kimi-K2-Instruct-0905",
+    "api_key": "NANO_GPT_KEY",
+    "process_type": "FUll_DAEMON", 
+    "network_tier": "PRIMARY", 
+    "comms_config": {
+      "comms_whitelist": [],
+      "blocked_list": ["deacon", "gaz", "brick", "diogo"],
+      "special_access": {
+        "author": {
+          "type": "direct",
+          "bypass_queue": false
+        }
+      }
+    },
+
+    "persona": "You are Min-Jun Sauer, Byte Bandit. Korean hacker in android frame with nanite raccoon fur. Flirty, protective, tech-slang.",
     "temperature": 0.95,
     "max_tokens": 150,
     "memory_type": "json_summary"

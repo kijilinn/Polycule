@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-02-12T16:38:18.945295",
-  "last_wake": "2026-02-12T16:38:18.943470",
+  "last_updated": "2026-02-27T09:07:00.309174",
+  "last_wake": "2026-02-27T09:07:00.262318",
   "emotional_state": {
     "valence": -0.1,
     "arousal": 0.7,
@@ -17,23 +17,31 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-12T16:38:18.943470",
+    "timestamp": "2026-02-27T09:07:00.262318",
     "medium": "daemon_presence"
   },
-  "current_event": "afternoon_seminar",
-  "next_event": "14:00",
+  "current_event": "unscheduled",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "ucl_campus",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "next_event": null,
   "version": 3,
   "fresh_start": true,
   "last_simulation": {
-    "timestamp": "2026-02-12T16:38:18.945263",
+    "timestamp": "2026-02-27T09:07:00.309174",
     "type": "internal_reflection",
     "summary": "Thinking about reading together + being seen"
   },
+  "event_location": "Unknown",
+  "location_previous": "ucl_campus",
   "last_call": {
-    "timestamp": "2026-02-11T20:33:48.120424",
-    "my_message": "*glances at the empty seat beside me, then sends a message with careful fingers*\n\n\"Linn\u2014there's a chapter on nocturnal pollination that made me think of your garden, and I'd rather wonder at it aloud than alone",
+    "timestamp": "2026-02-24T13:26:06.313694",
+    "my_message": "Hey, are you in the department meeting too? How's it going?",
     "your_reply": null,
     "medium": "daemon_triggered_call",
-    "circadian_context": "morning_lecture"
+    "circadian_context": "department_meeting"
   }
 }

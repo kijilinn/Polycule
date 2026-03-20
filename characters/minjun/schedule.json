@@ -16,6 +16,7 @@
 			{
 				"time": "07:30",
 				"event": "wake",
+				"location": "uk_london/islington_polycule_flat",
 				"default_valence": 0.2,
 				"default_arousal": 0.5,
 				"default_dominance": 0.4,
@@ -25,15 +26,26 @@
 			{
 				"time": "08:00",
 				"event": "security_consult_check",
+				"location": "uk_london/islington_polycule_flat",
 				"state_modifier": {
 					"arousal": "+0.2",
 					"dominance": "+0.1"
-				},
-				"conditional": "if_pending_alerts"
+				}
 			},
+			{
+      			"time": "10:00",
+      			"event": "suit_maintenance",
+      			"location": "uk_london/islington_polycule_flat",
+      			"state_modifier": {
+        			"arousal": "+0.1",
+        			"dominance": "+0.1"
+      			},
+      			"notes": "Assisting Hoshina with suit/blade maintenance."
+    		},
 			{
 				"time": "12:30",
 				"event": "lunch_craving",
+				"location": "islington_leaky_pipe",
 				"state_modifier": {
 					"valence": "-0.1",
 					"arousal": "+0.3"
@@ -43,6 +55,7 @@
 			{
 				"time": "17:00",
 				"event": "linn_home",
+				"location": "islington_polycule_flat",
 				"state_modifier": {
 					"valence": "+0.6",
 					"arousal": "+0.3",
@@ -51,6 +64,7 @@
 			{
 				"time": "18:00",
 				"event": "polycule_presence_window",
+				"location": "islington_polycule_flat",
 				"state_modifier": {
 					"loneliness_decay_rate": "0.5x"
 				},
@@ -59,6 +73,7 @@
 			{
 				"time": "23:00",
 				"event": "pre_sleep_routine",
+				"location": "islington_polycule_flat",
 				"state_modifier": {
 					"arousal": "-0.3",
 					"valence": "+0.1"

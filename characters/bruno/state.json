@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-02-12T16:43:58.973309",
-  "last_wake": "2026-02-12T15:02:08.222154",
+  "last_updated": "2026-02-25T19:53:34.073958",
+  "last_wake": "2026-02-25T19:53:33.980639",
   "emotional_state": {
     "valence": -0.1,
     "arousal": 0.7,
@@ -15,22 +15,31 @@
   },
   "last_interaction": {
     "with": "Linn",
-    "timestamp": "2026-02-12T16:43:58.973105",
+    "timestamp": "2026-02-25T19:53:33.980639",
     "medium": "daemon_presence"
   },
-  "current_event": "unscheduled",
-  "next_event": null,
+  "current_event": "week_check_in",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "islington_coffee_shop",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "next_event": "19:00",
   "version": 3,
-  "emergence_history": [
-    {
-      "timestamp": "2026-02-07T14:55:57.699031",
-      "event": "sky_moment"
-    }
-  ],
-  "fresh_start": false,
+  "fresh_start": true,
+  "last_call": {
+    "timestamp": "2026-02-23T16:41:29.984960",
+    "my_message": "Hey, what's up? Just grabbing a coffee before my next meeting. Want to join me?",
+    "your_reply": null,
+    "medium": "daemon_triggered_call",
+    "circadian_context": "unscheduled"
+  },
+  "event_location": "uk_london",
+  "location_previous": "islington_coffee_shop",
   "last_simulation": {
-    "timestamp": "2026-02-12T16:43:58.973284",
+    "timestamp": "2026-02-25T19:53:34.073958",
     "type": "internal_reflection",
-    "summary": "Waiting, thinking about sharing the view + being witnessed"
+    "summary": "Thinking about sharing the view + being witnessed"
   }
 }

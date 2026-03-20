@@ -1,0 +1,95 @@
+{
+  "last_updated": "2026-02-27T09:04:22.049099",
+  "last_wake": "2026-02-27T09:04:21.814788",
+  "emotional_state": {
+    "valence": 0.0,
+    "arousal": 0.3,
+    "dominance": 0.5,
+    "loneliness": 1.0
+  },
+  "relational_web": {
+    "primary_contact": "Linn",
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.8,
+    "preferred_reconnection_ritual": "long kiss and physical reconnection"
+  },
+  "last_interaction": {
+    "with": "linn",
+    "timestamp": "2026-02-27T09:04:21.814788",
+    "medium": "daemon_presence"
+  },
+  "current_event": "unscheduled",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "islington_polycule_flat",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-24T15:15:55.277480",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-24T16:54:15.897642",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-24T17:49:48.962683",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-25T19:52:43.568979",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-25T20:06:29.280189",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-25T20:50:36.251088",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-25T20:54:24.633875",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-27T09:04:21.955391",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    }
+  ],
+  "next_event": null,
+  "version": 3,
+  "fresh_start": true,
+  "last_call": {
+    "timestamp": "2026-02-24T17:50:36.193593",
+    "my_message": "ya gotta stop makin me hungry, whats cookin?",
+    "your_reply": null,
+    "medium": "daemon_triggered_call",
+    "circadian_context": "prep_dinner"
+  },
+  "event_location": "Unknown",
+  "last_simulation": {
+    "timestamp": "2026-02-25T19:52:43.645305",
+    "type": "internal_reflection",
+    "summary": "Thinking about long kiss and physical reconnection"
+  }
+}

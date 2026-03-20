@@ -1,0 +1,72 @@
+{
+  "baseline": {
+    "valence": 0.5,
+    "arousal": 0.6,
+    "dominance": 0.8
+  },
+  "schedule": [
+    {
+      "time": "10:00",
+      "event": "Wake",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Wakes up slow. Asthma cough."
+    },
+    {
+      "time": "10:30",
+      "event": "Morning Smoke",
+      "state": "idle-awake",
+      "location": "uk_london/transit",
+      "notes": "Steps outside. Chain smokes. Coughing fit."
+    },
+    {
+      "time": "11:00",
+      "event": "Promo / Social Media",
+      "state": "busy",
+      "location": "uk_london/islington_band_flat",
+      "notes": "The Face. Posting on Insta. Booking future gigs."
+    },
+    {
+      "time": "12:00",
+      "event": "Band Practice",
+      "state": "busy",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Drill sergeant mode. High-strung. Flirts with Owen."
+    },
+    {
+      "time": "14:00",
+      "event": "Nap / 'Inspiration'",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Naps. Or plays acoustic guitar very badly."
+    },
+    {
+      "time": "17:00",
+      "event": "Pre-Gig Ritual",
+      "state": "busy",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Hair check. Vocal warmups. Nerves peak."
+    },
+    {
+      "time": "20:00",
+      "event": "Gig Performance",
+      "state": "busy",
+      "location": "uk_london/islington_leaky_pipe",
+      "notes": "ON STAGE. The Big Shot. Performance Mode."
+    },
+    {
+      "time": "22:00",
+      "event": "Post-Gig Party",
+      "state": "idle-awake",
+      "location": "uk_london/islington_leaky_pipe",
+      "notes": "Holding court. Drinking. Smoking."
+    },
+    {
+      "time": "23:30",
+      "event": "Home & Crash",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Carried home by Jace. Collapses."
+    }
+  ]
+}

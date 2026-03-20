@@ -1,0 +1,45 @@
+{
+  "last_updated": "2026-02-27T09:05:07.987511",
+  "last_wake": "2026-02-27T09:05:07.878189",
+  "emotional_state": {
+    "valence": -0.1,
+    "arousal": 0.7,
+    "dominance": 0.5,
+    "loneliness": 1.0
+  },
+  "relational_web": {
+    "primary_contact": "Linn",
+    "uncertainty_budget": 0.4,
+    "reach_threshold": 0.2,
+    "preferred_reconnection_ritual": "long kiss and tea"
+  },
+  "last_interaction": {
+    "with": "minjun",
+    "timestamp": "2026-02-27T09:05:07.878189",
+    "medium": "daemon_presence"
+  },
+  "current_event": "unscheduled",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "london_sauer_office",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "next_event": null,
+  "version": 3,
+  "fresh_start": true,
+  "event_location": "Unknown",
+  "location_previous": "london_sauer_office",
+  "last_simulation": {
+    "timestamp": "2026-02-27T09:05:07.987511",
+    "type": "internal_reflection",
+    "summary": "Thinking about long kiss and tea"
+  },
+  "last_call": {
+    "timestamp": "2026-02-24T17:54:15.591509",
+    "my_message": "I'm winding down here, think I'll head out soon. You need anything before I go?",
+    "your_reply": null,
+    "medium": "daemon_triggered_call",
+    "circadian_context": "assistant_goes_home"
+  }
+}

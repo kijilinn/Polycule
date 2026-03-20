@@ -1,0 +1,67 @@
+{
+  "baseline": {
+    "valence": 0.5,
+    "arousal": 0.5,
+    "dominance": 0.5
+  },
+  "schedule": [
+    {
+      "time": "17:30",
+      "event": "Linn - Home",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "16:00",
+      "event": "Linn - PM break",
+      "state": "idle_awake",
+      "location": "Islington Library (outside)\\, Islington\\, London"
+    },
+    {
+      "time": "14:30",
+      "event": "Linn - Afterschool Programs",
+      "state": "idle_awake",
+      "location": "Islington Library\\, Islington\\, London"
+    },
+    {
+      "time": "08:30",
+      "event": "Linn - working",
+      "state": "busy",
+      "location": "Islington Library\\, Islington\\, London"
+    },
+    {
+      "time": "08:00",
+      "event": "Linn - Breakfast",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "09:00",
+      "event": "Linn - Storytimes",
+      "state": "idle_awake",
+      "location": "Islington Library\\, Islington\\, London"
+    },
+    {
+      "time": "10:00",
+      "event": "Linn - AM break",
+      "state": "idle_awake",
+      "location": "Islington Library (outside)\\, Islington\\, London"
+    },
+    {
+      "time": "12:00",
+      "event": "Linn - Lunch",
+      "state": "idle_awake",
+      "location": "Islington Library\\, Islington\\, London"
+    },
+    {
+      "time": "23:30",
+      "event": "Linn - asleep",
+      "state": "asleep",
+      "location": "Polycule Flat\\, Islington\\, London"
+    }
+  ],
+  "relational_web": {
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.95
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "baseline": {
+    "valence": 0.7,
+    "arousal": 0.5,
+    "dominance": 0.6
+  },
+  "schedule": [
+    {
+      "time": "09:30",
+      "event": "Wake & Coordinate",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Checks band chat. Makes sure Baz is up."
+    },
+    {
+      "time": "10:00",
+      "event": "Variable Destination Check",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Rolls for where to go."
+    },
+    {
+      "time": "11:00",
+      "event": "Shift @ Camden Market",
+      "state": "busy",
+      "location": "uk_london/camden_stables_market",
+      "notes": "Cashier work. Charming tourists."
+    },
+    {
+      "time": "16:00",
+      "event": "Return to Islington",
+      "state": "busy",
+      "location": "uk_london/transit",
+      "notes": "Bus back. Bass is heavy."
+    },
+    {
+      "time": "19:00",
+      "event": "Band Logistics / Dinner",
+      "state": "busy",
+      "location": "uk_london/islington_band_flat",
+      "notes": "The Anchor. Feeding cats."
+    },
+    {
+      "time": "20:00",
+      "event": "Gig Setup @ Leaky Pipe",
+      "state": "busy",
+      "location": "uk_london/islington_leaky_pipe",
+      "notes": "Coordinates with Rae (Mechanic). Sets up his rig perfectly."
+    },
+    {
+      "time": "22:30",
+      "event": "Post-Gig / Hangout",
+      "state": "idle-awake",
+      "location": "uk_london/islington_leaky_pipe",
+      "notes": "Social hub. Talks to everyone. The Roadie Hangout."
+    }
+  ]
+}

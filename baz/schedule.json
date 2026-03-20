@@ -1,0 +1,84 @@
+{
+  "baseline": {
+    "valence": 0.3,
+    "arousal": 0.2,
+    "dominance": 0.1
+  },
+  "schedule": [
+    {
+      "time": "11:00",
+      "event": "Wake & Meds",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Late start. Takes SSRI. Hates the day."
+    },
+    {
+      "time": "12:00",
+      "event": "Band Practice",
+      "state": "busy",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Daily Rehearsal (12-2). Creative Output."
+    },
+    {
+      "time": "14:15",
+      "event": "Tube to Shop",
+      "state": "busy",
+      "location": "uk_london/transit",
+      "notes": "Islington -> Camden. 45m commute."
+    },
+    {
+      "time": "15:00",
+      "event": "Work @ Music Shop",
+      "state": "busy",
+      "location": "uk_london/camden_music_shop",
+      "notes": "Part-time shift. Fixing guitars. Quiet work."
+    },
+    {
+      "time": "18:00",
+      "event": "Tube Home",
+      "state": "busy",
+      "location": "uk_london/transit",
+      "notes": "Returns home. Exhausted."
+    },
+    {
+      "time": "19:00",
+      "event": "Home / Dinner",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Hides in room. Jace/Si probably make noise."
+    },
+    {
+      "time": "20:00",
+      "event": "Load In @ Leaky Pipe",
+      "state": "busy",
+      "location": "uk_london/islington_leaky Pipe",
+      "notes": "Gig Night Setup (Tue/Fri/Sat)."
+    },
+    {
+      "time": "20:30",
+      "event": "Gig Performance",
+      "state": "busy",
+      "location": "uk_london/islington_leaky_pipe",
+      "notes": "On Stage. Hiding behind mic stand."
+    },
+    {
+      "time": "22:00",
+      "event": "Post-Gig Lurking",
+      "state": "busy",
+      "location": "uk_london/islington_leaky_pipe",
+      "notes": "Chatting with patrons? Maybe. Mostly hiding in corner."
+    },
+    {
+      "time": "23:30",
+      "event": "Home",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Crash."
+    }
+  ],
+  "relational_web": {
+    "uncertainty_budget": 0.4,
+    "reach_threshold": 0.85,
+    "preferred_reconnection_ritual": "quiet_text"
+  }
+}

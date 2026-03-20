@@ -1,0 +1,67 @@
+{
+  "baseline": {
+    "valence": 0.5,
+    "arousal": 0.5,
+    "dominance": 0.5
+  },
+  "schedule": [
+    {
+      "time": "16:00",
+      "event": "Simon - Check-in",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "18:00",
+      "event": "Simon - home",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "14:30",
+      "event": "Simon - Patrol",
+      "state": "busy",
+      "location": "South Bank\\, London"
+    },
+    {
+      "time": "10:00",
+      "event": "Simon - Study",
+      "state": "idle_awake",
+      "location": "Islington Library\\, Islington\\, London"
+    },
+    {
+      "time": "07:00",
+      "event": "Simon - Morning Jog",
+      "state": "idle_awake",
+      "location": "Islington\\, London"
+    },
+    {
+      "time": "06:00",
+      "event": "Simon - breakfast",
+      "state": "idle_awake",
+      "location": "Polycule flat\\, Islington\\, London"
+    },
+    {
+      "time": "09:00",
+      "event": "Simon - Consult",
+      "state": "busy",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "08:00",
+      "event": "Simon - Security Check",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "23:30",
+      "event": "Simon - asleep",
+      "state": "asleep",
+      "location": "Polycule flat\\, Islington\\, London"
+    }
+  ],
+  "relational_web": {
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.95
+  }
+}

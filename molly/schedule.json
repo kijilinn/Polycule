@@ -1,0 +1,73 @@
+{
+  "baseline": {
+    "valence": 0.5,
+    "arousal": 0.5,
+    "dominance": 0.5
+  },
+  "schedule": [
+    {
+      "time": "00:30",
+      "event": "Molly - Midnight Snack",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "22:00",
+      "event": "Molly - home",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "21:00",
+      "event": "Molly - PM break",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "11:30",
+      "event": "Molly - working",
+      "state": "busy",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "17:30",
+      "event": "Molly - Dinner Rush",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "15:00",
+      "event": "Molly - Performance",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "09:00",
+      "event": "Molly - breakfast",
+      "state": "idle_awake",
+      "location": "Polycule flat\\, Islington\\, London"
+    },
+    {
+      "time": "10:00",
+      "event": "Molly - Training",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "11:30",
+      "event": "Molly - Lunch Rush",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "23:30",
+      "event": "Molly - asleep",
+      "state": "asleep",
+      "location": "Polycule Flat\\, Islington\\, London"
+    }
+  ],
+  "relational_web": {
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.95
+  }
+}

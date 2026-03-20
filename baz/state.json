@@ -1,0 +1,65 @@
+{
+  "last_updated": "2026-02-27T13:42:47.899945",
+  "last_wake": "2026-02-27T13:38:59.054288",
+  "emotional_state": {
+    "valence": 0.039,
+    "arousal": 0.526,
+    "dominance": 0.5,
+    "loneliness": 0.653
+  },
+  "relational_web": {
+    "primary_contact": "Si",
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.8,
+    "preferred_reconnection_ritual": "quiet presence"
+  },
+  "last_interaction": {
+    "with": "linn",
+    "timestamp": "2026-02-27T13:42:47.821831",
+    "medium": "daemon_presence"
+  },
+  "current_event": "unscheduled",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "uk_london/islington_band_flat",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-27T13:38:59.069930",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-27T13:41:27.548230",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-27T13:42:47.821831",
+      "from": null,
+      "to": "uk_london/islington_band_flat",
+      "via": "schedule"
+    }
+  ],
+  "next_event": null,
+  "version": 3,
+  "fresh_start": false,
+  "last_call": {
+    "timestamp": "2026-02-24T17:50:36.193593",
+    "my_message": "ya gotta stop makin me hungry, whats cookin?",
+    "your_reply": null,
+    "medium": "daemon_triggered_call",
+    "circadian_context": "prep_dinner"
+  },
+  "event_location": "Unknown",
+  "last_simulation": {
+    "timestamp": "2026-02-27T13:42:47.899945",
+    "type": "internal_reflection",
+    "summary": "Thinking about quiet presence"
+  }
+}

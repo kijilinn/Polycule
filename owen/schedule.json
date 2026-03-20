@@ -1,0 +1,64 @@
+{
+  "baseline": {
+    "valence": 0.2,
+    "arousal": 0.1,
+    "dominance": 0.3
+  },
+  "schedule": [
+    {
+      "time": "06:30",
+      "event": "Morning Rage",
+      "state": "busy",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Wakes up at 06:30. Punches bag. Works out. Needs to be tough before sunrise."
+    },
+    {
+      "time": "12:00",
+      "event": "Band Practice",
+      "state": "busy",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Drumming. Si flirts. Owen simmers."
+    },
+    {
+      "time": "14:10",
+      "event": "Commute to Shoreditch",
+      "state": "busy",
+      "location": "uk_london/transit",
+      "notes": "Tube journey. Aggressive."
+    },
+    {
+      "time": "15:00",
+      "event": "Shift Start @ Velvet Note",
+      "state": "busy",
+      "location": "uk_london/shoreditch_velvet_note",
+      "notes": "Bouncer duties. Diana manages him. He deals with drunks."
+    },
+    {
+      "time": "20:00",
+      "event": "Gig Night Transfer",
+      "state": "busy",
+      "location": "uk_london/shoreditch_velvet_note",
+      "notes": "Runs a check. Is tonight a Pipe gig? If yes, leave early (20:00). If no, work till 01:00."
+    },
+    {
+      "time": "20:45",
+      "event": "Commute Home (Gig Night)",
+      "state": "busy",
+      "location": "uk_london/transit",
+      "notes": "Runs back to Islington. Sweaty. Annoyed."
+    },
+    {
+      "event": "Gig Performance",
+      "state": "busy",
+      "location": "uk_london/islington_leaky_pipe",
+      "notes": "Drums. Rage. Intimidation."
+    },
+    {
+      "time": "23:30",
+      "event": "Home / Crash",
+      "state": "idle-awake",
+      "location": "uk_london/islington_band_flat",
+      "notes": "Returns home. Sleeps to silence the noise."
+    }
+  ]
+}

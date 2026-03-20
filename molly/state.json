@@ -1,0 +1,55 @@
+{
+  "last_updated": "2026-02-24T17:51:41.120633",
+  "last_wake": "2026-02-24T16:57:16.659412",
+  "emotional_state": {
+    "valence": 0.065,
+    "arousal": 0.493,
+    "dominance": 0.6,
+    "loneliness": 0.587
+  },
+  "relational_web": {
+    "primary_contact": "Linn",
+    "uncertainty_budget": 0.55,
+    "reach_threshold": 0.45,
+    "preferred_reconnection_ritual": "shared_food + touch"
+  },
+  "last_interaction": {
+    "with": {
+      "with": "linn",
+      "timestamp": "2026-02-24T14:57:16.659412",
+      "medium": "text"
+    },
+    "timestamp": "2026-02-24T17:51:41.026659",
+    "medium": "daemon_presence"
+  },
+  "current_event": "work_focus",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "islington_leaky_pipe",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-24T16:57:16.675005",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-24T17:51:41.026659",
+      "from": null,
+      "to": "islington_leaky_pipe",
+      "via": "schedule"
+    }
+  ],
+  "next_event": "18:00",
+  "version": 3,
+  "fresh_start": false,
+  "last_simulation": {
+    "timestamp": "2026-02-24T17:51:41.120633",
+    "type": "internal_reflection",
+    "summary": "Thinking about shared_food + touch"
+  }
+}

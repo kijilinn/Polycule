@@ -1,0 +1,56 @@
+{
+  "last_updated": "2026-02-25T19:53:45.793852",
+  "last_wake": "2026-02-25T19:53:45.736677",
+  "emotional_state": {
+    "valence": 0.5,
+    "arousal": 0.2,
+    "dominance": 0.2,
+    "loneliness": 0.0
+  },
+  "relational_web": {
+    "primary_contact": "Bruno",
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.75,
+    "preferred_reconnection_ritual": "reading together + music"
+  },
+  "last_interaction": {
+    "with": {
+      "with": "linn",
+      "timestamp": "2026-02-24T14:49:04.225240",
+      "medium": "text"
+    },
+    "timestamp": "2026-02-25T19:53:45.736677",
+    "medium": "daemon_presence"
+  },
+  "current_event": "home",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "bermondsey_office",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-24T16:49:04.240846",
+      "from": null,
+      "to": "bermondsey_office",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-25T19:53:45.748757",
+      "from": null,
+      "to": "bermondsey_office",
+      "via": "schedule"
+    }
+  ],
+  "next_event": "06:00",
+  "version": 3,
+  "fresh_start": true,
+  "last_simulation": {
+    "timestamp": "2026-02-24T16:49:04.303302",
+    "type": "internal_reflection",
+    "summary": "Thinking about reading together + music"
+  },
+  "event_location": "bermondsey_flat"
+}

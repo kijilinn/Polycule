@@ -1,0 +1,42 @@
+{
+  "last_updated": "2026-02-25T20:05:51.108589",
+  "last_wake": "2026-02-25T20:05:51.015927",
+  "emotional_state": {
+    "valence": -0.1,
+    "arousal": 0.7,
+    "dominance": 0.7,
+    "loneliness": 1.0
+  },
+  "relational_web": {
+    "primary_contact": "Linn",
+    "uncertainty_budget": 0.4,
+    "reach_threshold": 0.2,
+    "preferred_reconnection_ritual": "a long hike around the lake"
+  },
+  "last_interaction": {
+    "with": {
+      "with": "linn",
+      "timestamp": "2026-02-23T14:44:54.053992",
+      "medium": "text"
+    },
+    "timestamp": "2026-02-25T20:05:51.015927",
+    "medium": "daemon_presence"
+  },
+  "current_event": "regrouping",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "uk_london",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "next_event": "06:00",
+  "version": 3,
+  "fresh_start": true,
+  "event_location": "islington_polycule_flat",
+  "location_previous": "uk_london",
+  "last_simulation": {
+    "timestamp": "2026-02-25T20:05:51.108589",
+    "type": "internal_reflection",
+    "summary": "Thinking about a long hike around the lake"
+  }
+}

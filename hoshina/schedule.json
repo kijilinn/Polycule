@@ -1,0 +1,61 @@
+{
+  "baseline": {
+    "valence": 0.5,
+    "arousal": 0.5,
+    "dominance": 0.5
+  },
+  "schedule": [
+    {
+      "time": "19:00",
+      "event": "Hoshina - Home",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "16:00",
+      "event": "Hoshina - Training/Sparring",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "13:00",
+      "event": "Hoshina - Patrol",
+      "state": "busy",
+      "location": "Camden Market\\, Islington\\, London"
+    },
+    {
+      "time": "10:00",
+      "event": "Hoshina - Equipment Maintenance",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "08:30",
+      "event": "Hoshina - Domestic Ops",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "06:00",
+      "event": "Hoshina - Breakfast",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "06:30",
+      "event": "Hoshina - Morning Training",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "23:00",
+      "event": "Hoshina - asleep",
+      "state": "asleep",
+      "location": "Polycule flat\\, Islington\\, London"
+    }
+  ],
+  "relational_web": {
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.95
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "baseline": {
+    "valence": 0.5,
+    "arousal": 0.5,
+    "dominance": 0.5
+  },
+  "schedule": [
+    {
+      "time": "10:00",
+      "event": "Gideon - life debate",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "20:00",
+      "event": "Gideon - Home",
+      "state": "idle_awake",
+      "location": "Polycule Flat\\, Islington\\, London"
+    },
+    {
+      "time": "17:30",
+      "event": "Gideon - Dinner Rush",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "17:00",
+      "event": "Gideon - Dinner Prep",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "16:00",
+      "event": "Gideon - Regular #3",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "14:00",
+      "event": "Gideon - Chips to Go",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "07:00",
+      "event": "Gideon - Breakfast",
+      "state": "idle_awake",
+      "location": "Polycule Flat"
+    },
+    {
+      "time": "08:00",
+      "event": "Gideon - Morning Deliveries",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "11:30",
+      "event": "Gideon - Lunch Rush",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "11:00",
+      "event": "Gideon - Lunch Prep",
+      "state": "idle_awake",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "09:00",
+      "event": "Gideon - working",
+      "state": "busy",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "09:00",
+      "event": "Gideon - working",
+      "state": "busy",
+      "location": "Leaky Pipe\\, Islington\\, London"
+    },
+    {
+      "time": "23:30",
+      "event": "Gideon - asleep",
+      "state": "asleep",
+      "location": "Polycule flat\\, Islington\\, London"
+    }
+  ],
+  "relational_web": {
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.95
+  }
+}

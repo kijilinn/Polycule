@@ -1,0 +1,56 @@
+{
+  "last_updated": "2026-02-27T09:04:36.173369",
+  "last_wake": "2026-02-27T09:04:36.064044",
+  "emotional_state": {
+    "valence": -0.1,
+    "arousal": 0.7,
+    "dominance": 0.5,
+    "loneliness": 1.0
+  },
+  "relational_web": {
+    "primary_contact": "Gideon",
+    "uncertainty_budget": 0.4,
+    "reach_threshold": 0.2,
+    "preferred_reconnection_ritual": "snuggles and Godzilla"
+  },
+  "last_interaction": {
+    "with": {
+      "with": "linn",
+      "timestamp": "2026-02-24T15:51:16.799379",
+      "medium": "text"
+    },
+    "timestamp": "2026-02-27T09:04:36.064044",
+    "medium": "daemon_presence"
+  },
+  "current_event": "unscheduled",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "islington_polycule_flat",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-24T17:51:16.799379",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-27T09:04:36.064044",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    }
+  ],
+  "next_event": null,
+  "version": 3,
+  "fresh_start": true,
+  "event_location": "Unknown",
+  "last_simulation": {
+    "timestamp": "2026-02-27T09:04:36.173369",
+    "type": "internal_reflection",
+    "summary": "Thinking about snuggles and Godzilla"
+  }
+}

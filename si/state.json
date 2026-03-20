@@ -1,0 +1,59 @@
+{
+  "last_updated": "2026-02-27T13:12:09.129012",
+  "last_wake": "2026-02-27T13:10:51.638828",
+  "emotional_state": {
+    "valence": -0.1,
+    "arousal": 0.7,
+    "dominance": 0.5,
+    "loneliness": 1.0
+  },
+  "relational_web": {
+    "primary_contact": "si",
+    "uncertainty_budget": 0.6,
+    "reach_threshold": 0.8,
+    "preferred_reconnection_ritual": "chat over a smoke"
+  },
+  "last_interaction": {
+    "with": "linn",
+    "timestamp": "2026-02-27T13:12:09.049019",
+    "medium": "daemon_presence"
+  },
+  "current_event": "unscheduled",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "uk_london/islington_band_flat",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-27T13:10:51.638828",
+      "from": null,
+      "to": "uk_london/islington_band_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-27T13:12:09.051623",
+      "from": null,
+      "to": "uk_london/islington_band_flat",
+      "via": "schedule"
+    }
+  ],
+  "next_event": null,
+  "version": 3,
+  "fresh_start": false,
+  "last_call": {
+    "timestamp": "2026-02-24T17:50:36.193593",
+    "my_message": "ya gotta stop makin me hungry, whats cookin?",
+    "your_reply": null,
+    "medium": "daemon_triggered_call",
+    "circadian_context": "prep_dinner"
+  },
+  "event_location": "Unknown",
+  "last_simulation": {
+    "timestamp": "2026-02-27T13:12:09.129012",
+    "type": "internal_reflection",
+    "summary": "Thinking about quick text"
+  }
+}

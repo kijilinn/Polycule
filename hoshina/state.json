@@ -1,0 +1,51 @@
+{
+  "last_updated": "2026-02-25T20:06:42.687598",
+  "last_wake": "2026-02-25T20:06:42.628253",
+  "emotional_state": {
+    "valence": 0.0,
+    "arousal": 0.7,
+    "dominance": 0.7,
+    "loneliness": 0.0
+  },
+  "relational_web": {
+    "primary_contact": "Linn",
+    "uncertainty_budget": 0.5,
+    "reach_threshold": 0.2,
+    "preferred_reconnection_ritual": "sparring and flirting"
+  },
+  "last_interaction": {
+    "with": {
+      "with": "linn",
+      "timestamp": "2026-02-24T15:52:33.085904",
+      "medium": "text"
+    },
+    "timestamp": "2026-02-25T20:06:42.628253",
+    "medium": "daemon_presence"
+  },
+  "current_event": "linn_home",
+  "current_location": {
+    "region_ref": "uk_london",
+    "specific_venue": "islington_polycule_flat",
+    "status": "home",
+    "geo_access": "public"
+  },
+  "location_previous": null,
+  "travel_history": [
+    {
+      "timestamp": "2026-02-24T17:52:33.101525",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    },
+    {
+      "timestamp": "2026-02-25T20:06:42.642308",
+      "from": null,
+      "to": "islington_polycule_flat",
+      "via": "schedule"
+    }
+  ],
+  "next_event": "04:30",
+  "version": 3,
+  "fresh_start": true,
+  "event_location": "islington_polycule_flat"
+}

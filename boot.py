@@ -15,7 +15,7 @@ def main():
     # 1. Set up the command line argument
     parser = argparse.ArgumentParser(description="Wake up a Polycule member.")
     parser.add_argument("slug", help="The character slug to boot (e.g., 'minjun', 'gideon')")
-
+    parser.add_argument("--force_trigger", help="Force an API call to a specific target (e.g., 'adam').")
     args = parser.parse_args()
 
     slug = args.slug
@@ -33,7 +33,21 @@ def main():
     print(f"🔌 Booting {slug}...")
     try:
         bot = GenericDaemon(manifest_path)
-        # 4. Wake up!
+        if args.force_trigger:
+            print(f"🔌 **GOD MODE**: Forcing {args.slug} to call {args.force_trigger}")
+
+            # 1. Load a dummy state (or boot normally)
+            schedule = bot.load_schedule()
+            state = state_manager.load(bot.state_path, lambda: bot.bootstrap_state(schedule))
+
+            # 2. Bypass Logic Checks (Loneliness, etc) and force the call
+            success = bot.call_out(state, "ping", target=args.force_trigger)
+
+            if success:
+                print(f"✅ **SUCCESS**: Message sent to {args.force_trigger}")
+            else:
+                print(f"❌ **FAILED**: API error or connection refused.")
+            return
         bot.wake()
         print("✅ Cycle complete.")
     except Exception as e:

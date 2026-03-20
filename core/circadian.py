@@ -68,14 +68,15 @@ def get_circadian_baseline(schedule):
         if key in baseline:
             baseline[key] = max(-1.0, min(1.0, baseline[key] + float(delta)))
 
-    return baseline, next_evt, current.get("event", "unknown")
+    return baseline, next_evt, current.get("event", "unknown"), current.get("location", "Unknown")
 
 def apply_fresh_start(state, schedule, now):
     """Morning reset: preserve identity, refresh body."""
-    baseline, next_evt, event_name = get_circadian_baseline(schedule)
+    baseline, next_evt, event_name, event_location = get_circadian_baseline(schedule)
 
     state["emotional_state"] = baseline
     state["current_event"] = event_name
+    state["event_location"] = event_location
     state["next_event"] = next_evt.get("time") if next_evt else None
     state["last_wake"] = now.isoformat()
     state["fresh_start"] = True

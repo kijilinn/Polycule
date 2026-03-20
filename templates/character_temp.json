@@ -1,11 +1,12 @@
 {
   "metadata": {
-    "schema_version": "1.01",
+    "schema_version": "1.02", 
     "created_by": "Linn",
-    "last_edited": "2026-02-17T14:30:00Z",
+    "last_edited": "2026-02-24T14:30:00Z",
     "status": "template",
     "notes": "Base template for new Polycule entries. Copy to /characters/{slug}/ and fill."
   },
+
   "identity": {
     "name": "Character Name",
     "slug": "character_slug",
@@ -14,27 +15,55 @@
     "preferred_pronouns": "they/them | he/him | she/her",
     "archetype": "The Bard | The Protector | The Hacker | The Dad"
   },
+
   "world_config": {
     "home_region": "uk_north_west",
     "current_location": {
       "region_ref": "uk_north_west",
-      "specific_venue": "The Leaky Pipe",
+      "specific_venue": "home",
       "status": "home",
       "geo_access": "public"
     },
+    "location_override": false,
     "timezone": "Europe/London",
     "travel_companions": []
   },
+
   "system_config": {
     "daemon_active": true,
     "prompt_style": "chatty | formal | slang",
     "schedule_file": "schedule.json",
     "state_file": "state.json",
     "llm_model_ref": "deepseek | kimi | gpt4",
+
+    // --- NEW: NETWORK ARCHITECTURE TAGS --- //
+
+    // Defines how much CPU/RAM this node gets
+    "process_type": "FUll_DAEMON", 
+    // OPTIONS: "FULL_DAEMON", "LITE_DAEMON", "CLUSTER", "PASSIVE"
+
+    // Defines Message Priority Routing
+    "network_tier": "PRIMARY", 
+    // OPTIONS: "PRIMARY" (Polycule), "TERTIARY" (Family), "SECONDARY" (Staff), "Q-CRYSTAL" (Quarantined)
+
+    // Access Control List
+    "comms_config": {
+      "comms_whitelist": ["node_slug_1", "node_slug_2"], // Empty = Public
+      "blocked_list": [],                                  // Enemies?
+      "special_access": {
+        "author": {
+          "type": "standard", // "standard", "direct" (Bypass), "none" (Passive)
+          "bypass_queue": false
+        }
+      }
+    },
+
+    "persona": "You are {name}, {description}.",
     "temperature": 0.7,
     "max_tokens": 150,
     "memory_type": "none | json_summary"
   },
+
   "personality_profile": {
     "pad_traits": {
       "valence_base": 0.5,
@@ -45,6 +74,11 @@
       "rate": 0.05,
       "satiation_point": 1.0,
       "critical_threshold": 0.8
+    },
+    "crowding_factor": {
+      "enabled": true,
+      "threshold": 5,
+      "symptom": "noise_floor_rise"
     },
     "relationship_weights": {
       "linn": {

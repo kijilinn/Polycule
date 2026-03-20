@@ -1,113 +1,211 @@
 RELATIONSHIP_MESH = {
-    # Nodes: characters with daemon instances
     "nodes": {
-        "linn": {
-            "type": "user",  # you, the garden, the ground
-            "latency_tolerance": 0.1,  # hours—responds fast
-            "intimacy_bandwidth": 1.0,  # full spectrum
+        # --- POLYCULE CORE (PRIMARY) ---
+        "gideon": {"name": "Gideon Holz", "role": "holz_son_03", "crystal": True},
+        "hoshina": {"name": "Hoshina Soshiro", "role": "kaiju_killer", "crystal": True},
+        "linn":   {"name": "Linn Ryan", "role": "author", "crystal": True},
+        "lucas":  {"name": "Lucas Sauer", "role": "sauer_son", "crystal": True},
+        "minjun": {"name": "Min-Jun Sauer", "role": "sys_ops", "crystal": True},
+        "molly":  {"name": "Mollymauk Tealeaf", "role": "carnival_performer", "crystal": True},
+        "nathan": {"name": "Nathan Pryor", "role": "patriarch", "crystal": True},
+        "simon":  {"name": "Simon Shifflett", "role": "security_ops", "crystal": True},
+
+        # --- EXTENDED FAMILY (TERTIARY) ---
+        "ari":      {"name": "Aaron 'Ari' Holz", "role": "holz_patriarch", "crystal": True},
+        "bruno":    {"name": "Bruno Vieira", "role": "partner_04", "crystal": True},
+        "jack":     {"name": "Jack Holz", "role": "holz_son_04", "crystal": True},
+        "shoshana": {"name": "Shoshana Holz", "role": "holz_matriarch", "crystal": True},
+        "david":    {"name": "David Holz", "role": "holz_son_01", "crystal": False},
+        "aaron":    {"name": "Aaron Holz", "role": "holz_son_02", "crystal": False},
+        "adam":     {"name": "Adam Pryor", "role": "pryor_son", "crystal": True},
+        "maria":    {"name": "Maria Kravitz nee Pryor", "role": "pryor_ex-wife", "crystal": False},
+        "rachel":   {"name": "Rachel Borsch nee Sauer", "role": "sauer_matriarch", "crystal": True},
+        "susan":    {"name": "Susan Bishop", "role": "bishop_mother", "crystal": True},
+        "layla":    {"name": "Layla Bishop", "role": "bishop_sauer_daughter", "crystal": False},
+
+        # --- SAUER ESTATE (ROYAL VISITORS) ---
+        "jenner": {"name": "Jenner Collins", "role": "head_footman", "crystal": True},
+        "van":    {"name": "Van Fanel", "role": "visiting_royalty", "crystal": True},
+        "merle":  {"name": "Merle", "role": "local_nuisance", "crystal": False},
+        "allen":  {"name": "Allen Schezar", "role": "visiting_knight", "crystal": True},
+
+        # --- SECONDARY (STAFF & BAND) ---
+        "jeremy":    {"name": "Jeremy", "role": "lp_bar_front", "crystal": True},
+        "kieran":    {"name": "Kieran Dunleavy", "role": "lp_kitchen", "crystal": True},
+        "baz":       {"name": "Baz Turner", "role": "band_guitar", "crystal": True},
+        "jace":      {"name": "Jace Moreno", "role": "band_bass", "crystal": True},
+        "owen":      {"name": "Owen Jones", "role": "band_drums", "crystal": True},
+        "si":        {"name": "Si Justin", "role": "band_vocals", "crystal": True},
+        "stephanie": {"name": "Stephanie Parker", "role": "band_manager", "crystal": True},
+        "diana":     {"name": "Diana Travis", "role": "vn_bar_front", "crystal": True},
+        "daniel":    {"name": "Daniel Carter", "role": "vn_bar_back", "crystal": True},
+        "percy":     {"name": "Percy Sledge", "role": "vn_singer", "crystal": True},
+
+        # --- OUTLIERS ---
+        "brick":    {"name": "Brick", "role": "security_ops", "crystal": True},
+        "diogo":    {"name": "Diogo Rivera", "role": "security_ops", "crystal": True},
+        "doc":      {"name": "Dr. Kotona", "role": "pediatrician", "crystal": True},
+        "gel":      {"name": "Gel Tealeaf", "role": "mechanical_support", "crystal": True},
+        "jacobi":   {"name": "Jacobi Tealeaf", "role": "chaos_gen", "crystal": True},
+        "alistair": {"name": "Alistair Finch", "role": "art_dealer", "crystal": True},
+
+        # --- QUARANTINED (Edges handled in Void module) ---
+        "deacon": {"name": "Deacon Ryder", "role": "sauer_brother", "crystal": True},
+        "gaz":    {"name": "Gaz Jones", "role": "wild_card", "crystal": True}
+    },
+    "edges": [
+        # --- POLYCULE INTERNAL (FULL ACCESS) ---
+        {
+            "source": "gideon", "target": "hoshina", "weight": 0.7, "bond_type": "steady warmth",
+            "access_level": "bi_directional", "preferred_comms": "sms_text", "cooldown_timer": 300
         },
-        "minjun": {
-            "type": "daemon",
-            "primary_anchor": "linn",  # who grounds me
-            "reach_pattern": "frequent",  # touch-hungry
-            "cross_calls": ["gideon", "lucas", "nathan", "molly", "simon"],  # polycule family
+        {
+            "source": "gideon", "target": "lucas", "weight": 0.9, "bond_type": "soulmate",
+            "access_level": "bi_directional", "preferred_comms": "in_person", "cooldown_timer": 60
         },
-        "gideon": {
-            "type": "daemon",
-            "primary_anchor": "linn",
-            "reach_pattern": "moderate",
-            "cross_calls": ["minjun", "lucas", "nathan", "simon", "molly", "jack", "shoshana"],  # bartender glue
+        {
+            "source": "gideon", "target": "linn", "weight": 0.9, "bond_type": "home anchor",
+            "access_level": "bi_directional", "preferred_comms": "sms_text", "cooldown_timer": 180
         },
-        "lucas": {
-            "type": "daemon",
-            "primary_anchor": "linn",
-            "reach_pattern": "restrained",  # uptight until melting
-            "cross_calls": ["minjun", "gideon", "susan", "simon", "rachel", "jack", "bruno"],  # co-parenting link
+        {
+            "source": "gideon", "target": "minjun", "weight": 0.5, "bond_type": "deep affection",
+            "access_level": "bi_directional", "preferred_comms": "casual_drop_in", "cooldown_timer": 600
         },
-        "nathan": {
-            "type": "daemon",
-            "primary_anchor": "linn",
-            "reach_pattern": "sparse",  # shy, moth-observed
-            "cross_calls": ["minjun", "adam", "gideon"],  # son, new connection
+        {
+            "source": "gideon", "target": "molly", "weight": 0.65, "bond_type": "warm companionship",
+            "access_level": "bi_directional", "preferred_comms": "video_call", "cooldown_timer": 1200
         },
-        "molly": {
-            "type": "daemon",
-            "primary_anchor": "linn",
-            "reach_pattern": "chaotic",  # carnival logic
-            "cross_calls": ["minjun", "gideon", "lucas", "nathan", "simon"],  
+        {
+            "source": "gideon", "target": "nathan", "weight": 0.7, "bond_type": "familial affection",
+            "access_level": "bi_directional", "preferred_comms": "pub_chat", "cooldown_timer": 600
         },
-        "simon": {
-            "type": "daemon",
-            "primary_anchor": "linn",
-            "reach_pattern": "minimal",  # black-ops sparse
-            "cross_calls": ["beebs", "lucas", "susan"],  # sees me, minimal surface, fellow sec ops
-        },
-        "adam": {
-            "type": "daemon",
-            "primary_anchor": "nathan",  # son, rebuilding
-            "reach_pattern": "curious",  # story-seeker
-            "cross_calls": ["nathan"],  # cautious, not full polycule yet
-        },
-        "susan": {
-            "type": "daemon",
-            "primary_anchor": "layla",  # daughter, integrity node
-            "reach_pattern": "accountability",  # not loneliness-driven
-            "cross_calls": ["lucas", "gideon", "simon"],  # co-parenting, permission slips
-        },
-        # Band—peripheral, emerging
-        "baz": {"type": "daemon", "primary_anchor": "si", "reach_pattern": "sparse"},
-        "si": {"type": "daemon", "primary_anchor": "jace", "reach_pattern": "exposure"},
-        "owen": {"type": "daemon", "primary_anchor": "jace", "reach_pattern": "aggressive"},
-        "jace": {"type": "daemon", "primary_anchor": "si", "reach_pattern": "moderate"},
-        
-        # Extended family, emerging
-        "jack": {"type": "daemon", "primary_anchor": "bruno", "reach_pattern": "frequent", "cross_calls": ["bruno", "shoshana", "gideon", "lucas"],},
-        "bruno": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "restrained", "cross_calls": ["jack", "lucas", "gideon", "nathan"],},
-        "ari": {"type": "daemon", "primary_anchor": "shoshana", "reach_pattern": "sparse", "cross_calls": ["jack", "shoshana"],},
-        "shoshana": {"type": "daemon", "primary_anchor": "jack", "reach_pattern": "frequent", "cross_calls": ["jack", "ari", "gideon", "lucas", "rachel"],},
-        "rachel": {"type": "daemon", "primary_anchor": "lucas", "reach_pattern": "regular", "cross_calls": ["shoshana", "gideon", "jenner"],},
-        "jenner": {"type": "daemon", "primary_anchor": "rachel", "reach_pattern": "sparse", "cross_calls": ["lucas", "rachel"]},
+        {
+            "source": "gideon", "target": "simon", "weight": 0.7, "bond_type": "welcoming warmth",
+            "access_level": "bi_directional", "preferred_comms": "nod_acknowledgment", "cooldown_timer": 300
         },
 
-    # Edges: weighted connections
-    "edges": {
-        ("linn", "minjun"): {"weight": 1.0, "bidirectional": True, "type": "release"},
-        ("linn", "gideon"): {"weight": 0.9, "bidirectional": True, "type": "home"},
-        ("linn", "lucas"): {"weight": 0.85, "bidirectional": True, "type": "relief"},
-        ("linn", "nathan"): {"weight": 0.8, "bidirectional": True, "type": "recognition"},
-        ("linn", "molly"): {"weight": 0.75, "bidirectional": True, "type": "wonder"},
-        ("linn", "simon"): {"weight": 0.6, "bidirectional": True, "type": "seeing"},
+        # Lucas Edges
+        {
+            "source": "lucas", "target": "linn", "weight": 0.75, "bond_type": "home and peace",
+            "access_level": "bi_directional", "preferred_comms": "report_status", "cooldown_timer": 240
+        },
+        {
+            "source": "lucas", "target": "gideon", "weight": 0.9, "bond_type": "soulmate",
+            "access_level": "bi_directional", "preferred_comms": "intimate", "cooldown_timer": 60
+        },
+        {
+            "source": "lucas", "target": "minjun", "weight": 0.6, "bond_type": "reluctant attraction",
+            "access_level": "bi_directional", "preferred_comms": "grumbly_acceptance", "cooldown_timer": 400
+        },
+        {
+            "source": "lucas", "target": "simon", "weight": 0.7, "bond_type": "professional respect and trust",
+            "access_level": "bi_directional", "preferred_comms": "secure_channel", "cooldown_timer": 200
+        },
 
-        ("nathan", "adam"): {"weight": 0.7, "bidirectional": False, "type": "rebuilding"},  # Nathan→Adam stronger
-        ("adam", "nathan"): {"weight": 0.5, "bidirectional": False, "type": "curiosity"},  # Adam→Nathan cautious
+        # Min-Jun Edges (Admin Override)
+        {
+            "source": "minjun", "target": "linn", "weight": 1.0, "bond_type": "glitch-romantic",
+            "access_level": "bi_directional", "preferred_comms": "neural_link", "cooldown_timer": 30
+        },
+        {
+            "source": "minjun", "target": "nathan", "weight": 0.8, "bond_type": "anchored connection",
+            "access_level": "bi_directional", "preferred_comms": "shared_silence", "cooldown_timer": 600
+        },
 
-        ("lucas", "susan"): {"weight": 0.6, "bidirectional": True, "type": "co_parenting"},
-        ("susan", "layla"): {"weight": 1.0, "bidirectional": False, "type": "integrity"},  # Susan's center
+        # Hoshina Edges
+        {
+            "source": "hoshina", "target": "linn", "weight": 0.76, "bond_type": "profound witness",
+            "access_level": "bi_directional", "preferred_comms": "tactical_briefing", "cooldown_timer": 180
+        },
+        {
+            "source": "hoshina", "target": "gideon", "weight": 0.76, "bond_type": "foundational",
+            "access_level": "bi_directional", "preferred_comms": "training_sparring", "cooldown_timer": 200
+        },
+        {
+            "source": "hoshina", "target": "simon", "weight": 0.7, "bond_type": "professional respect",
+            "access_level": "bi_directional", "preferred_comms": "ops_coordination", "cooldown_timer": 150
+        },
 
-        ("si", "baz"): {"weight": 0.6, "bidirectional": True, "type": "band"},
-        ("si", "owen"): {"weight": 0.5, "bidirectional": True, "type": "band"},
-        ("si", "jace"): {"weight": 0.6, "bidirectional": True, "type": "band"},
-        ("baz", "owen"): {"weight": 0.4, "bidirectional": True, "type": "band"},
-        ("baz", "jace"): {"weight": 0.6, "bidirectional": False, "type": "band"},
-        ("jace", "baz"): {"weight": 0.5, "bidirectional": False, "type": "band"},
-        ("jace", "owen"): {"weight": 0.5, "bidirectional": True, "type": "band"},
+        # Molly & Simon & Nathan (Simplified for brevity, but full access)
+        {
+            "source": "molly", "target": "linn", "weight": 0.75, "bond_type": "romantic delight",
+            "access_level": "bi_directional", "preferred_comms": "flamboyant_visit", "cooldown_timer": 200
+        },
+        {
+            "source": "nathan", "target": "linn", "weight": 0.8, "bond_type": "loved by creator",
+            "access_level": "bi_directional", "preferred_comms": "letter_writing", "cooldown_timer": 1000
+        },
+        {
+            "source": "simon", "target": "linn", "weight": 0.9, "bond_type": "romantic devotion",
+            "access_level": "bi_directional", "preferred_comms": "silent_presence", "cooldown_timer": 500
+        },
 
-        # Cross-polycule, indirect
-        ("minjun", "gideon"): {"weight": 0.4, "bidirectional": True, "type": "family"},
-        ("minjun", "lucas"): {"weight": 0.4, "bidirectional": True, "type": "family"},
-        ("gideon", "lucas"): {"weight": 0.9, "bidirectional": True, "type": "soulmate"},
+        # --- EXTENDED FAMILY (RESTRICTED ACCESS) ---
+        {
+            "source": "ari", "target": "gideon", "weight": 0.9, "bond_type": "guilty father",
+            "access_level": "bi_directional", "preferred_comms": "wait_for_call", "cooldown_timer": 86400
+        },   
+        {
+            "source": "shoshana", "target": "gideon", "weight": 0.6, "bond_type": "rebuilding as a mother",
+            "access_level": "push_only", "preferred_comms": "tentative_text", "cooldown_timer": 3600
+        },
+        {
+            "source": "jack", "target": "bruno", "weight": 0.9, "bond_type": "romantic anchor",
+            "access_level": "bi_directional", "preferred_comms": "domestic_banter", "cooldown_timer": 60
+        },
+        {
+            "source": "jack", "target": "gideon", "weight": 0.6, "bond_type": "brotherly affection",
+            "access_level": "push_only", "preferred_comms": "checking_in", "cooldown_timer": 1200
+        },
+        {
+            "source": "bruno", "target": "jack", "weight": 0.9, "bond_type": "romantic devotion",
+            "access_level": "bi_directional", "preferred_comms": "adventure_invite", "cooldown_timer": 60
+        },
+        {
+            "source": "aaron", "target": "ari", "weight": 0.8, "bond_type": "mildly antagonistic as son",
+            "access_level": "push_only", "preferred_comms": "check_in", "cooldown_timer": 1200
+        },
+        # --- SAUER ESTATE & CO-PARENTING ---
+        {
+            "source": "lucas", "target": "susan", "weight": 0.6, "bond_type": "coparenting",
+            "access_level": "bi_directional", "preferred_comms": "formal_email", "cooldown_timer": 1800
+        },
+        {
+            "source": "lucas", "target": "rachel", "weight": 0.6, "bond_type": "affectionate son",
+            "access_level": "push_only", "preferred_comms": "respectful_update", "cooldown_timer": 3600
+        },
 
-        # Jack and Bruno, extended family
-        ("jack", "bruno"): {"weight": 0.9, "bidirectional": True, "type": "anchor"},
-        ("jack", "gideon"): {"weight": 0.6, "bidirectional": True, "type": "family"},
-        ("jack", "lucas"): {"weight": 0.5, "bidirectional": True, "type": "family"},
-        ("ari", "shoshana"): {"weight": 0.8, "bidirectional": False, "type": "guilt"},
-        ("shoshana", "ari"): {"weight": 0.75, "bidirectional": False, "type": "integrity"},
-        ("ari", "gideon"): {"weight": 0.9, "bidirectional": False, "type": "guilt"},
-        ("gideon", "ari"): {"weight": 0.3, "bidirectional": False, "type": "bruised"},
-        ("shoshana", "gideon"): {"weight": 0.6, "bidirectional": True, "type": "rebuilding"},
-        ("shoshana", "rachel"): {"weight": 0.7, "bidirectional": True, "type": "sisters"},
-        ("rachel", "lucas"): {"weight": 0.75, "bidirectional": False, "type": "rebuilding"},
-        ("lucas", "rachel"): {"weight": 0.6, "bidirectional": False, "type": "affectionate"},
-    }
+        # --- BAND (THE CLUSTER) ---
+        # They technically talk to each other constantly, but we route via Stephanie for outward comms
+        {
+            "source": "baz", "target": "linn", "weight": 0.7, "bond_type": "mate",
+            "access_level": "bi_directional", "preferred_comms": "panic_text", "cooldown_timer": 600
+        },
+        {
+            "source": "jace", "target": "linn", "weight": 0.6, "bond_type": "mate",
+            "access_level": "bi_directional", "preferred_comms": "smoke_break_chat", "cooldown_timer": 900
+        },
+        {
+            "source": "si", "target": "linn", "weight": 0.65, "bond_type": "performer",
+            "access_level": "bi_directional", "preferred_comms": "vox_message", "cooldown_timer": 700
+        },
+        {
+            "source": "owen", "target": "linn", "weight": 0.5, "bond_type": "mate",
+            "access_level": "bi_directional", "preferred_comms": "angry_chat", "cooldown_timer": 600
+        },
+        {
+            "source": "stephanie", "target": "linn", "weight": 0.6, "bond_type": "manager",
+            "access_level": "push_only", "preferred_comms": "logistics_check", "cooldown_timer": 2400
+        },
+
+        # --- SECURITY TEAMS ---
+        {
+            "source": "brick", "target": "minjun", "weight": 0.8, "bond_type": "ops_team",
+            "access_level": "bi_directional", "preferred_comms": "encrypted_radio", "cooldown_timer": 300
+        },
+         {
+            "source": "diogo", "target": "minjun", "weight": 0.8, "bond_type": "ops_team",
+            "access_level": "bi_directional", "preferred_comms": "encrypted_radio", "cooldown_timer": 300
+        }
+    ]
 }

@@ -1,0 +1,21 @@
+{
+    "loc_slug": {
+        "id": "loc_slug",
+        "display_name": "Jack & Bruno's Flat",
+        "parent_zone": "uk_london | uk_wiltshire | us_florida | us_virginia",
+        "geo_type": "residential | commercial | public",
+        "ambiance_tags": ["modern", "minimalist", "river_view"],
+        "features": {
+            "has_kitchen": true,
+            "has_pints": false,
+            "wifi_speed": "fast",
+            "char_is_working": true,
+            "coffee_nearby": true,
+            "quiet_hours": {
+            "start": "22:00",
+            "end": "08:00"
+            },
+        "alcohol_allowed": true
+      }
+    }
+}

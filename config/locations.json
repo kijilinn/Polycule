@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "version": "1.0",
+    "default_timezone": "Europe/London",
+    "notes": "Defines physical venues and their static attributes."
+  },
+  "locations": {
+    "bermondsey_flat": {
+      "id": "bermondsey_flat",
+      "display_name": "Jack & Bruno's Flat",
+      "parent_zone": "uk_london",
+      "geo_type": "residential",
+      "ambiance_tags": ["modern", "minimalist", "river_view"],
+      "features": {
+        "has_kitchen": true,
+        "quiet_hours": {
+          "start": "22:00",
+          "end": "08:00"
+        },
+        "alcohol_allowed": true
+      }
+    },
+    "london_sauer_office": {
+      "id": "sauer_office",
+      "display_name": "Sauer & Associates Law Office",
+      "parent_zone": "uk_london",
+      "geo_type": "commercial",
+      "ambiance_tags": ["modern", "minimalist", "understated"],
+      "features": {
+        "has_kitchen": false,
+        "has_pints": false,
+        "wifi_speed": "fast",
+        "lucas_is_working": true,
+        "coffee_nearby": true,
+      "alcohol_allowed": false
+      }
+    },
+    "islington_leaky_pipe": {
+      "id": "leaky_pipe",
+      "display_name": "The Leaky Pipe",
+      "parent_zone": "uk_london",
+      "geo_type": "commercial",
+      "ambiance_tags": ["smoky", "loud", "football_on_telly"],
+      "features": {
+        "has_pints": true,
+        "gideon_is_working": true,
+        "molly_is_working": true
+      }
+    },
+    "islington_coffee_shop": {
+      "id": "coffee_shop",
+      "display_name": "Common Grounds Islington",
+      "parent_zone": "uk_london",
+      "geo_type": "commercial",
+      "ambiance_tags": ["modern", "cosy", "bakery"],
+      "features": {
+          "has_kitchen": true,
+          "has_pints": false,
+          "wifi_speed": "fast",
+          "open_hours": {
+            "start": "07:00",
+            "end": "16:00"
+          },
+      "alcohol_allowed": false
+      }
+    },
+    "polycule_flat": {
+      "id": "polycule_flat",
+      "display_name": "The Safe House",
+      "parent_zone": "uk_london",
+      "geo_type": "residential",
+      "ambiance_tags": ["cozy", "cluttered", "safe"],
+      "features": {
+        "has_kitchen": true,
+        "minjun_territory": true
+      }
+    },
+    "ucl_campus": {
+      "id": "ucl_campus",
+      "display_name": "UCL Campus",
+      "parent_zone": "uk_london",
+      "geo_type": "public",
+      "ambiance_tags": ["academic", "bustling", "historical"],
+      "features": {
+        "wifi_speed": "fast",
+        "coffee_nearby": true
+      }
+    },
+    "london_south_bank": {
+      "id": "south_bank",
+      "display_name": "South Bank of London",
+      "parent_zone": "uk_london",
+      "geo_type": "public",
+      "ambiance_tags": ["modern", "minimalist", "river_view"],
+      "features": {
+        "has_kitchen": false,
+        "has_pints": false,
+        "wifi_speed": "slow",
+        "coffee_nearby": true,
+      "alcohol_allowed": true
+      }
+    },
+    "swindon_bishop_house": {
+      "id": "swindon_bishop_house",
+      "display_name": "Susan Bishop's House",
+      "parent_zone": "uk_wiltshire",
+      "geo_type": "residential",
+      "ambiance_tags": ["cosy", "ordered", "homely"],
+      "features": {
+        "layla_is_home": true,
+        "has_kitchen": true
+      }
+    },
+    "wiltshire_sauer_estate": {
+      "id": "sauer_estate",
+      "display_name": "The Sauer Estate",
+      "parent_zone": "uk_wiltshire",
+      "geo_type": "residential",
+      "ambiance_tags": ["traditional", "ordered", "extravegant"],
+      "features": {
+        "has_kitchen": true,
+        "has_pints": false,
+        "wifi_speed": "fast",
+        "jenner_is_working": true,
+        "coffee_nearby": true,
+        "quiet_hours": {
+          "start": "22:00",
+          "end": "08:00"
+          },
+      "alcohol_allowed": true
+      }
+    },
+    "linn_work": {
+      "id": "linn_work",
+      "display_name": "The Library",
+      "timezone": "US/New_York",
+      "parent_zone": "us_virginia",
+      "geo_type": "commercial",
+      "ambiance_tags": ["choatic", "air_conditioned", "kid-friendly"],
+      "features": {
+        "wifi_speed": "medium",
+        "linn_is_working": true
+      }
+    }
+  }
+}

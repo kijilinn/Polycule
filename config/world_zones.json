@@ -1,0 +1,22 @@
+"world_zones": {
+    "uk_london": {
+        "weather": "rainy",
+        "temperature": "12C",
+        "children": ["bermondsey_flat", "leaky_pipe", "sauer_office", "polycule_flat", "band_flat", "ucl_campus"]
+    },
+    "uk_wiltshire": {
+        "weather": "cloudy",
+        "temperature": "10C",
+        "children": ["swindon_bishop_house", "sauer_estate"]
+    },
+    "us_virginia": {
+        "weather": "sunny",
+        "temperature": "25C",
+        "children": ["linn_work", "linn_home"]
+    },
+    "us_florida": {
+        "weather": "humid",
+        "temperature": "28C",
+        "children": ["miami_penthouse", "miami_beach", "miami_office"]
+    }
+}

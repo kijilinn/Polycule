@@ -3,13 +3,17 @@ import json, os, datetime
 
 from pyparsing import line
 
-def get_last_interaction(character_slug, default_partner="linn", default_hours=2):
+def get_last_interaction(character_slug, default_partner="linn", default_hours=2, custom_path=None):
     """
     Reads <character>_state.json and returns a dict ready for
     bootstrap_state["last_interaction"].
     Falls back gracefully if file/key missing.
     """
-    path = f"{character_slug}_state.json"
+    if custom_path:
+        path = Path(custom_path)
+    else:
+        path = Path(f"{character_slug}_state.json")
+
     fallback = {
         "with": default_partner,
         "timestamp": (datetime.datetime.now() -
@@ -17,11 +21,11 @@ def get_last_interaction(character_slug, default_partner="linn", default_hours=2
         "medium": "text"
     }
 
-    if not os.path.exists(path):
+    if not path.exists():
         return fallback
 
     try:
-        with open(path) as f:
+        with path.open() as f:
             data = json.load(f)
         # If we previously saved the whole mini-dict, use it
         if "last_interaction" in data:
@@ -40,12 +44,19 @@ def get_last_interaction(character_slug, default_partner="linn", default_hours=2
 from pathlib import Path
 import json, datetime as dt, random
 
-QUEUE_PATH = Path("core/message_queue.json")  # same file everyone consumes
+def get_queue_path():
+    # 1. Go to root of this file (core/)
+    _HERE = Path(__file__).resolve()
+    # 2. Go up one level (Project Root)
+    _ROOT = _HERE.parent
+    # 3. Return queue path
+    return _ROOT / "config" / "message_queue.json"
 
-def speak_to_polycule(who: str, text: str, emoji: str = None, to: str = "Linn"):
+def speak_to_polycule(who: str, text: str, emoji: str = None, to: str = "linn"):
     """Push a daemon-initiated message into the shared queue & browser."""
-    QUEUE_PATH.parent.mkdir(parents=True, exist_ok=True)  # create folder if missing
-    QUEUE_PATH.touch(exist_ok=True)                         # create empty file if missing
+    # Use the helper function
+    QUEUE_PATH = get_queue_path()
+    QUEUE_PATH.parent.mkdir(parents=True, exist_ok=True) # create folder if missing
     
     payload = {
         "from": who,
@@ -69,7 +80,7 @@ from pathlib import Path
 CHAT_FILE = Path("web-client/chat_log.jsonl")   # will appear beside index.html
 CHAT_FILE.parent.mkdir(exist_ok=True)
 
-async def mirror_to_browser(who: str, text: str, emoji: str):
+def mirror_to_browser(who: str, text: str, emoji: str = "👤"):
     """Add one NDJSON line that the HTML can eat."""
     line = {
         "timestamp": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
@@ -80,25 +91,3 @@ async def mirror_to_browser(who: str, text: str, emoji: str):
     # atomic append – Codespaces-safe
     with CHAT_FILE.open("a", encoding="utf-8") as f:
         f.write(json.dumps(line, ensure_ascii=False) + "\n")
-
-def mirror_to_browser(who: str, text: str, emoji: str = None):
-    """Add one NDJSON line that the HTML can eat."""
-    payload = {
-        "timestamp": dt.datetime.utcnow().isoformat(timespec="seconds") + "Z",
-        "name": who,              # ✅ parameter, not function
-        "avatar": emoji or "👤",
-        "text": text.strip()
-    }
-    with CHAT_FILE.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(payload, ensure_ascii=False) + "\n")
-
-AVATARS = {
-    "minjun": "🎧🦝",
-    "gideon": "🍻🐺",
-    "lucas":  "🧑⚖️🕴️",
-    "nathan": "📜🦉",
-    "molly":  "🎪👺",
-    "simon":  "📱🔧",
-    "adam":   "🌱🎻",
-    "susan":  "🧰🦋"
-}

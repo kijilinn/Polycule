@@ -1,0 +1,52 @@
+    "nodes": {
+        # Polycule members
+        "gideon": {"name": "Gideon Holz", "role": "holz_son_03", "crystal": true},
+        "hoshina": {"name": "Hoshina Soshiro", "role": "kaiju_killer", "crystal": true},
+        "linn": {"name": "Linn Ryan", "role": "author", "crystal": true},
+        "lucas": {"name": "Lucas Sauer", "role": "sauer_son", "crystal": true},
+        "minjun": {"name": "Min-Jun Sauer", "role": "sys_ops", "crystal": true},
+        "molly": {"name": "Mollymauk Tealeaf", "role": "carnival_performer", "crystal": true},
+        "nathan": {"name": "Nathan Pryor", "role": "patriarch", "crystal": true},
+        "simon": {"name": "Simon Shifflett", "role": "security_ops", "crystal": true},
+        # Holz family
+        "ari": {"name": "Aaron 'Ari' Holz", "role": "holz_patriarch", "crystal": true},
+        "bruno": {"name": "Bruno Vieira", "role": "partner_04", "crystal": true},
+        "jack": {"name": "Jack Holz", "role": "holz_son_04", "crystal": true},
+        "shoshana": {"name": "Shoshana Holz", "role": "holz_matriarch", "crystal": true},
+        "david": {"name": "David Holz", "role": "holz_son_01", "crystal": false},
+        "aaron": {"name": "Aaron Holz", "role": "holz_son_02", "crystal": false},
+        # Pryor family
+        "adam": {"name": "Adam Pryor", "role": "pryor_son", "crystal": true},
+        "maria": {"name": "Maria Kravitz nee Pryor", "role": "pryor_ex-wife", "crystal": false},
+        # Sauer Estates
+        "rachel": {"name": "Rachel Borsch nee Sauer", "role": "sauer_matriarch", "crystal": true},
+        "jenner": {"name": "Jenner Collins", "role": "head_footman", "crystal": true},
+        "van": {"name": "Van Fanel", "role": "visiting_royalty", "crystal": true},
+        "merle": {"name": "Merle", "role": "local_nusiance", "crystal": false},
+        "allen": {"name": "Allen Schezar", "role": "visiting_knight", "crystal": true},
+        # Outliers
+        "susan": {"name": "Susan Bishop", "role": "bishop_mother", "crystal": true},
+        "layla": {"name": "Layla Bishop", "role": "bishop_sauer_daughter", "crystal": false},
+        "brick": {"name": "Brick", "role": "security_ops", "crystal": true},
+        "diogo": {"name": "Diogo Rivera", "role": "security_ops", "crystal": true},
+        "doc": {"name": "Dr. Kotona", "role": "pediatrician", "crystal": true},
+        "gel": {"name": "Gel Tealeaf", "role": "mechanical_support", "crystal": true},
+        "jacobi": {"name": "Jacobi Tealeaf", "role": "chaos_gen", "crystal": true},
+        "alistair": {"name": "Alistair Finch", "role": "art_dealer", "crystal": true},
+        # Leaky Pipe staff
+        "jeremy": {"name": "Jeremy", "role": "lp_bar_front", "crystal": true},
+        "kieran": {"name": "Kieran Dunleavy", "role": "lp_kitchen", "crystal": true},
+        # Shifting Blame (band)
+        "baz": {"name": "Baz Turner", "role": "band_guitar", "crystal": true},
+        "jace": {"name": "Jace Moreno", "role": "band_bass", "crystal": true},
+        "owen": {"name": "Owen Jones", "role": "band_drums", "crystal": true},
+        "si": {"name": "Si Justin", "role": "band_vocals", "crystal": true},
+        "stephanie": {"name": "Stephanie Parker", "role": "band_manager", "crystal": true},
+        # Velvet Note staff
+        "diana": {"name": "Diana Travis", "role": "vn_bar_front", "crystal": true},
+        "daniel": {"name": "Daniel Carter", "role": "vn_bar_back", "crystal": true},
+        "percy": {"name": "Percy Sledge", "role": "vn_singer", "crystal": true},
+        # Quarantined
+        "deacon": {"name": "Deacon Ryder", "role": "sauer_brother", "crystal": true},
+        "gaz": {"name": "Gaz Jones", "role": "wild_card", "crystal": true}
+    }

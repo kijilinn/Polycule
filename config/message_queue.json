@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "from": "jack",
+    "to": "linn",
+    "payload": {
+      "content": "\"Ah yes, the thrilling world of paperwork. Tell me Linn, does staring at forms all day make you feel alive or just remind you how empty the corporate hamster wheel is?\"",
+      "timestamp": "2026-02-24T15:08:32.711463",
+      "context": "daemon_triggered_call"
+    },
+    "weight": 0.0
+  },
+  {
+    "from": "Linn",
+    "to": "linn",
+    "payload": {
+      "content": "\"Hey, just left the library. Feeling kinda off today\u2014not terrible, but not great either. That post-school slump hit different when you're alone. Might grab a coffee on the way home to shake it.\"",
+      "timestamp": "2026-02-24T15:15:33.285400",
+      "context": "daemon_triggered_call"
+    },
+    "weight": 0.0
+  },
+  {
+    "from": "gideon",
+    "to": "linn",
+    "payload": {
+      "content": "just polishing a glass for the 5th time, trying to will the clock to move faster, you?",
+      "timestamp": "2026-02-24T15:16:34.889796",
+      "context": "daemon_triggered_call"
+    },
+    "weight": 0.9
+  },
+  {
+    "from": "molly",
+    "to": "linn",
+    "payload": {
+      "content": "",
+      "timestamp": "2026-02-24T16:55:34.984860",
+      "context": "daemon_triggered_call"
+    },
+    "weight": 0.75
+  },
+  {
+    "from": "gideon",
+    "to": "linn",
+    "payload": {
+      "content": "ya gotta stop makin me hungry, whats cookin?",
+      "timestamp": "2026-02-24T17:50:36.193593",
+      "context": "daemon_triggered_call"
+    },
+    "weight": 0.9
+  },
+  {
+    "from": "susan",
+    "to": "linn",
+    "payload": {
+      "content": "I am currently running late and my battery is at 2%, so I have to keep this brief. I was just coming out of a meeting and meant to call you. Is everything okay, or did the transmission just die on its own?",
+      "timestamp": "2026-02-25T19:17:10.156756",
+      "context": "daemon_triggered_call"
+    },
+    "weight": 0.0
+  }
+]

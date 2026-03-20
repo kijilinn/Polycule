@@ -1,0 +1,12 @@
+"kaiju_class_4": {
+    "name": "Honju-Class Emergence",
+    "radius": "city-wide", 
+    "visibility": "unmissable",
+    "trigger_type": "crisis"
+},
+"knight_in_sand": {
+    "name": "Anachronistic Traveler",
+    "radius": "line_of_sight",
+    "visibility": "specific",
+    "trigger_type": "wonder"
+}

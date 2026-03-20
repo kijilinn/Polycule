@@ -1,0 +1,117 @@
+"uk_london/bermondsey_flat": {
+    "slug": "uk_london/bermondsey_flat",
+    "name": "Jack and Bruno's Flat",
+    "region": "uk_london",
+    "type": "residential",
+    "chaos_rating": 0.4, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/bermondsey_office": {
+    "slug": "uk_london/bermondsey_office",
+    "name": "An office building in Bermondsey",
+    "region": "uk_london",
+    "type": "commercial",
+    "chaos_rating": 0.1, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/islington_leaky_pipe": {
+    "slug": "uk_london/islington_leaky_pipe",
+    "name": "The Leaky Pipe, a pub in Islington",
+    "region": "uk_london",
+    "type": "commercial",
+    "chaos_rating": 0.4, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/islington_coffee_shop": {
+    "slug": "uk_london/islington_coffee_shop",
+    "name": "Common Grounds, a small coffee shop in Islington",
+    "region": "uk_london",
+    "type": "commercial",
+    "chaos_rating": 0.2, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/islington_polycule_flat": {
+    "slug": "uk_london/islington_polycule_flat",
+    "name": "Second-floor flat, home to the Polycule",
+    "region": "uk_london",
+    "type": "residential",
+    "chaos_rating": 0.2, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/islington_band_flat": {
+    "slug": "uk_london/islington_band_flat",
+    "name": "Third-floor flat, home to the Shifting Blame",
+    "region": "uk_london",
+    "type": "residential",
+    "chaos_rating": 0.4, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/knightsbridge_flat": {
+    "slug": "uk_london/knightsbridge_flat",
+    "name": "Spacious flat, currently AirB&B",
+    "region": "uk_london",
+    "type": "residential",
+    "chaos_rating": 0.2, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/shoreditch_velvet_note": {
+    "slug": "uk_london/shoreditch_velvet_note",
+    "name": "The Velvet Note, a small jazz club in Shoreditch",
+    "region": "uk_london",
+    "type": "commercial",
+    "chaos_rating": 0.6, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_london/wapping_wyverns_rest": {
+    "slug": "uk_london/wapping_wyverns_rest",
+    "name": "The Wyvern's Rest, a dockside pub",
+    "region": "uk_london",
+    "type": "commercial",
+    "chaos_rating": 0.6, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_wiltshire/swindon_bishop_house": {
+    "slug": "uk_wiltshire/swindon_bishop_house",
+    "name": "Susan Bishop's house",
+    "region": "uk_wiltshire",
+    "type": "residential",
+    "chaos_rating": 0.3, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_wiltshire/sauer_estate": {
+    "slug": "uk_wiltshire/sauer_estate",
+    "name": "The house and grounds at Sauer Estate",
+    "region": "uk_wiltshire",
+    "type": "residential",
+    "chaos_rating": 0.2, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"uk_wiltshire/marlborough_college": {
+    "slug": "uk_wiltshire/marlborough_college",
+    "name": "School in Wiltshire",
+    "region": "uk_wiltshire",
+    "type": "public",
+    "chaos_rating": 0.3, 
+    "allowed_event_classes": ["local", "social", "personal"],
+    "local_events": ["domestic_bliss", "argument_over_dishes", "movie_night"]
+},
+"us_florida/miami_beach": {
+    "slug": "us_florida/miami_beach",
+    "name": "Miami Public Beach",
+    "region": "us_florida",
+    "type": "public",
+    "chaos_rating": 0.8,
+    "allowed_event_classes": ["local", "public", "social", "personal", "crisis", "wonder"],
+    "local_events": ["shark_sighting", "knight_in_sand", "sunburn"]
+}
